@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
 
-const Students = () => {
+const Introduction = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleMenu = () => setIsOpen(!isOpen)
     return (
         <div>
             <Navbar></Navbar>
+
             <div className="drawer drawer-mobile">
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content bg-gradient-to-l from-blue-900 via-slate-900 to-black">
@@ -37,25 +40,17 @@ const Students = () => {
                         {
                             // isAdmin && 
                             <>
-                                <li><Link to='/dashboard/allUsers'>All Users</Link></li>
-                                <li><Link to='/dashboard/allSellers'>All Sellers</Link></li>
-                                <li><Link to='/dashboard/allBuyers'>All Buyers</Link></li>
+                                <li><Link to='/intro/school'>Our School</Link></li>
+                                <li><Link to='/intro/notice'>Notice</Link></li>
+                                <li><Link to='/intro/staff'>All Staff</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}
                         <>
-                            <li><Link to='/dashboard/orders'>My Orders</Link></li>
-                            <li><Link to='/dashboard/wishList'>WishList</Link></li>
+                            <li><Link to='/intro/activity'>Activities</Link></li>
+                            {/* <li><Link to='/teacher/payment'>Payment Collection</Link></li> */}
                         </>
                         {/* } */}
-
-                        {/* {users?.accountType === "Seller" && !isAdmin && */}
-                        <>
-                            <li><Link to='/dashboard/addProduct'>Add A product </Link></li>
-                            <li><Link to='/dashboard/myProducts'>My Products</Link></li>
-                        </>
-                        {/* } */}
-
 
 
                         <Link className="text-left" to='/'>
@@ -67,9 +62,10 @@ const Students = () => {
 
                 </div>
             </div>
+
             <Footer></Footer>
         </div>
     );
 };
 
-export default Students;
+export default Introduction;

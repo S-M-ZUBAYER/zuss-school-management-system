@@ -81,12 +81,20 @@ const Register = () => {
                 >
                     <div className='space-y-4'>
                         <div className="form-control">
-                            <div className="input-group">
-                                <select name='type' className="select select-bordered w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900">
-                                    {/* <option disabled selected>Pick category</option> */}
-                                    <option>Buyer</option>
-                                    <option>Seller</option>
-                                </select>
+                            <div>
+                                <label htmlFor='id' className='block mb-2 text-sm text-left'>
+                                    School ID
+                                </label>
+                                <input
+                                    // onBlur={event => setUserEmail()}
+                                    type='digit'
+                                    name='Id'
+                                    id='School_Id'
+                                    required
+                                    placeholder='Enter school Id'
+                                    className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
+                                    data-temp-mail-org='0'
+                                />
                             </div>
                         </div>
                         <div>

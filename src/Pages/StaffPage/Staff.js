@@ -3,10 +3,11 @@ import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
 
-const Students = () => {
+const Staff = () => {
     return (
         <div>
             <Navbar></Navbar>
+
             <div className="drawer drawer-mobile">
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content bg-gradient-to-l from-blue-900 via-slate-900 to-black">
@@ -67,9 +68,10 @@ const Students = () => {
 
                 </div>
             </div>
+
             <Footer></Footer>
         </div>
     );
 };
 
-export default Students;
+export default Staff;

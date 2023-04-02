@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 const MainAdmin = () => {
 
-    // const [schools, setSchools] = useState([])
+    const [schools, setSchools] = useState([])
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const [address, setAddress] = useState('');
     const [about, setAbout] = useState('');
-    const schools = [
+    const allSchools = [
         {
             name: "kamalapur high school",
             id: "1111"
@@ -32,6 +32,7 @@ const MainAdmin = () => {
             about
         }
         schools.push(newSchool);
+        setSchools(allSchools)
         console.log(schools)
         // Do something with the form values, e.g. send them to a server or display them on the page
     };
