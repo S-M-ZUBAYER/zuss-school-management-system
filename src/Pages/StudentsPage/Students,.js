@@ -37,24 +37,18 @@ const Students = () => {
                         {
                             // isAdmin && 
                             <>
-                                <li><Link to='/dashboard/allUsers'>All Users</Link></li>
-                                <li><Link to='/dashboard/allSellers'>All Sellers</Link></li>
-                                <li><Link to='/dashboard/allBuyers'>All Buyers</Link></li>
+                                <li><Link to='/student/profile'>My Profile</Link></li>
+                                <li><Link to='/student/attendance'>Attendance Status</Link></li>
+                                <li><Link to='/student/payment'>Payment</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}
-                        <>
+                        {/* <>
                             <li><Link to='/dashboard/orders'>My Orders</Link></li>
                             <li><Link to='/dashboard/wishList'>WishList</Link></li>
-                        </>
+                        </> */}
                         {/* } */}
 
-                        {/* {users?.accountType === "Seller" && !isAdmin && */}
-                        <>
-                            <li><Link to='/dashboard/addProduct'>Add A product </Link></li>
-                            <li><Link to='/dashboard/myProducts'>My Products</Link></li>
-                        </>
-                        {/* } */}
 
 
 

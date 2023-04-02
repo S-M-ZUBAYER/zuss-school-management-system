@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
+import { MdOutlineArrowDropDown } from "react-icons/md";
 
 const Teachers = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -40,6 +41,7 @@ const Teachers = () => {
                         {
                             // isAdmin && 
                             <>
+                                <li><Link to='/teacher/profile'>My Profile</Link></li>
                                 <li><Link to='/teacher/information'>Student Information</Link></li>
                                 <li><Link to='/teacher/routine'>Class Routine</Link></li>
                                 <li><Link to='/teacher/calender'>Calender</Link></li>
@@ -59,8 +61,9 @@ const Teachers = () => {
 
 
                                 <div>
-                                    <button className="relative" onClick={toggleMenu}>
-                                        Certificate Generate
+                                    <button className="relative flex  items-center justify-between" onClick={toggleMenu}>
+                                        <>Certificate Generate</>
+                                        <MdOutlineArrowDropDown className="font-bold text-3xl"></MdOutlineArrowDropDown>
                                     </button>
                                     {isOpen && (
                                         <div className=" z-20 absolute left-20 top-10 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">

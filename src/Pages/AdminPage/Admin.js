@@ -37,22 +37,16 @@ const Admin = () => {
                         {
                             // isAdmin && 
                             <>
-                                <li><Link to='/dashboard/allUsers'>All Users</Link></li>
-                                <li><Link to='/dashboard/allSellers'>All Sellers</Link></li>
-                                <li><Link to='/dashboard/allBuyers'>All Buyers</Link></li>
+                                <li><Link to='/admin/profile'>My Profile</Link></li>
+                                <li><Link to='/admin/idCard'>ID Card Generate</Link></li>
+                                <li><Link to='/admin/calender'>Academic Calender</Link></li>
+                                <li><Link to='/admin/result'>All Result sheet</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}
                         <>
-                            <li><Link to='/dashboard/orders'>My Orders</Link></li>
-                            <li><Link to='/dashboard/wishList'>WishList</Link></li>
-                        </>
-                        {/* } */}
-
-                        {/* {users?.accountType === "Seller" && !isAdmin && */}
-                        <>
-                            <li><Link to='/dashboard/addProduct'>Add A product </Link></li>
-                            <li><Link to='/dashboard/myProducts'>My Products</Link></li>
+                            <li><Link to='/admin/Student_attendance'>Student Attendance Sheet</Link></li>
+                            <li><Link to='/admin/Teacher_attendance'>Teacher Attendance Sheet</Link></li>
                         </>
                         {/* } */}
 
