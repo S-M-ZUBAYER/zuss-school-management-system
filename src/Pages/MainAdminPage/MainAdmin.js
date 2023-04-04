@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
+// import { globalVariable } from '../../App';
 
 const MainAdmin = () => {
+    const { setSchoolName } = useContext(AuthContext)
 
     const [schools, setSchools] = useState([])
     const [name, setName] = useState('');
@@ -68,7 +71,10 @@ const MainAdmin = () => {
             </div>
             {
                 schools.map((element, index) => {
-                    return <Link to={`/${element?.name}`} key={index} > <h1 className="bg-red-300 w-2/3 mx-auto mt-5 py-2 text-xl font-semibold rounded-lg" >{element?.name}</h1></Link>
+                    // globalVariable = element;
+                    return <Link
+
+                        to={`/${element?.name}`} onClick={() => setSchoolName(element?.name)} key={index} > <h1 className="bg-red-300 w-2/3 mx-auto mt-5 py-2 text-xl font-semibold rounded-lg" >{element?.name}</h1></Link>
                 })
 
             }

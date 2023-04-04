@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const Introduction = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const toggleMenu = () => setIsOpen(!isOpen)
+    const toggleMenu = () => setIsOpen(!isOpen);
+    const { schoolName } = useContext(AuthContext)
     return (
         <div>
             <Navbar></Navbar>
@@ -37,20 +39,12 @@ const Introduction = () => {
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
                     <ul data-aos="fade-up-right" data-aos-duration="2000" className="menu p-4 w-80 ">
 
-                        {
-                            // isAdmin && 
-                            <>
-                                <li><Link to='/intro/school'>Our School</Link></li>
-                                <li><Link to='/intro/notice'>Notice</Link></li>
-                                <li><Link to='/intro/staff'>All Staff</Link></li>
-                            </>
-                        }
-                        {/* {users?.accountType === "Buyer" && !isAdmin && */}
-                        <>
-                            <li><Link to='/intro/activity'>Activities</Link></li>
-                            {/* <li><Link to='/teacher/payment'>Payment Collection</Link></li> */}
-                        </>
-                        {/* } */}
+
+                        <li><Link to={`/${schoolName}/intro/schoolIntro`}>Our School</Link></li>
+                        <li><Link to={`/${schoolName}/intro/notice`}>Notice</Link></li>
+                        <li><Link to={`/${schoolName}/intro/allStaffIntro`}>All Staff</Link></li>
+                        <li><Link to={`/${schoolName}/intro/activities`}>Activities</Link></li>
+
 
 
                         <Link className="text-left" to='/'>

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const Banner = () => {
+
+    const { schoolName } = useContext(AuthContext);
+
     return (
         <div>
             <section
@@ -29,14 +33,14 @@ const Banner = () => {
 
                         <div className="mt-8 flex flex-wrap gap-4 text-center">
                             <Link
-                                to='/login'
+                                to={`/${schoolName}/login`}
                                 className="block w-full rounded-tl-xl rounded-br-xl bg-gradient-to-t from-black via-purple-900 to-violet-600 bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto"
                             >
                                 Log In
                             </Link>
 
                             <Link
-                                to='/register'
+                                to={`/${schoolName}/register`}
                                 className="block w-full rounded-tl-xl rounded-br-xl bg-white px-12 py-3 text-sm font-medium bg-gradient-to-t from-red-200  to-orange-400 text-black shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
                             >
                                 Register

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const Staff = () => {
+
+    const { schoolName } = useContext(AuthContext);
+
     return (
         <div>
             <Navbar></Navbar>
@@ -38,10 +42,10 @@ const Staff = () => {
                         {
                             // isAdmin && 
                             <>
-                                <li><Link to='/staff/profile'>My Profile</Link></li>
-                                <li><Link to='/staff/atd'>Attendance Sheet</Link></li>
-                                <li><Link to='/staff/salary'>Salary Status</Link></li>
-                                <li><Link to='/staff/leave'>leave application</Link></li>
+                                <li><Link to={`/${schoolName}/staff/profile`}>My Profile</Link></li>
+                                <li><Link to={`/${schoolName}/staff/atd`}>Attendance Sheet</Link></li>
+                                <li><Link to={`/${schoolName}/staff/salary`}>Salary Status</Link></li>
+                                <li><Link to={`/${schoolName}/staff/leave`}>leave application</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}

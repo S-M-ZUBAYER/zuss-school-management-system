@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
 import { MdOutlineArrowDropDown } from "react-icons/md";
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const Teachers = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen)
+
+    const { schoolName } = useContext(AuthContext);
+
     return (
         <div>
             <Navbar></Navbar>
@@ -41,22 +45,22 @@ const Teachers = () => {
                         {
                             // isAdmin && 
                             <>
-                                <li><Link to='/teacher/profile'>My Profile</Link></li>
-                                <li><Link to='/teacher/information'>Student Information</Link></li>
-                                <li><Link to='/teacher/routine'>Class Routine</Link></li>
-                                <li><Link to='/teacher/calender'>Calender</Link></li>
+                                <li><Link to={`/${schoolName}/teacher/profile`}>My Profile</Link></li>
+                                <li><Link to={`/${schoolName}/teacher/information`}>Student Information</Link></li>
+                                <li><Link to={`/${schoolName}/teacher/routine`}>Class Routine</Link></li>
+                                <li><Link to={`/${schoolName}/teacher/calender`}>Calender</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}
                         <>
-                            <li><Link to='/teacher/leave'>Leave Application</Link></li>
-                            <li><Link to='/teacher/payment'>Payment Collection</Link></li>
+                            <li><Link to={`/${schoolName}/teacher/leave`}>Leave Application</Link></li>
+                            <li><Link to={`/${schoolName}/teacher/payment`}>Payment Collection</Link></li>
                         </>
                         {/* } */}
 
                         {/* {users?.accountType === "Seller" && !isAdmin && */}
                         <>
-                            <li><Link to='/teacher/result'>Add Result</Link></li>
+                            <li><Link to={`/${schoolName}/teacher/result`}>Add Result</Link></li>
                             <li>
 
 
@@ -74,21 +78,21 @@ const Teachers = () => {
                                                 aria-labelledby="options-menu"
                                             >
                                                 <Link
-                                                    to="/transfer"
+                                                    to={`/${schoolName}/teacher/transfer`}
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                                     role="menuitem"
                                                 >
                                                     Transfer Certificate
                                                 </Link>
                                                 <Link
-                                                    to="/character"
+                                                    to={`/${schoolName}/teacher/character`}
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                                     role="menuitem"
                                                 >
                                                     Character Certificate
                                                 </Link>
                                                 <Link
-                                                    to="/completion"
+                                                    to={`/${schoolName}/teacher/completion`}
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                                     role="menuitem"
                                                 >

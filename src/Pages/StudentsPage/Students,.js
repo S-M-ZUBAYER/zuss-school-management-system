@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const Students = () => {
+
+    const { schoolName } = useContext(AuthContext)
+
     return (
         <div>
             <Navbar></Navbar>
@@ -37,9 +41,10 @@ const Students = () => {
                         {
                             // isAdmin && 
                             <>
-                                <li><Link to='/student/profile'>My Profile</Link></li>
-                                <li><Link to='/student/attendance'>Attendance Status</Link></li>
-                                <li><Link to='/student/payment'>Payment</Link></li>
+                                <li><Link to={`/${schoolName}/student/stdProfile`}>My Profile</Link></li>
+                                <li><Link to={`/${schoolName}/student/StdAttendance`}>Attendance Status</Link></li>
+                                <li><Link to={`/${schoolName}/student/payment`}>Payment</Link></li>
+                                <li><Link to={`/${schoolName}/student/leave`}>Leave Application</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}

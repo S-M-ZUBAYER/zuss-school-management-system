@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const Admin = () => {
+
+    const { schoolName } = useContext(AuthContext);
     return (
         <div>
             <Navbar></Navbar>
@@ -37,16 +40,16 @@ const Admin = () => {
                         {
                             // isAdmin && 
                             <>
-                                <li><Link to='/admin/profile'>My Profile</Link></li>
-                                <li><Link to='/admin/idCard'>ID Card Generate</Link></li>
-                                <li><Link to='/admin/calender'>Academic Calender</Link></li>
-                                <li><Link to='/admin/result'>All Result sheet</Link></li>
+                                <li><Link to={`/${schoolName}/admin/profile`}>My Profile</Link></li>
+                                <li><Link to={`/${schoolName}/admin/idCard`}>ID Card Generate</Link></li>
+                                <li><Link to={`/${schoolName}/admin/calender`}>Academic Calender</Link></li>
+                                <li><Link to={`/${schoolName}/admin/result`}>All Result sheet</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}
                         <>
-                            <li><Link to='/admin/Student_attendance'>Student Attendance Sheet</Link></li>
-                            <li><Link to='/admin/Teacher_attendance'>Teacher Attendance Sheet</Link></li>
+                            <li><Link to={`/${schoolName}/admin/Student_attendance`}>Student Attendance Sheet</Link></li>
+                            <li><Link to={`/${schoolName}/admin/Teacher_attendance`}>Teacher Attendance Sheet</Link></li>
                         </>
                         {/* } */}
 

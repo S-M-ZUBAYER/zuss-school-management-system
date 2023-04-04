@@ -14,25 +14,41 @@ import MainAdmin from "../Pages/MainAdminPage/MainAdmin";
 import Register from "../Pages/Register/Register";
 import Staff from "../Pages/StaffPage/Staff";
 import LeaveApplication from "../Pages/StaffPage/StaffDashboard/LeaveApplication";
-import SalaryStatus from "../Pages/StaffPage/StaffDashboard/SalarysStatus";
 import StaffAttendanceSheet from "../Pages/StaffPage/StaffDashboard/StaffAttendanceSheet";
 import StaffProfile from "../Pages/StaffPage/StaffDashboard/StaffProfile";
 import Students from "../Pages/StudentsPage/Students,";
 import Teachers from "../Pages/TeachersPage/Teachers";
 import AdminProfile from "../Pages/AdminPage/AdminDashboard/AdminProfile";
+import SchoolIntro from "../Pages/IntroductionPage/IntroDashboard/SchoolIntro";
+import Notice from "../Pages/IntroductionPage/IntroDashboard/Notice";
+import AllStaffIntro from "../Pages/IntroductionPage/IntroDashboard/AllStaffIntro";
+import Activities from "../Pages/IntroductionPage/IntroDashboard/Activities";
+import SalaryStatus from "../Pages/StaffPage/StaffDashboard/SalaryStatus";
+import TeacherProfile from "../Pages/TeachersPage/TeacherDashboard/TeacherProfile";
+import StdInformation from "../Pages/TeachersPage/TeacherDashboard/StdInformation";
+import ClassRoutine from "../Pages/TeachersPage/TeacherDashboard/ClassRoutine";
+import Calender from "../Pages/TeachersPage/TeacherDashboard/Calender";
+import PaymentCollection from "../Pages/TeachersPage/TeacherDashboard/PaymentCollection";
+import AddResult from "../Pages/TeachersPage/TeacherDashboard/AddResult";
+import TransferCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/TransferCertificate";
+import CharacterCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/CharacterCertificate";
+import CourseCompletionCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/CourseCompletionCertificate";
+import StudentProfile from "../Pages/StudentsPage/StudentDashboard/StudentProfile";
+import StudentAttendanceStatus from "../Pages/StudentsPage/StudentDashboard/StudentAttendanceStatus";
+import StudentPaymentSystem from "../Pages/StudentsPage/StudentDashboard/StudentPaymentSystem";
 
 export const router = createBrowserRouter([
-    // {
-    //     path: "/",
-    //     element: <MainAdmin></MainAdmin>,
-    // },
+    {
+        path: "/",
+        element: <MainAdmin></MainAdmin>,
+    },
     {
 
-        path: "/",
+        path: "/:name",
         element: <Main></Main>,
         children: [
             {
-                path: "/home",
+                path: "/:name/home",
                 element: <Home></Home>,
             },
             // {
@@ -52,176 +68,163 @@ export const router = createBrowserRouter([
             //     element: <Admin></Admin>
             // },
             {
-                path: "/contact",
+                path: "/:name/contact",
                 element: <Contact></Contact>
             },
             {
-                path: "/login",
+                path: "/:name/login",
                 element: <Login></Login>
             },
             {
-                path: "/register",
+                path: "/:name/register",
                 element: <Register></Register>
             },
         ]
     },
     {
 
-        path: '/intro',
+        path: '/:name/intro',
         element: <Introduction></Introduction>,
         children: [
-            // {
-            //     path: '/dashboard/orders',
-            //     element: <MyOrders></MyOrders>
-            // },
-            // {
-            //     path: '/dashboard/addProduct',
-            //     element: <AddProduct></AddProduct>
-            // },
-            // {
-            //     path: '/dashboard/myProducts',
-            //     element: <MyProducts></MyProducts>
-            // },
-            // {
-            //     path: '/dashboard/wishList',
-            //     element: <WishList></WishList>
-            // },
-            // {
-            //     path: '/dashboard/allSellers',
-            //     element: <AllSellers></AllSellers>
-            // },
-            // {
-            //     path: '/dashboard/allBuyers',
-            //     element: <AllBuyers></AllBuyers>
-            // },
-            // {
-            //     path: '/dashboard/reportedItems',
-            //     element: <ReportedItems></ReportedItems>
-            // },
-            // {
-            //     path: '/dashboard/allUsers',
-            //     element: <AllUser></AllUser>
-            // },
-            // {
-            //     path: '/dashboard/payment/:id',
-            //     element: <Payment></Payment>,
-            //     loader: ({ params }) => fetch(`https://cricket-lover-server-site-s-m-zubayer.vercel.app/booking/${params?.id}`)
-            // }
+            {
+                path: '/:name/intro/schoolIntro',
+                element: <SchoolIntro></SchoolIntro>
+            },
+            {
+                path: '/:name/intro/notice',
+                element: <Notice></Notice>
+            },
+            {
+                path: '/:name/intro/allStaffIntro',
+                element: <AllStaffIntro></AllStaffIntro>
+            },
+            {
+                path: '/:name/intro/activities',
+                element: <Activities></Activities>
+            }
 
         ]
 
     },
     {
 
-        path: '/teacher',
+        path: '/:name/teacher',
         element: <Teachers></Teachers>,
         children: [
-            // {
-            //     path: '/dashboard/orders',
-            //     element: <MyOrders></MyOrders>
-            // },
-            // {
-            //     path: '/dashboard/addProduct',
-            //     element: <AddProduct></AddProduct>
-            // },
-            // {
-            //     path: '/dashboard/myProducts',
-            //     element: <MyProducts></MyProducts>
-            // },
-            // {
-            //     path: '/dashboard/wishList',
-            //     element: <WishList></WishList>
-            // },
-            // {
-            //     path: '/dashboard/allSellers',
-            //     element: <AllSellers></AllSellers>
-            // },
-            // {
-            //     path: '/dashboard/allBuyers',
-            //     element: <AllBuyers></AllBuyers>
-            // },
-            // {
-            //     path: '/dashboard/reportedItems',
-            //     element: <ReportedItems></ReportedItems>
-            // },
-            // {
-            //     path: '/dashboard/allUsers',
-            //     element: <AllUser></AllUser>
-            // },
-            // {
-            //     path: '/dashboard/payment/:id',
-            //     element: <Payment></Payment>,
-            //     loader: ({ params }) => fetch(`https://cricket-lover-server-site-s-m-zubayer.vercel.app/booking/${params?.id}`)
-            // }
-
-        ]
-
-    },
-    {
-
-        path: '/student',
-        element: <Students></Students>,
-        children: [
-            // {
-            //     path: '/dashboard/orders',
-            //     element: <MyOrders></MyOrders>
-            // },
-            // {
-            //     path: '/dashboard/addProduct',
-            //     element: <AddProduct></AddProduct>
-            // },
-            // {
-            //     path: '/dashboard/myProducts',
-            //     element: <MyProducts></MyProducts>
-            // },
-            // {
-            //     path: '/dashboard/wishList',
-            //     element: <WishList></WishList>
-            // },
-            // {
-            //     path: '/dashboard/allSellers',
-            //     element: <AllSellers></AllSellers>
-            // },
-            // {
-            //     path: '/dashboard/allBuyers',
-            //     element: <AllBuyers></AllBuyers>
-            // },
-            // {
-            //     path: '/dashboard/reportedItems',
-            //     element: <ReportedItems></ReportedItems>
-            // },
-            // {
-            //     path: '/dashboard/allUsers',
-            //     element: <AllUser></AllUser>
-            // },
-            // {
-            //     path: '/dashboard/payment/:id',
-            //     element: <Payment></Payment>,
-            //     loader: ({ params }) => fetch(`https://cricket-lover-server-site-s-m-zubayer.vercel.app/booking/${params?.id}`)
-            // }
-
-        ]
-
-    },
-    {
-
-        path: '/staff',
-        element: <Staff></Staff>,
-        children: [
             {
-                path: '/staff/leave',
+                path: '/:name/teacher/profile',
+                element: <TeacherProfile></TeacherProfile>
+            },
+            {
+                path: '/:name/teacher/information',
+                element: <StdInformation></StdInformation>
+            },
+            {
+                path: '/:name/teacher/routine',
+                element: <ClassRoutine></ClassRoutine>
+            },
+            {
+                path: '/:name/teacher/calender',
+                element: <Calender></Calender>
+            },
+            {
+                path: '/:name/teacher/leave',
                 element: <LeaveApplication></LeaveApplication>
             },
             {
-                path: '/staff/profile',
+                path: '/:name/teacher/payment',
+                element: <PaymentCollection></PaymentCollection>
+            },
+            {
+                path: '/:name/teacher/result',
+                element: <AddResult></AddResult>
+            },
+            {
+                path: '/:name/teacher/transfer',
+                element: <TransferCertificate></TransferCertificate>
+            },
+            {
+                path: '/:name/teacher/character',
+                element: <CharacterCertificate></CharacterCertificate>
+            },
+            {
+                path: '/:name/teacher/completion',
+                element: <CourseCompletionCertificate></CourseCompletionCertificate>
+            },
+            // {
+            //     path: '/dashboard/payment/:id',
+            //     element: <Payment></Payment>,
+            //     loader: ({ params }) => fetch(`https://cricket-lover-server-site-s-m-zubayer.vercel.app/booking/${params?.id}`)
+            // }
+
+        ]
+
+    },
+    {
+
+        path: '/:name/student',
+        element: <Students></Students>,
+        children: [
+            {
+                path: '/:name/student/stdProfile',
+                element: <StudentProfile></StudentProfile>
+            },
+            {
+                path: '/:name/student/StdAttendance',
+                element: <StudentAttendanceStatus></StudentAttendanceStatus>
+            },
+            {
+                path: '/:name/student/payment',
+                element: <StudentPaymentSystem></StudentPaymentSystem>
+            },
+            {
+                path: '/:name/student/leave',
+                element: <LeaveApplication></LeaveApplication>
+            },
+            // {
+            //     path: '/:name/student/allSellers',
+            //     element: <AllSellers></AllSellers>
+            // },
+            // {
+            //     path: '/dashboard/allBuyers',
+            //     element: <AllBuyers></AllBuyers>
+            // },
+            // {
+            //     path: '/dashboard/reportedItems',
+            //     element: <ReportedItems></ReportedItems>
+            // },
+            // {
+            //     path: '/dashboard/allUsers',
+            //     element: <AllUser></AllUser>
+            // },
+            // {
+            //     path: '/dashboard/payment/:id',
+            //     element: <Payment></Payment>,
+            //     loader: ({ params }) => fetch(`https://cricket-lover-server-site-s-m-zubayer.vercel.app/booking/${params?.id}`)
+            // }
+
+        ]
+
+    },
+    {
+
+        path: '/:name/staff',
+        element: <Staff></Staff>,
+        children: [
+            {
+                path: '/:name/staff/leave',
+                element: <LeaveApplication></LeaveApplication>
+            },
+            {
+                path: '/:name/staff/profile',
                 element: <StaffProfile></StaffProfile>
             },
             {
-                path: '/staff/salary',
+                path: '/:name/staff/salary',
                 element: <SalaryStatus></SalaryStatus>
             },
             {
-                path: '/staff/atd',
+                path: '/:name/staff/atd',
                 element: <StaffAttendanceSheet></StaffAttendanceSheet>
             },
             // {
@@ -251,31 +254,31 @@ export const router = createBrowserRouter([
     },
     {
 
-        path: '/admin',
+        path: '/:name/admin',
         element: <Admin></Admin>,
         children: [
             {
-                path: '/admin/calender',
+                path: '/:name/admin/calender',
                 element: <AcademicCalender></AcademicCalender>
             },
             {
-                path: '/admin/result',
+                path: '/:name/admin/result',
                 element: <AllResultSheet></AllResultSheet>
             },
             {
-                path: '/admin/idCard',
+                path: '/:name/admin/idCard',
                 element: <IdCard></IdCard>
             },
             {
-                path: '/admin/profile',
+                path: '/:name/admin/profile',
                 element: <AdminProfile></AdminProfile>
             },
             {
-                path: '/admin/Student_attendance',
+                path: '/:name/admin/Student_attendance',
                 element: <Std_Atd_Sheet></Std_Atd_Sheet>
             },
             {
-                path: '/admin/teacher_attendance',
+                path: '/:name/admin/teacher_attendance',
                 element: <Tcr_Atd_Sheet></Tcr_Atd_Sheet>
             }
 
