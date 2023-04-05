@@ -13,17 +13,8 @@ const MainAdmin = () => {
     const [code, setCode] = useState('');
     const [address, setAddress] = useState('');
     const [about, setAbout] = useState('');
-    const allSchools = [
-        {
-            name: "kamalapur high school",
-            id: "1111"
-        },
-        {
-            name: "Horipur high school",
-            id: "2222"
-        }
+    const [number, setNumber] = useState([])
 
-    ]
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -34,8 +25,10 @@ const MainAdmin = () => {
             address,
             about
         }
-        schools.push(newSchool);
-        setSchools(allSchools)
+
+        const newSchools = [...schools, newSchool];
+        setSchools(newSchools)
+
         console.log(schools)
         // Do something with the form values, e.g. send them to a server or display them on the page
     };
@@ -44,7 +37,7 @@ const MainAdmin = () => {
         <div>
             This is the page for main admin....
             <h1 className="text-center text-lg font-bold">Please input the School information</h1>
-            <form className="mt-10 bg-fuchsia-300 p-4" onSubmit={handleSubmit} >
+            <form className="mt-10 text-start w-96 mx-auto bg-fuchsia-300 p-4" onSubmit={handleSubmit} >
                 <label htmlFor="name">School Name:</label>
                 <input type="text" className="my-3" id="name" value={name} onChange={(event) => setName(event.target.value)} /><br />
 
@@ -52,7 +45,7 @@ const MainAdmin = () => {
                 <input type="email" className="my-3" id="email" value={email} onChange={(event) => setEmail(event.target.value)} /><br />
 
                 <label htmlFor="code">School code:</label>
-                <input type="number" className="my-3" id="code" value={code} onChange={(event) => setCode(event.target.value)} /><br />
+                <input type="digit" className="my-3" id="code" value={code} onChange={(event) => setCode(event.target.value)} /><br />
 
                 <label htmlFor="name">School Address:</label>
                 <input type="text" className="my-3" id="name" value={address} onChange={(event) => setAddress(event.target.value)} /><br />
@@ -60,7 +53,7 @@ const MainAdmin = () => {
                 <label htmlFor="message">About:</label>
                 <textarea id="message" value={about} onChange={(event) => setAbout(event.target.value)}></textarea><br />
 
-                <button className="bg-yellow-200 py-2 px-5 rounded-lg" type="submit">Submit</button>
+                <button className="bg-yellow-200 py-2 px-5 rounded-lg ml-32 my-5" type="submit">Submit</button>
             </form>
 
 
@@ -70,7 +63,7 @@ const MainAdmin = () => {
 
             </div>
             {
-                schools.map((element, index) => {
+                schools?.map((element, index) => {
                     // globalVariable = element;
                     return <Link
 
@@ -84,3 +77,29 @@ const MainAdmin = () => {
 };
 
 export default MainAdmin;
+
+
+
+// import React, { useState } from 'react';
+
+// function App() {
+//     const [schools, setSchools] = useState([]);
+
+//     const handleClick = () => {
+//         const newItems = [...schools, newSchool];
+//         setSchools(newItems);
+//     };
+
+//     return (
+//         <div>
+//             <button onClick={handleClick}>Add Item</button>
+//             <ul>
+//                 {schools.map((item, index) => (
+//                     <li key={index}>{item}</li>
+//                 ))}
+//             </ul>
+//         </div>
+//     );
+// }
+
+// export default App;

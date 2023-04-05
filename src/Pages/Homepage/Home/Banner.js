@@ -23,7 +23,7 @@ const Banner = () => {
                             Welcome To
 
                             <strong className="block font-extrabold text-yellow-500">
-                                Kamalapur High School
+                                {schoolName}
                             </strong>
                         </h1>
 

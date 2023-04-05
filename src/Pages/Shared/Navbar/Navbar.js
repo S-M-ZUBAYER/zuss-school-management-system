@@ -14,12 +14,12 @@ const Navbar = () => {
     return (
         <header className="p-4 dark:bg-gray-800 dark:text-gray-100 text-slate-200 bg-gradient-to-t from-blue-900 via-slate-900 to-black">
             <div className="container flex justify-between h-16 mx-auto">
-                <Link rel="noopener noreferrer" to="/home" aria-label="Back to homepage" className="flex items-center p-2">
+                <Link rel="noopener noreferrer" to="/" aria-label="Back to homepage" className="flex items-center p-2">
                     <img className="h-10 w-10 rounded-full" src={img} alt="school logo" />
                 </Link>
                 <ul className="items-stretch hidden space-x-3 lg:flex">
                     <li className="flex">
-                        <Link rel="noopener noreferrer" to={`/${schoolName}/home`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Home</Link>
+                        <Link rel="noopener noreferrer" to={`/${schoolName}/`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Home</Link>
                     </li>
                     <li className="flex">
                         <Link rel="noopener noreferrer" to={`/${schoolName}/intro`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Introduction</Link>
@@ -59,7 +59,7 @@ const Navbar = () => {
                                 aria-labelledby="options-menu"
                             >
                                 <Link
-                                    to={`/${schoolName}/home`}
+                                    to={`/${schoolName}/`}
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                     role="menuitem"
                                 >
