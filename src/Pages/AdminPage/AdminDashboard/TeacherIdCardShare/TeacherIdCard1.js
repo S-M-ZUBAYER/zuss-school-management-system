@@ -1,7 +1,7 @@
 import React from 'react';
 import img1 from "../../../../Assets/IdCard/id_1.jpg"
 
-const TeacherIdCard1 = () => {
+const TeacherIdCard1 = ({ name }) => {
     return (
         <div className="bg-white rounded-lg shadow-md p-8 bg-cover bg-no-repeat" style={{ backgroundImage: `url(${img1})` }}>
             <div className="flex justify-center items-center mb-6">
@@ -11,7 +11,7 @@ const TeacherIdCard1 = () => {
                     alt="messi"
                 />
             </div>
-            <h2 className="text-2xl font-bold mb-2">Leonal Messi</h2>
+            <h2 className="text-2xl font-bold mb-2">{name}</h2>
             <p className="text-gray-600 mb-4">leonalMessi@gmail.com</p>
             <div className="border-t border-gray-300 pt-4">
                 <p className="text-gray-700 font-bold mb-2">Student ID:</p>
