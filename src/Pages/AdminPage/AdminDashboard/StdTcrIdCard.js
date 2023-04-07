@@ -1,17 +1,18 @@
 import React, { useContext, useState } from 'react';
-import img1 from "../../../Assets/IdCard/id_1.jpg"
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
-import IdCard1 from './StudentIdCardShared/IdCard1';
-import IdCard2 from './StudentIdCardShared/IdCard2';
-import IdCard3 from './StudentIdCardShared/IdCard3';
-import IdCard4 from './StudentIdCardShared/IdCard4';
 import TeacherIdCard1 from './TeacherIdCardShare/TeacherIdCard1';
 import TeacherIdCard2 from './TeacherIdCardShare/TeacherIdCard2';
 import TeacherIdCard3 from './TeacherIdCardShare/TeacherIdCard3';
 import TeacherIdCard4 from './TeacherIdCardShare/TeacherIdCard4';
+import StdIdCard1 from './StudentIdCardShared/StdIdCard1';
+import StdIdCard2 from './StudentIdCardShared/StdIdCard2';
+import StdIdCard3 from './StudentIdCardShared/StdIdCard3';
+import StdIdCard4 from './StudentIdCardShared/StdIdCard4';
 
 
-const IdCard = () => {
+const StdTcrIdCard = () => {
+
+
 
     //Student from part
 
@@ -35,7 +36,8 @@ const IdCard = () => {
     const [teacherCardIssue, setTeacherCardIssue] = useState('');
     const [teacherDateBirth, setTeacherDateBirth] = useState('');
     const [teacherCardExpire, setTeacherCardExpire] = useState('');
-    const [teacherImg, setTeacherImg] = useState("")
+    const [teacherImg, setTeacherImg] = useState("");
+    const [teacherDesignation, setTeacherDesignation] = useState("");
 
     const handleSubmitStudent = (e) => {
         e.preventDefault();
@@ -52,7 +54,7 @@ const IdCard = () => {
         setStdId(event.target.value)
     }
 
-    const handleToStdName = (event) => {  //data of birth // expire date // gender // Card issue date // class
+    const handleToStdName = (event) => {
         setStdName(event.target.value)
     }
     const handleToStdEmail = (event) => {
@@ -80,7 +82,7 @@ const IdCard = () => {
 
     const handleSubmitTeacher = (e) => {
         e.preventDefault();
-        console.log(schoolName, teacherImg, teacherName, teacherEmail, teacherId, teacherDateBirth, teacherCardIssue, teacherCardExpire, teacherGender,)
+        console.log(schoolName, teacherImg, teacherName, teacherEmail, teacherId, teacherDateBirth, teacherCardIssue, teacherCardExpire, teacherGender, teacherDesignation)
 
         // code to generate the ID card using the input values
     };
@@ -102,6 +104,9 @@ const IdCard = () => {
 
     const handleToTeacherGender = (event) => {
         setTeacherGender(event.target.value)
+    }
+    const handleToTeacherDesignation = (event) => {
+        setTeacherDesignation(event.target.value)
     }
     const handleToTeacherCardIssue = (event) => {
         setTeacherCardIssue(event.target.value)
@@ -181,25 +186,9 @@ const IdCard = () => {
 
                 </div>
 
-                <div className="col-span-2 grid grid-cols-2 gap-3">
-                    <div className="bg-white rounded-lg shadow-md p-8 bg-cover bg-no-repeat" style={{ backgroundImage: `url(${img1})` }}>
-                        <div className="flex justify-center items-center mb-6">
-                            <img
-                                className="w-24 h-24 rounded-full"
-                                src="https://s.yimg.com/fz/api/res/1.2/IfHPji1C1Il0NM5LyT_UQg--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpbGw7aD0yMjA7cT04MDt3PTE2NQ--/https://s.yimg.com/zb/imgv1/880eb131-c93c-3bb5-98e5-076c4f996c4f/t_500x300"
-                                alt="messi"
-                            />
-                        </div>
-                        <h2 className="text-2xl font-bold mb-2">{stdName}</h2>
-                        <p className="text-gray-600 mb-4">{stdEmail}</p>
-                        <div className="border-t border-gray-300 pt-4">
-                            <p className="text-gray-700 font-bold mb-2">Student ID:</p>
-                            <p className="text-gray-600">{stdId}</p>
-                        </div>
-                    </div>
-
-
-                    <IdCard2
+                <div className="col-span-2 grid grid-cols-2 gap-3 mx-auto">
+                    <StdIdCard1
+                        schoolName={schoolName}
                         name={stdName}
                         img={stdImg}
                         stdClass={stdClass}
@@ -209,29 +198,45 @@ const IdCard = () => {
                         cardIssue={stdCardIssue}
                         expire={stdCardExpire}
                         gender={stdGender}
-                    ></IdCard2>
-                    <IdCard3
-                        name={teacherName}
-                        img={teacherImg}
-                        email={teacherEmail}
+                    ></StdIdCard1>
+
+
+                    <StdIdCard2
+                        schoolName={schoolName}
+                        name={stdName}
+                        img={stdImg}
                         stdClass={stdClass}
-                        id={teacherId}
-                        dateOfBirth={teacherDateBirth}
-                        cardIssue={teacherCardIssue}
-                        expire={teacherCardExpire}
-                        gender={teacherGender}
-                    ></IdCard3>
-                    <IdCard4
-                        name={teacherName}
-                        img={teacherImg}
+                        email={stdEmail}
+                        id={stdId}
+                        dateOfBirth={stdDateBirth}
+                        cardIssue={stdCardIssue}
+                        expire={stdCardExpire}
+                        gender={stdGender}
+                    ></StdIdCard2>
+                    <StdIdCard3
+                        schoolName={schoolName}
+                        name={stdName}
+                        img={stdImg}
                         stdClass={stdClass}
-                        email={teacherEmail}
-                        id={teacherId}
-                        dateOfBirth={teacherDateBirth}
-                        cardIssue={teacherCardIssue}
-                        expire={teacherCardExpire}
-                        gender={teacherGender}
-                    ></IdCard4>
+                        email={stdEmail}
+                        id={stdId}
+                        dateOfBirth={stdDateBirth}
+                        cardIssue={stdCardIssue}
+                        expire={stdCardExpire}
+                        gender={stdGender}
+                    ></StdIdCard3>
+                    <StdIdCard4
+                        schoolName={schoolName}
+                        name={stdName}
+                        img={stdImg}
+                        stdClass={stdClass}
+                        email={stdEmail}
+                        id={stdId}
+                        dateOfBirth={stdDateBirth}
+                        cardIssue={stdCardIssue}
+                        expire={stdCardExpire}
+                        gender={stdGender}
+                    ></StdIdCard4>
                 </div>
             </div>
 
@@ -288,6 +293,9 @@ const IdCard = () => {
                                     <input type="text" className="w-full bg-black pl-2 text-white" placeholder="please provide your Gender" id="TeacherGender" value={teacherGender} onChange={handleToTeacherGender} />
                                     <hr className="border-slate-300 mb-8 mx-1"></hr>
 
+                                    <input type="text" className="w-full bg-black pl-2 text-white" placeholder="please provide teacher designation" id="TeacherDesignation" value={teacherDesignation} onChange={handleToTeacherDesignation} />
+                                    <hr className="border-slate-300 mb-8 mx-1"></hr>
+
                                     <button type='submit' className="bg-amber-100 text-slate-700 font-semibold px-3 py-1 rounded-lg">Id Card Generate</button>
                                 </form>
                             </div>
@@ -296,10 +304,10 @@ const IdCard = () => {
                     </div>
                 </div>
 
-                {/* teacherImg, teacherName, teacherEmail, teacherId, teacherDateBirth, teacherCardIssue, teacherCardExpire, teacherGender */}
 
-                <div className="col-span-2 grid grid-cols-2 gap-3">
+                <div className="col-span-2 grid grid-cols-2 mx-auto">
                     <TeacherIdCard1
+                        schoolName={schoolName}
                         name={teacherName}
                         img={teacherImg}
                         email={teacherEmail}
@@ -308,8 +316,10 @@ const IdCard = () => {
                         cardIssue={teacherCardIssue}
                         expire={teacherCardExpire}
                         gender={teacherGender}
+                        designation={teacherDesignation}
                     ></TeacherIdCard1>
                     <TeacherIdCard2
+                        schoolName={schoolName}
                         name={teacherName}
                         img={teacherImg}
                         email={teacherEmail}
@@ -318,8 +328,10 @@ const IdCard = () => {
                         cardIssue={teacherCardIssue}
                         expire={teacherCardExpire}
                         gender={teacherGender}
+                        designation={teacherDesignation}
                     ></TeacherIdCard2>
                     <TeacherIdCard3
+                        schoolName={schoolName}
                         name={teacherName}
                         img={teacherImg}
                         email={teacherEmail}
@@ -328,8 +340,10 @@ const IdCard = () => {
                         cardIssue={teacherCardIssue}
                         expire={teacherCardExpire}
                         gender={teacherGender}
+                        designation={teacherDesignation}
                     ></TeacherIdCard3>
                     <TeacherIdCard4
+                        schoolName={schoolName}
                         name={teacherName}
                         img={teacherImg}
                         email={teacherEmail}
@@ -338,6 +352,7 @@ const IdCard = () => {
                         cardIssue={teacherCardIssue}
                         expire={teacherCardExpire}
                         gender={teacherGender}
+                        designation={teacherDesignation}
                     ></TeacherIdCard4>
                 </div>
             </div>
@@ -347,4 +362,4 @@ const IdCard = () => {
     );
 };
 
-export default IdCard;
+export default StdTcrIdCard;

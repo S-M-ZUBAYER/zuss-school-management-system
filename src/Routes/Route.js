@@ -3,7 +3,6 @@ import Main from "../Layout/Main/Main"
 import Admin from "../Pages/AdminPage/Admin";
 import AcademicCalender from "../Pages/AdminPage/AdminDashboard/AcademicCalender";
 import AllResultSheet from "../Pages/AdminPage/AdminDashboard/AllResultSheet";
-import IdCard from "../Pages/AdminPage/AdminDashboard/IdCard";
 import Std_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/Std_Atd_Sheet";
 import Tcr_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/Tcr_Atd_Sheet";
 import Contact from "../Pages/ContactPage/Contact";
@@ -36,6 +35,7 @@ import CourseCompletionCertificate from "../Pages/TeachersPage/TeacherDashboard/
 import StudentProfile from "../Pages/StudentsPage/StudentDashboard/StudentProfile";
 import StudentAttendanceStatus from "../Pages/StudentsPage/StudentDashboard/StudentAttendanceStatus";
 import StudentPaymentSystem from "../Pages/StudentsPage/StudentDashboard/StudentPaymentSystem";
+import StdTcrIdCard from "../Pages/AdminPage/AdminDashboard/StdTcrIdCard";
 
 export const router = createBrowserRouter([
     {
@@ -267,7 +267,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/:name/admin/idCard',
-                element: <IdCard></IdCard>
+                element: <StdTcrIdCard></StdTcrIdCard>
             },
             {
                 path: '/:name/admin/profile',
