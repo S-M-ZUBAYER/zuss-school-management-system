@@ -1,6 +1,7 @@
 import React from 'react';
 import img2 from "../../../../Assets/IdCard/Id_2.jpg"
-const StdIdCard2 = ({ name, email, id, stdClass, gender, Class, expire, cardIssue, dateOfBirth, img, schoolName }) => {
+
+const StaffIdCard2 = ({ name, email, id, stdClass, gender, designation, expire, cardIssue, dateOfBirth, img, schoolName }) => {
     return (
         <div className="w-80 h-56 bg-white shadow-md rounded-md overflow-hidden" style={{ backgroundImage: `url(${img2})` }}>
 
@@ -14,7 +15,7 @@ const StdIdCard2 = ({ name, email, id, stdClass, gender, Class, expire, cardIssu
                 <div className="text-sm ml-3 flex-1">
                     <p className=" font-semibold">ID: <span>{id}</span></p>
                     <p>Gender: <span>{gender}</span></p>
-                    <p>Class: <span> {stdClass}</span></p>
+                    <p>designation: <span> {stdClass}</span></p>
                     <p>Expires: <span>{expire}</span></p>
                     <p>Card Issue: <span>{cardIssue}</span></p>
                     <p>Date of Birth: <span>{dateOfBirth}</span></p>
@@ -24,4 +25,4 @@ const StdIdCard2 = ({ name, email, id, stdClass, gender, Class, expire, cardIssu
     );
 };
 
-export default StdIdCard2;
+export default StaffIdCard2;

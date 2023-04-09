@@ -1,7 +1,7 @@
 import React from 'react';
 import img4 from "../../../../Assets/IdCard/id_4.jpg"
 
-const StdIdCard4 = ({ name, email, id, gender, stdClass, expire, cardIssue, dateOfBirth, img, schoolName }) => {
+const StaffIdCard4 = ({ name, email, id, stdClass, gender, designation, expire, cardIssue, dateOfBirth, img, schoolName }) => {
     return (
         <div className="w-96 h-56 bg-white rounded-md shadow-lg overflow-hidden bg-cover bg-no-repeat" style={{ backgroundImage: `url(${img4})` }}>
             < div className="flex justify-between items-center p-2" >
@@ -23,8 +23,8 @@ const StdIdCard4 = ({ name, email, id, gender, stdClass, expire, cardIssue, date
             <div className="p-5">
                 <div className="flex flex-row justify-around items-center text-gray-600">
                     <div className="flex flex-col">
-                        <p className="text-xs font-medium text-gray-700">Class</p>
-                        <p className="text-base font-bold">{stdClass}</p>
+                        <p className="text-xs font-medium text-gray-700">Designation</p>
+                        <p className="text-base font-bold">{designation}</p>
                     </div>
                     <div className="flex flex-col">
                         <p className="text-xs font-medium text-gray-700">Gender</p>
@@ -44,8 +44,7 @@ const StdIdCard4 = ({ name, email, id, gender, stdClass, expire, cardIssue, date
                 </div>
             </div>
         </div >
-
     );
 };
 
-export default StdIdCard4;
+export default StaffIdCard4;

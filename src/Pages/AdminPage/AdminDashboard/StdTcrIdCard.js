@@ -8,6 +8,10 @@ import StdIdCard1 from './StudentIdCardShared/StdIdCard1';
 import StdIdCard2 from './StudentIdCardShared/StdIdCard2';
 import StdIdCard3 from './StudentIdCardShared/StdIdCard3';
 import StdIdCard4 from './StudentIdCardShared/StdIdCard4';
+import StaffIdCard1 from './StaffDashboard/StaffIdCard1';
+import StaffIdCard2 from './StaffDashboard/StaffIdCard2';
+import StaffIdCard3 from './StaffDashboard/StaffIdCard3';
+import StaffIdCard4 from './StaffDashboard/StaffIdCard4';
 
 
 const StdTcrIdCard = () => {
@@ -38,6 +42,18 @@ const StdTcrIdCard = () => {
     const [teacherCardExpire, setTeacherCardExpire] = useState('');
     const [teacherImg, setTeacherImg] = useState("");
     const [teacherDesignation, setTeacherDesignation] = useState("");
+
+
+    //Staff from part
+    const [staffId, setStaffId] = useState('');
+    const [staffEmail, setStaffEmail] = useState('');
+    const [staffName, setStaffName] = useState('');
+    const [staffGender, setStaffGender] = useState('');
+    const [staffCardIssue, setStaffCardIssue] = useState('');
+    const [staffDateBirth, setStaffDateBirth] = useState('');
+    const [staffCardExpire, setStaffCardExpire] = useState('');
+    const [staffImg, setStaffImg] = useState("");
+    const [staffDesignation, setStaffDesignation] = useState("");
 
     const handleSubmitStudent = (e) => {
         e.preventDefault();
@@ -91,7 +107,7 @@ const StdTcrIdCard = () => {
         setTeacherImg(event.target.value)
     }
 
-    const handleToTeacherStdId = (event) => {
+    const handleToTeacherId = (event) => {
         setTeacherId(event.target.value)
     }
 
@@ -118,6 +134,46 @@ const StdTcrIdCard = () => {
         setTeacherDateBirth(event.target.value)
     }
 
+
+    //staff from part
+
+    const handleSubmitStaff = (e) => {
+        e.preventDefault();
+        console.log(schoolName, staffImg, staffName, staffEmail, staffId, staffDateBirth, staffCardIssue, staffCardExpire, staffGender, staffDesignation)
+
+        // code to generate the ID card using the input values
+    };
+
+    const handleToStaffImg = (event) => {
+        setStaffImg(event.target.value)
+    }
+
+    const handleToStaffId = (event) => {
+        setStaffId(event.target.value)
+    }
+
+    const handleToStaffName = (event) => {
+        setStaffName(event.target.value)
+    }
+    const handleToStaffEmail = (event) => {
+        setStaffEmail(event.target.value)
+    }
+
+    const handleToStaffGender = (event) => {
+        setStaffGender(event.target.value)
+    }
+    const handleToStaffDesignation = (event) => {
+        setStaffDesignation(event.target.value)
+    }
+    const handleToStaffCardIssue = (event) => {
+        setStaffCardIssue(event.target.value)
+    }
+    const handleToStaffCardExpire = (event) => {
+        setStaffCardExpire(event.target.value)
+    }
+    const handleToStaffDateBirth = (event) => {
+        setStaffDateBirth(event.target.value)
+    }
 
     return (
         <div>
@@ -272,7 +328,7 @@ const StdTcrIdCard = () => {
                                     <input type="text" className="w-full bg-black pl-2 text-white" placeholder="please provide Teacher name" id="TeacherName" value={teacherName} onChange={handleToTeacherName} />
                                     <hr className="border-slate-300 mb-8 mx-1"></hr>
 
-                                    <input type="digit" className="w-full bg-black pl-2 text-white" placeholder="please provide Teacher ID" id="TeacherId" value={teacherId} onChange={handleToTeacherStdId} />
+                                    <input type="digit" className="w-full bg-black pl-2 text-white" placeholder="please provide Teacher ID" id="TeacherId" value={teacherId} onChange={handleToTeacherId} />
                                     <hr className="border-slate-300 mb-8 mx-1"></hr>
 
                                     <input type="email" className="w-full bg-black pl-2 text-white" placeholder="please provide your Email ID" id="TeacherEmail" value={teacherEmail} onChange={handleToTeacherEmail} />
@@ -354,6 +410,123 @@ const StdTcrIdCard = () => {
                         gender={teacherGender}
                         designation={teacherDesignation}
                     ></TeacherIdCard4>
+                </div>
+            </div>
+
+            {/* Staff */}
+
+            <h1 className="text-2xl text-lime-800 font-bold my-5 mt-20">
+                Staff Id Card Section
+            </h1>
+            <div className="grid grid-cols-3 text-white my-20">
+                <div>
+                    <div>
+                        <h1 className="text-xl font-bold text-yellow-200 mb-3">
+                            Staff ID Card
+                        </h1>
+                        <h1>
+                            Please provide student information to generate staff id card
+                        </h1>
+                    </div>
+
+                    <div>
+                        <div>
+                            <h1>
+                                Staff Information
+                            </h1>
+
+
+                            {/* ************************** This is the section for teacher to generate the Teacher ID card input information form ********************************** */}
+                            <div className="mx-3 my-5">
+                                <form onSubmit={handleSubmitStaff}>
+                                    <input type="url" className="w-full bg-black pl-2 text-white" placeholder=" please provide Staff image url" id="StaffImg" value={staffImg} onChange={handleToStaffImg} />
+                                    <hr className="border-slate-300 mb-8 mx-1"></hr>
+
+                                    <input type="text" className="w-full bg-black pl-2 text-white" placeholder="please provide Staff name" id="StaffName" value={staffName} onChange={handleToStaffName} />
+                                    <hr className="border-slate-300 mb-8 mx-1"></hr>
+
+                                    <input type="digit" className="w-full bg-black pl-2 text-white" placeholder="please provide Staff ID" id="StaffId" value={staffId} onChange={handleToStaffId} />
+                                    < hr className="border-slate-300 mb-8 mx-1"></hr>
+
+                                    <input type="email" className="w-full bg-black pl-2 text-white" placeholder="please provide your Email ID" id="StaffEmail" value={staffEmail} onChange={handleToStaffEmail} />
+                                    <hr className="border-slate-300 mb-8 mx-1"></hr>
+
+                                    <label>Date of Birth</label>
+                                    <input type="date" className="w-full bg-black pl-2 text-white" placeholder="please provide your Email ID" id="StaffDateOfBirth" value={staffDateBirth} onChange={handleToStaffDateBirth} />
+                                    <hr className="border-slate-300 mb-8 mx-1"></hr>
+
+                                    <label>Date of Card Issue</label>
+                                    <input type="date" className="w-full bg-black pl-2 text-white" placeholder="please provide your Email ID" id="StaffCardIssue" value={staffCardIssue} onChange={handleToStaffCardIssue} />
+                                    <hr className="border-slate-300 mb-8 mx-1"></hr>
+
+                                    <label>Date of Card Expire</label>
+                                    <input type="date" className="w-full bg-black pl-2 text-white" placeholder="please provide your Email ID" id="StaffCardExpire" value={staffCardExpire} onChange={handleToStaffCardExpire} />
+                                    <hr className="border-slate-300 mb-8 mx-1"></hr>
+
+                                    <input type="text" className="w-full bg-black pl-2 text-white" placeholder="please provide your Gender" id="StaffGender" value={staffGender} onChange={handleToStaffGender} />
+                                    <hr className="border-slate-300 mb-8 mx-1"></hr>
+
+                                    <input type="text" className="w-full bg-black pl-2 text-white" placeholder="please provide teacher designation" id="StaffDesignation" value={staffDesignation} onChange={handleToStaffDesignation} />
+                                    <hr className="border-slate-300 mb-8 mx-1"></hr>
+
+                                    <button type='submit' className="bg-amber-100 text-slate-700 font-semibold px-3 py-1 rounded-lg">Id Card Generate</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className="col-span-2 grid grid-cols-2 mx-auto">
+                    <StaffIdCard1
+                        schoolName={schoolName}
+                        name={staffName}
+                        img={staffImg}
+                        email={staffEmail}
+                        id={staffId}
+                        dateOfBirth={staffDateBirth}
+                        cardIssue={staffCardIssue}
+                        expire={staffCardExpire}
+                        gender={staffGender}
+                        designation={staffDesignation}
+                    ></StaffIdCard1>
+                    <StaffIdCard2
+                        schoolName={schoolName}
+                        name={staffName}
+                        img={staffImg}
+                        email={staffEmail}
+                        id={staffId}
+                        dateOfBirth={staffDateBirth}
+                        cardIssue={staffCardIssue}
+                        expire={staffCardExpire}
+                        gender={staffGender}
+                        designation={staffDesignation}
+                    ></StaffIdCard2>
+                    <StaffIdCard3
+                        schoolName={schoolName}
+                        name={staffName}
+                        img={staffImg}
+                        email={staffEmail}
+                        id={staffId}
+                        dateOfBirth={staffDateBirth}
+                        cardIssue={staffCardIssue}
+                        expire={staffCardExpire}
+                        gender={staffGender}
+                        designation={staffDesignation}
+                    ></StaffIdCard3>
+                    <StaffIdCard4
+                        schoolName={schoolName}
+                        name={staffName}
+                        img={staffImg}
+                        email={staffEmail}
+                        id={staffId}
+                        dateOfBirth={staffDateBirth}
+                        cardIssue={staffCardIssue}
+                        expire={staffCardExpire}
+                        gender={staffGender}
+                        designation={staffDesignation}
+                    ></StaffIdCard4>
                 </div>
             </div>
 

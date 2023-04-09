@@ -34,7 +34,7 @@ const TeacherIdCard3 = ({ name, email, id, stdClass, gender, designation, expire
                     <p className="text-sm font-bold">{cardIssue}</p>
                 </div>
                 <div className="flex flex-col">
-                    <p className="text-sm font-medium text-gray-700">Student id</p>
+                    <p className="text-sm font-medium text-gray-700">Teacher id</p>
                     <p className="text-sm font-bold">{id}</p>
                 </div>
                 <div className="flex flex-col">

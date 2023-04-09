@@ -1,9 +1,9 @@
 import React from 'react';
 import img3 from "../../../../Assets/IdCard/id_3.jpg"
 
-const StdIdCard3 = ({ name, email, id, gender, stdClass, expire, cardIssue, dateOfBirth, img, schoolName }) => {
+const StaffIdCard3 = ({ name, email, id, stdClass, gender, designation, expire, cardIssue, dateOfBirth, img, schoolName }) => {
     return (
-        <div className="w-96 h-56 border border-gray-300 rounded-lg overflow-hidden flex flex-col justify-between p-3bg-cover bg-no-repeat" style={{ backgroundImage: `url(${img3})` }}>
+        <div className="w-96 h-56 border border-gray-300 rounded-lg overflow-hidden flex flex-col justify-between p-3 mx-2 bg-cover bg-no-repeat" style={{ backgroundImage: `url(${img3})` }}>
             <div className="flex justify-between items-center mb-3">
                 <div className="flex items-center mx-2 mt-2 gap-2">
                     <img src="https://s.yimg.com/fz/api/res/1.2/IfHPji1C1Il0NM5LyT_UQg--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpbGw7aD0yMjA7cT04MDt3PTE2NQ--/https://s.yimg.com/zb/imgv1/880eb131-c93c-3bb5-98e5-076c4f996c4f/t_500x300" alt={name} className="w-24 h-24 rounded-full border border-gray-400" />
@@ -16,8 +16,8 @@ const StdIdCard3 = ({ name, email, id, gender, stdClass, expire, cardIssue, date
             </div>
             <div className="flex flex-row justify-between items-center px-2">
                 <div className="flex flex-col">
-                    <p className="text-sm font-medium text-gray-700">Class</p>
-                    <p className="text-sm font-bold">{stdClass}</p>
+                    <p className="text-sm font-medium text-gray-700">Designation</p>
+                    <p className="text-sm font-bold">{designation}</p>
                 </div>
                 <div className="flex flex-col">
                     <p className="text-sm font-medium text-gray-700">Gender</p>
@@ -34,7 +34,7 @@ const StdIdCard3 = ({ name, email, id, gender, stdClass, expire, cardIssue, date
                     <p className="text-sm font-bold">{cardIssue}</p>
                 </div>
                 <div className="flex flex-col">
-                    <p className="text-sm font-medium text-gray-700">Student id</p>
+                    <p className="text-sm font-medium text-gray-700">Teacher id</p>
                     <p className="text-sm font-bold">{id}</p>
                 </div>
                 <div className="flex flex-col">
@@ -46,4 +46,4 @@ const StdIdCard3 = ({ name, email, id, gender, stdClass, expire, cardIssue, date
     );
 };
 
-export default StdIdCard3;
+export default StaffIdCard3;
