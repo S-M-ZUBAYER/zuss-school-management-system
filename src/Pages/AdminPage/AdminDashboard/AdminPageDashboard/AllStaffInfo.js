@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import EachStaff from './EachStaff';
-import EachStaffIntro from './EachStaffIntro';
+import EachStaff from '../../../IntroductionPage/IntroDashboard/EachStaff';
 // import axios from 'axios';
 // import EachUser from './EachUser';
 // import { AuthContext } from '../../../../Context/AuthProvider/AuthProvider';
@@ -8,7 +7,7 @@ import EachStaffIntro from './EachStaffIntro';
 // import toast from 'react-hot-toast';
 // import DisplaySpinner from '../../../../components/Sprinners/DisplaySpinner/DisplaySpinner';
 
-const AllStaffIntro = () => {
+const AllStaffInfo = () => {
 
     const allStaff = [
         {
@@ -113,11 +112,11 @@ const AllStaffIntro = () => {
 
         <div className="bg-gradient-to-l from-blue-900 via-slate-900 to-black pt-12">
             <h2 data-aos="fade-down" data-aos-duration="2000" className="text-3xl text-lime-500 font-bold mb-5">
-                Available user In your site .......
+                Available staff In your school .......
             </h2>
 
 
-            <div data-aos="flip-up" data-aos-duration="2000" className="overflow-x-auto w-5/6 mx-auto mb-20">
+            <div data-aos="flip-up" data-aos-duration="2000" className="overflow-x-auto mb-20 w-5/6 mx-auto ">
                 <table className="table w-full">
 
                     <thead>
@@ -128,6 +127,8 @@ const AllStaffIntro = () => {
                             <th>email</th>
                             <th>Phone No</th>
                             <th>Blood Group</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     {/* {users?.length !== 0 && users?.map(user =>
@@ -139,7 +140,7 @@ const AllStaffIntro = () => {
                         ></EachUser>
                     )} */}
                     {allStaff?.length !== 0 && allStaff?.map(staff =>
-                        <EachStaffIntro
+                        <EachStaff
                             name={staff?.name}
                             designation={staff?.designation}
                             email={staff?.email}
@@ -148,7 +149,7 @@ const AllStaffIntro = () => {
                             key={staff.phone}
                         // handleToDelete={handleToDelete}
                         // handleMakeAdmin={handleMakeAdmin}
-                        ></EachStaffIntro>
+                        ></EachStaff>
                     )}
 
                 </table>
@@ -157,4 +158,4 @@ const AllStaffIntro = () => {
     );
 };
 
-export default AllStaffIntro;
+export default AllStaffInfo;

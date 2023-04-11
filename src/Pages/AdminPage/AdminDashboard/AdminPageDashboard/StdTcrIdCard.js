@@ -1,17 +1,21 @@
 import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../../AuthProvider/AuthProvider';
-import TeacherIdCard1 from './TeacherIdCardShare/TeacherIdCard1';
-import TeacherIdCard2 from './TeacherIdCardShare/TeacherIdCard2';
-import TeacherIdCard3 from './TeacherIdCardShare/TeacherIdCard3';
-import TeacherIdCard4 from './TeacherIdCardShare/TeacherIdCard4';
-import StdIdCard1 from './StudentIdCardShared/StdIdCard1';
-import StdIdCard2 from './StudentIdCardShared/StdIdCard2';
-import StdIdCard3 from './StudentIdCardShared/StdIdCard3';
-import StdIdCard4 from './StudentIdCardShared/StdIdCard4';
-import StaffIdCard1 from './StaffDashboard/StaffIdCard1';
-import StaffIdCard2 from './StaffDashboard/StaffIdCard2';
-import StaffIdCard3 from './StaffDashboard/StaffIdCard3';
-import StaffIdCard4 from './StaffDashboard/StaffIdCard4';
+import { AuthContext } from '../../../../AuthProvider/AuthProvider';
+// import TeacherIdCard1 from '../TeacherIdCardShare/TeacherIdCard1';
+// import TeacherIdCard2 from '../TeacherIdCardShare/TeacherIdCard2';
+// import TeacherIdCard3 from '../TeacherIdCardShare/TeacherIdCard3';
+// import TeacherIdCard4 from '../TeacherIdCardShare/TeacherIdCard4';
+import StdIdCard1 from '../StudentIdCardShared/StdIdCard1';
+import StdIdCard2 from '../StudentIdCardShared/StdIdCard2';
+import StdIdCard3 from '../StudentIdCardShared/StdIdCard3';
+import StdIdCard4 from '../StudentIdCardShared/StdIdCard4';
+import StaffIdCard1 from '../StaffDashboard/StaffIdCard1';
+import StaffIdCard2 from '../StaffDashboard/StaffIdCard2';
+import StaffIdCard3 from '../StaffDashboard/StaffIdCard3';
+import StaffIdCard4 from '../StaffDashboard/StaffIdCard4';
+import TeacherIdCard4 from '../TeacherIdCardShare/TeacherIdCard4';
+import TeacherIdCard3 from '../TeacherIdCardShare/TeacherIdCard3';
+import TeacherIdCard2 from '../TeacherIdCardShare/TeacherIdCard2';
+import TeacherIdCard1 from '../TeacherIdCardShare/TeacherIdCard1';
 
 
 const StdTcrIdCard = () => {

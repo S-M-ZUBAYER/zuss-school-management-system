@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main/Main"
 import Admin from "../Pages/AdminPage/Admin";
-import AcademicCalender from "../Pages/AdminPage/AdminDashboard/AcademicCalender";
-import AllResultSheet from "../Pages/AdminPage/AdminDashboard/AllResultSheet";
-import Std_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/Std_Atd_Sheet";
-import Tcr_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/Tcr_Atd_Sheet";
+import AcademicCalender from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AcademicCalender";
+import AllResultSheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AllResultSheet";
+import Std_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/Std_Atd_Sheet";
+import Tcr_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/Tcr_Atd_Sheet";
 import Contact from "../Pages/ContactPage/Contact";
 import Home from "../Pages/Homepage/Home/Home";
 import Introduction from "../Pages/IntroductionPage/Introduction";
@@ -17,10 +17,9 @@ import StaffAttendanceSheet from "../Pages/StaffPage/StaffDashboard/StaffAttenda
 import StaffProfile from "../Pages/StaffPage/StaffDashboard/StaffProfile";
 import Students from "../Pages/StudentsPage/Students,";
 import Teachers from "../Pages/TeachersPage/Teachers";
-import AdminProfile from "../Pages/AdminPage/AdminDashboard/AdminProfile";
+import AdminProfile from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AdminProfile";
 import SchoolIntro from "../Pages/IntroductionPage/IntroDashboard/SchoolIntro";
 import Notice from "../Pages/IntroductionPage/IntroDashboard/Notice";
-import AllStaffIntro from "../Pages/IntroductionPage/IntroDashboard/AllStaffIntro";
 import Activities from "../Pages/IntroductionPage/IntroDashboard/Activities";
 import SalaryStatus from "../Pages/StaffPage/StaffDashboard/SalaryStatus";
 import TeacherProfile from "../Pages/TeachersPage/TeacherDashboard/TeacherProfile";
@@ -35,7 +34,10 @@ import CourseCompletionCertificate from "../Pages/TeachersPage/TeacherDashboard/
 import StudentProfile from "../Pages/StudentsPage/StudentDashboard/StudentProfile";
 import StudentAttendanceStatus from "../Pages/StudentsPage/StudentDashboard/StudentAttendanceStatus";
 import StudentPaymentSystem from "../Pages/StudentsPage/StudentDashboard/StudentPaymentSystem";
-import StdTcrIdCard from "../Pages/AdminPage/AdminDashboard/StdTcrIdCard";
+import StdTcrIdCard from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/StdTcrIdCard";
+import LeaveApplicationTcr from "../Pages/TeachersPage/TeacherDashboard/LeaveApplication";
+import AllStaffInfo from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AllStaffInfo";
+import AllStaffIntro from "../Pages/IntroductionPage/IntroDashboard/AllStaffIntro";
 
 export const router = createBrowserRouter([
     {
@@ -129,7 +131,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/:name/teacher/leave',
-                element: <LeaveApplication></LeaveApplication>
+                element: <LeaveApplicationTcr></LeaveApplicationTcr>
             },
             {
                 path: '/:name/teacher/payment',
@@ -264,6 +266,10 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/admin/result',
                 element: <AllResultSheet></AllResultSheet>
+            },
+            {
+                path: '/:name/admin/staff',
+                element: <AllStaffInfo></AllStaffInfo>
             },
             {
                 path: '/:name/admin/idCard',

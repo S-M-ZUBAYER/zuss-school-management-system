@@ -42,6 +42,7 @@ const Admin = () => {
                             <>
                                 <li><Link to={`/${schoolName}/admin/profile`}>My Profile</Link></li>
                                 <li><Link to={`/${schoolName}/admin/idCard`}>ID Card Generate</Link></li>
+                                <li><Link to={`/${schoolName}/admin/staff`}>All Staff</Link></li>
                                 <li><Link to={`/${schoolName}/admin/calender`}>Academic Calender</Link></li>
                                 <li><Link to={`/${schoolName}/admin/result`}>All Result sheet</Link></li>
                             </>
