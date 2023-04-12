@@ -14,13 +14,13 @@ const Admin = () => {
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content bg-gradient-to-l from-blue-900 via-slate-900 to-black">
 
-                    <div className="text-white pt-12 pb-5">
+                    {/* <div className="text-white pt-12 pb-5">
                         <img data-aos="fade-down" data-aos-duration="2000" className="h-40 w-40 rounded-full border-8 border-x-fuchsia-500 border-yellow-300 mx-auto"
-                        // src={user?.photoURL} alt="" 
+                        src={user?.photoURL} alt="" 
                         />
                         <div data-aos="fade-up" data-aos-duration="2000">
                             <h1 className="text-2xl font-bold" >
-                                {/* Hi <span className="text-lime-400">{user?.displayName}</span> */}
+                                Hi <span className="text-lime-400">{user?.displayName}</span>
                                 Hi
                             </h1>
                             <p className="text-xl text-green-300">
@@ -28,7 +28,7 @@ const Admin = () => {
                             </p>
                         </div>
 
-                    </div>
+                    </div> */}
                     <Outlet></Outlet>
 
 

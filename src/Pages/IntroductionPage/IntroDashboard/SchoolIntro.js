@@ -1,9 +1,10 @@
 import React from 'react';
+import OurSchool from './OurSchoool/OurSchool';
 
 const SchoolIntro = () => {
     return (
         <div>
-            This is my school intro
+            <OurSchool></OurSchool>
         </div>
     );
 };
