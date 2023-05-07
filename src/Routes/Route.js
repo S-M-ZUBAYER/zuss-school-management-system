@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main/Main"
 import Admin from "../Pages/AdminPage/Admin";
-import AcademicCalender from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AcademicCalender";
 import AllResultSheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AllResultSheet";
 import Std_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/Std_Atd_Sheet";
 import Tcr_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/Tcr_Atd_Sheet";
@@ -27,7 +26,6 @@ import StdInformation from "../Pages/TeachersPage/TeacherDashboard/StdInformatio
 import ClassRoutine from "../Pages/TeachersPage/TeacherDashboard/ClassRoutine";
 import Calender from "../Pages/TeachersPage/TeacherDashboard/Calender";
 import PaymentCollection from "../Pages/TeachersPage/TeacherDashboard/PaymentCollection";
-import AddResult from "../Pages/TeachersPage/TeacherDashboard/AddResult";
 import TransferCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/TransferCertificate";
 import CharacterCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/CharacterCertificate";
 import CourseCompletionCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/CourseCompletionCertificate";
@@ -38,6 +36,9 @@ import StdTcrIdCard from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/S
 import LeaveApplicationTcr from "../Pages/TeachersPage/TeacherDashboard/LeaveApplication";
 import AllStaffInfo from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AllStaffInfo";
 import AllStaffIntro from "../Pages/IntroductionPage/IntroDashboard/AllStaffIntro";
+import TcrLeaveApplication from "../Pages/TeachersPage/TeacherDashboard/TcrLeaveApplication";
+import AddResultCalculation from "../Pages/TeachersPage/TeacherDashboard/AddResultCalculation";
+import AcademicCalendar from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AcademicCalander/AcademicCalender";
 
 export const router = createBrowserRouter([
     {
@@ -131,7 +132,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/:name/teacher/leave',
-                element: <LeaveApplicationTcr></LeaveApplicationTcr>
+                element: <TcrLeaveApplication></TcrLeaveApplication>
             },
             {
                 path: '/:name/teacher/payment',
@@ -139,7 +140,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/:name/teacher/result',
-                element: <AddResult></AddResult>
+                element: <AddResultCalculation></AddResultCalculation>
             },
             {
                 path: '/:name/teacher/transfer',
@@ -261,7 +262,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/:name/admin/calender',
-                element: <AcademicCalender></AcademicCalender>
+                element: <AcademicCalendar></AcademicCalendar>
             },
             {
                 path: '/:name/admin/result',

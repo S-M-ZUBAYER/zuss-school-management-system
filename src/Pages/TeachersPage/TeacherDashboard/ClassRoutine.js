@@ -57,28 +57,28 @@ const ClassRoutine = () => {
                             </div>
                             <div id="original-div" className="text-black text-sm font-semibold">
                                 <div className="w-full border-2 h-20 border-1 flex justify-center items-center bg-lime-200 ">
-                                    <textarea className=" bg-inherit text-center w-full h-full resize-none" placeholder="Date & Sub"></textarea>
+                                    <textarea className=" bg-inherit text-center w-full h-full resize-none" placeholder="Time & Sub"></textarea>
                                 </div>
                                 <div className="w-full border-2 h-20 border-1 flex justify-center items-center bg-lime-200 ">
-                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Date & Sub"></textarea>
+                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Time & Sub"></textarea>
                                 </div>
                                 <div className="w-full border-2 h-20 border-1 flex justify-center items-center bg-lime-200 ">
-                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Date & Sub"></textarea>
+                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Time & Sub"></textarea>
                                 </div>
                                 <div className="w-full border-2 h-20 border-1 flex justify-center items-center bg-lime-200 ">
-                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Date & Sub"></textarea>
+                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Time & Sub"></textarea>
                                 </div>
                                 <div className="w-full border-2 h-20 border-1 flex justify-center items-center bg-lime-200 ">
-                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Date & Sub"></textarea>
+                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Time & Sub"></textarea>
                                 </div>
                                 <div className="w-full border-2 h-20 border-1 flex justify-center items-center bg-lime-200 ">
-                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Date & Sub"></textarea>
+                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Time & Sub"></textarea>
                                 </div>
                                 <div className="w-full border-2 h-20 border-1 flex justify-center items-center bg-lime-200 ">
-                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Date & Sub"></textarea>
+                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Time & Sub"></textarea>
                                 </div>
                                 <div className="w-full border-2 h-20 border-1 flex justify-center items-center bg-lime-200 ">
-                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Date & Sub"></textarea>
+                                    <textarea className=" bg-inherit text-center w-full h-full resize-none " placeholder="Time & Sub"></textarea>
                                 </div>
                             </div>
                         </div>

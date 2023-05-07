@@ -4,7 +4,9 @@ import { useDropzone } from 'react-dropzone';
 
 
 
-function LeaveApplication() {
+function LeaveApplication({ name, color }) {
+
+    console.log(name)
     const [fontSize, setFontSize] = useState(16);
     const [fontFamily, setFontFamily] = useState("sans-serif");
     const [isBold, setIsBold] = useState(false);
@@ -147,18 +149,18 @@ function LeaveApplication() {
                     </select>
                 </div>
             </div>
-            <div className="my-32">
-                <div className=" relative z-10 border-blue-500 border-dashed border-4 bg-lime-300 rounded-lg p-4 m-10">
+            <div className="my-32 bg-white">
+                <div className={`relative z-10 border-blue-500 border-dashed border-4 ${color} rounded-lg p-4 m-10`}>
                     <span class="absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-45 text-gray-200 opacity-10 text-4xl font-bold">
                         {/* <img z-10 src="https://tse4.mm.bing.net/th?id=OIP.IhMJ0rAv6sBTVr5doQJHgAHaHa&pid=Api&P=0"></img> */}
                         <img z-10 src={imageUrl}></img>
                     </span>
 
-                    <h1 className=" text-lg z-40 font-semibold text-yellow-900">Leave Application</h1>
+                    <h1 className=" text-lg z-40 font-semibold text-yellow-900">{name}</h1>
 
                     <div
                         contentEditable
-                        className={`flex-1 z-40 text-start p-4 text-${fontFamily} ${isBold ? "font-bold" : "font-normal"
+                        className={`flex-1 h-screen z-40 text-start p-4 text-${fontFamily} ${isBold ? "font-bold" : "font-normal"
                             } ${isItalic ? "italic" : "not-italic"} ${isUnderline ? "underline" : "not-underline"
                             }`}
                         style={{ fontSize: `${fontSize}px` }}

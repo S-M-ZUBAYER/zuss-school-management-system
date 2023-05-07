@@ -1,9 +1,14 @@
 import React from 'react';
+import LeaveApplication from '../LeaveApplication';
 
 const CharacterCertificate = () => {
+    const name = "Character Certificate"
     return (
         <div>
-            This is character Certificate
+            <LeaveApplication
+                name={name}
+                color={'bg-teal-200'}
+            ></LeaveApplication>
         </div>
     );
 };

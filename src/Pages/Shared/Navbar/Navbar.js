@@ -1,15 +1,25 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import img from "../../../Assets/Images/School.jpg"
-import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import { AuthContext } from '../../../context/UserContext';
 
 const Navbar = () => {
     // console.log(globalVariable)
+    const { logOut } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen)
 
     const { schoolName } = useContext(AuthContext);
     console.log(schoolName)
+
+    const handleToLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(err => {
+                console.log(err)
+            })
+        console.log("successful")
+    }
 
     return (
         <header className="p-4 dark:bg-gray-800 dark:text-gray-100 text-slate-200 bg-gradient-to-t from-blue-900 via-slate-900 to-black">
@@ -19,7 +29,7 @@ const Navbar = () => {
                 </Link>
                 <ul className="items-stretch hidden space-x-3 lg:flex">
                     <li className="flex">
-                        <Link rel="noopener noreferrer" to={`/${schoolName}/`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Home</Link>
+                        <Link rel="noopener noreferrer" to={`/${schoolName}`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Home</Link>
                     </li>
                     <li className="flex">
                         <Link rel="noopener noreferrer" to={`/${schoolName}/intro`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Introduction</Link>
@@ -42,7 +52,8 @@ const Navbar = () => {
                 </ul>
                 <div className="items-center flex-shrink-0 hidden lg:flex">
                     <Link to={`/${schoolName}/login`}><button className="self-center px-8 py-3 rounded">Sign in</button></Link>
-                    <Link to={`/${schoolName}/register`}><button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">Sign up</button></Link>
+                    {/* <Link to={`/${schoolName}/register`}><button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">Sign up</button></Link> */}
+                    {/* <Link to={`/${schoolName}/register`}><button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900" onClick={handleToLogOut} >Log Out</button></Link> */}
                 </div>
                 <div>
                     <button onClick={toggleMenu} className="p-4 lg:hidden">

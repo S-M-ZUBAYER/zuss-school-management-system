@@ -1,18 +1,16 @@
 import React from 'react';
 import LeaveApplication from '../../TeachersPage/TeacherDashboard/LeaveApplication';
 
-
-const LeaveApplicationStaff = () => {
-    const name = "Leave Application"
-
+const StdLeaveApplication = () => {
+    const name = "Leave application"
     return (
         <div>
             <LeaveApplication
                 name={name}
-                color={"bg-red-200"}
+                color={"bg-lime-800"}
             ></LeaveApplication>
         </div>
     );
 };
 
-export default LeaveApplicationStaff;
+export default StdLeaveApplication;

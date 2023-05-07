@@ -43,7 +43,7 @@ const Staff = () => {
                             // isAdmin && 
                             <>
                                 <li><Link to={`/${schoolName}/staff/profile`}>My Profile</Link></li>
-                                <li><Link to={`/${schoolName}/staff/atd`}>Attendance Sheet</Link></li>
+                                {/* <li><Link to={`/${schoolName}/staff/atd`}>Attendance Sheet</Link></li> */}
                                 <li><Link to={`/${schoolName}/staff/salary`}>Salary Status</Link></li>
                                 <li><Link to={`/${schoolName}/staff/leave`}>leave application</Link></li>
                             </>

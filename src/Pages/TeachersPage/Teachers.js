@@ -60,7 +60,7 @@ const Teachers = () => {
 
                         {/* {users?.accountType === "Seller" && !isAdmin && */}
                         <>
-                            <li><Link to={`/${schoolName}/teacher/result`}>Add Result</Link></li>
+                            <li><Link to={`/${schoolName}/teacher/result`}>Add Result & Calculation</Link></li>
                             <li>
 
 
