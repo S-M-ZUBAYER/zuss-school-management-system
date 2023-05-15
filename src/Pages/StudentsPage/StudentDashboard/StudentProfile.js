@@ -138,7 +138,7 @@ const StudentProfile = () => {
                 </p>
             </div>
             {/* Rest of the page content */}
-            <Modal isOpen={modalIsOpen} className=" w-4/6 rounded-2xl mx-auto bg-white mt-40" onRequestClose={closeModal}>
+            <Modal isOpen={modalIsOpen} className=" w-3/6 rounded-2xl mx-auto bg-white mt-20" onRequestClose={closeModal}>
                 <h2 className="font-bold text-2xl text-center py-3">Edit Profile</h2>
                 <form onSubmit={handleSubmit} className="pb-10 pt-3 px-20 text-lg">
                     <div className="mb-2">
@@ -162,13 +162,13 @@ const StudentProfile = () => {
 
                     <label htmlFor="address">Address:</label>
                     <div className="mb-2">
-                        <textarea className="border ml-2 pl-1" id="address" value={address} onChange={handleAddressChange}></textarea>
+                        <textarea className="border ml-2 pl-1 w-4/6" id="address" value={address} onChange={handleAddressChange}></textarea>
                     </div>
 
                     <label htmlFor="about">About Me:</label>
                     <div className="mb-2">
 
-                        <textarea className="border ml-2 pl-1" id="about" value={about} onChange={handleAboutChange}></textarea>
+                        <textarea className="border ml-2 pl-1 w-4/6" id="about" value={about} onChange={handleAboutChange}></textarea>
                     </div>
 
 
@@ -186,7 +186,7 @@ const StudentProfile = () => {
                         />
                     </div>
                     <div className="text-center">
-                        <button type="submit" className="bg-lime-300 text-lg font-semibold px-5 py-1 rounded-md">Save</button>
+                        <button type="submit" className="bg-lime-300 text-lg font-semibold px-5 py-1 mt-3 rounded-md">Save</button>
                     </div>
 
                 </form>

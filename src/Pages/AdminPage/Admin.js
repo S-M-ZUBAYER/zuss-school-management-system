@@ -45,6 +45,7 @@ const Admin = () => {
                                 <li><Link to={`/${schoolName}/admin/staff`}>All Staff</Link></li>
                                 <li><Link to={`/${schoolName}/admin/calender`}>Academic Calender</Link></li>
                                 <li><Link to={`/${schoolName}/admin/result`}>All Result sheet</Link></li>
+                                <li><Link to={`/${schoolName}/admin/salary`}>Add Salary</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}
@@ -56,7 +57,7 @@ const Admin = () => {
 
 
 
-                        <Link className="text-left" to='/'>
+                        <Link className="text-left" to={`/${schoolName}`}>
                             <button className='px-4 py-2 mt-8 ml-0 font-semibold text-black lg:text-lg rounded bg-green-300'>
                                 Back to homepage
                             </button>

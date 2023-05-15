@@ -30,7 +30,7 @@ import TransferCertificate from "../Pages/TeachersPage/TeacherDashboard/Certific
 import CharacterCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/CharacterCertificate";
 import CourseCompletionCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/CourseCompletionCertificate";
 import StudentProfile from "../Pages/StudentsPage/StudentDashboard/StudentProfile";
-import StudentAttendanceStatus from "../Pages/StudentsPage/StudentDashboard/StudentAttendanceStatus";
+import StudentAttendanceStatus from "../Pages/StudentsPage/StudentDashboard/StudentAttendance/StudentAttendanceStatus";
 import StudentPaymentSystem from "../Pages/StudentsPage/StudentDashboard/StudentPaymentSystem";
 import StdTcrIdCard from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/StdTcrIdCard";
 import LeaveApplicationTcr from "../Pages/TeachersPage/TeacherDashboard/LeaveApplication";
@@ -39,6 +39,7 @@ import AllStaffIntro from "../Pages/IntroductionPage/IntroDashboard/AllStaffIntr
 import TcrLeaveApplication from "../Pages/TeachersPage/TeacherDashboard/TcrLeaveApplication";
 import AddResultCalculation from "../Pages/TeachersPage/TeacherDashboard/AddResultCalculation";
 import AcademicCalendar from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AcademicCalander/AcademicCalender";
+import AddSalary from "../Pages/AdminPage/AdminDashboard/Salary/addSalary";
 
 export const router = createBrowserRouter([
     {
@@ -281,8 +282,12 @@ export const router = createBrowserRouter([
                 element: <AdminProfile></AdminProfile>
             },
             {
+                path: '/:name/admin/salary',
+                element: <AddSalary></AddSalary>
+            },
+            {
                 path: '/:name/admin/Student_attendance',
-                element: <Std_Atd_Sheet></Std_Atd_Sheet>
+                element: <StudentAttendanceStatus></StudentAttendanceStatus>
             },
             {
                 path: '/:name/admin/teacher_attendance',

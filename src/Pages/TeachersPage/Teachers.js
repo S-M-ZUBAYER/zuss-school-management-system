@@ -131,7 +131,7 @@ const Teachers = () => {
 
 
 
-                        <Link className="text-left" to='/'>
+                        <Link className="text-left" to={`/${schoolName}`}>
                             <button className='px-4 py-2 mt-8 ml-0 font-semibold text-black lg:text-lg rounded bg-green-300'>
                                 Back to homepage
                             </button>

@@ -5,8 +5,6 @@ import { MdDelete } from "react-icons/md";
 import img from "../../../Assets/Images/School.jpg"
 
 const EachStaffIntro = ({ name, designation, email, phone, bloodGroup }) => {
-
-    console.log(name, designation, email, phone, bloodGroup)
     // const handleToVerify = (user, event) => {
     //     const currentUser = {
     //         verify: true

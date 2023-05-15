@@ -139,14 +139,14 @@ const AllStaffInfo = () => {
                         // handleMakeAdmin={handleMakeAdmin}
                         ></EachUser>
                     )} */}
-                    {allStaff?.length !== 0 && allStaff?.map(staff =>
+                    {allStaff?.length !== 0 && allStaff?.map((staff, index) =>
                         <EachStaff
                             name={staff?.name}
                             designation={staff?.designation}
                             email={staff?.email}
                             phone={staff?.phone}
                             bloodGroup={staff?.bloodGroup}
-                            key={staff.phone}
+                            key={index}
                         // handleToDelete={handleToDelete}
                         // handleMakeAdmin={handleMakeAdmin}
                         ></EachStaff>

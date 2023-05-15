@@ -12,6 +12,25 @@ const UserContext = ({ children }) => {
 
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
+    const [teachersList, setTeachersList] = useState([]);
+
+    const [className, setClassName] = useState('Class1');
+    const [purpose, setPurpose] = useState('');
+    const [amount, setAmount] = useState('');
+    const [payments, setPayments] = useState({
+        Class1: [],
+        Class2: [],
+        Class3: [],
+        Class4: [],
+        Class5: [],
+        Class6: [],
+        Class7: [],
+        Class8: [],
+        Class9: [],
+        Class10: [],
+        Class11: [],
+        Class12: [],
+    });
 
 
     const createUser = (email, password) => {
@@ -38,7 +57,7 @@ const UserContext = ({ children }) => {
 
     }, [])
 
-    const authInfo = { user, loading, setLoading, createUser, signIn, logOut }
+    const authInfo = { user, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList }
 
     return (
         <AuthContext.Provider value={authInfo}>

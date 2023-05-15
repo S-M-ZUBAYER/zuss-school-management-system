@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import html2pdf from "html2pdf.js";
-
-import StudentInfoForAtd from "../../../StudentsPage/StudentDashboard/StudentAttendance/StudentInfoForAtd";
+import StudentInfoForAtd from "./StudentInfoForAtd";
 
 const stdList = [
     {
@@ -73,17 +72,17 @@ const stdList = [
 ]
 
 
-const Tcr_Atd_Sheet = () => {
+const StudentAttendanceStatus = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedTeacher, setSelectedTeacher] = useState(null);
+    const [selectedStudent, setSelectedStudent] = useState(null);
 
     const handleStudentClick = (student) => {
-        setSelectedTeacher(student);
+        setSelectedStudent(student);
         setIsModalOpen(true);
     };
 
     const handleModalClose = () => {
-        setSelectedTeacher(null);
+        setSelectedStudent(null);
         setIsModalOpen(false);
     };
 
@@ -105,7 +104,6 @@ const Tcr_Atd_Sheet = () => {
 
     }
 
-
     return (
         <div className="container w-11/12 mx-auto ">
             <h1 className="text-3xl font-bold text-white text-center my-4">Student Attendance List</h1>
@@ -122,14 +120,13 @@ const Tcr_Atd_Sheet = () => {
                     })
                 }
             </div>
-            <Modal className="w-2/5 bg-lime-200 mx-auto px-10 text-center rounded-2xl mt-20 py-3" isOpen={isModalOpen} onRequestClose={handleModalClose}>
-
-                {selectedTeacher && (
-                    <div id="stdAtd">
-                        <h2 className="text-xl font-bold text-center my-4 ">
-                            {selectedTeacher.name} Attendance
+            <Modal className="w-2/5 bg-lime-200 mx-auto px-10 text-center rounded-2xl mt-20 pb-5" isOpen={isModalOpen} onRequestClose={handleModalClose}>
+                {selectedStudent && (
+                    <div id="tcrAtd">
+                        <h2 className="text-xl font-bold text-center my-4">
+                            {selectedStudent.name} Attendance
                         </h2>
-                        <table className="table-auto w-full mb-5">
+                        <table className="table-auto w-full">
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -138,14 +135,14 @@ const Tcr_Atd_Sheet = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {selectedTeacher.attendance.map((entry) => (
+                                {selectedStudent.attendance.map((entry) => (
                                     <tr
                                         key={entry.date}
                                     // className={entry.isPresent ? "bg-green-500" : "bg-red-500"}
                                     >
-                                        <td className="text-center">{entry.date}</td>
-                                        <td className="text-center">{entry.isPresent ? "✅" : ""}</td>
-                                        <td className="text-center">{!entry.isPresent ? "❌" : ""} </td>
+                                        <td>{entry.date}</td>
+                                        <td>{entry.isPresent ? "✅" : ""}</td>
+                                        <td>{!entry.isPresent ? "❌" : ""} </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -156,11 +153,11 @@ const Tcr_Atd_Sheet = () => {
                         >
                             Close
                         </button>
-                        <button className="bg-red-300 py-1 px-3 rounded-lg ml-10" id="btnId" onClick={() => generatePDF("stdAtd")}>Download PDF</button>
+                        <button className="bg-red-300 py-1 px-3 rounded-lg ml-10" id="btnId" onClick={() => generatePDF("tcrAtd")}>Download PDF</button>
                     </div>
                 )}
             </Modal>
         </div>
     );
 };
-export default Tcr_Atd_Sheet;
+export default StudentAttendanceStatus;

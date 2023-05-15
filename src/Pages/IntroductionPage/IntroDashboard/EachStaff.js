@@ -4,7 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import img from "../../../Assets/Images/School.jpg"
 
-const EachStaff = ({ name, designation, email, phone, bloodGroup }) => {
+const EachStaff = ({ name, designation, email, phone, bloodGroup, key }) => {
 
     console.log(name, designation, email, phone, bloodGroup)
     // const handleToVerify = (user, event) => {
@@ -28,7 +28,7 @@ const EachStaff = ({ name, designation, email, phone, bloodGroup }) => {
     // }
 
     return (
-        <tbody>
+        <tbody key={key}>
             <td>
 
                 <div className="avatar">

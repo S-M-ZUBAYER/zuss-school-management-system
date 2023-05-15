@@ -7,7 +7,7 @@ import GlobalContext from "../../../../../AuthProvider/Context/GlobalContext";
 import EventModal from "./EventModal";
 import { getMonth } from "date-fns";
 function AcademicCalendar() {
-    const [currenMonth, setCurrentMonth] = useState(getMonth());
+    const [currentMonth, setCurrentMonth] = useState(getMonth());
     const { monthIndex, showEventModal } = useContext(GlobalContext);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ function AcademicCalendar() {
                 <CalendarHeader />
                 <div className="flex flex-1">
                     <Sidebar />
-                    <Month month={currenMonth} />
+                    <Month month={currentMonth} />
                 </div>
             </div>
         </React.Fragment>

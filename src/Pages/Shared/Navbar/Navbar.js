@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import img from "../../../Assets/Images/School.jpg"
-import { AuthContext } from '../../../context/UserContext';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const Navbar = () => {
     // console.log(globalVariable)

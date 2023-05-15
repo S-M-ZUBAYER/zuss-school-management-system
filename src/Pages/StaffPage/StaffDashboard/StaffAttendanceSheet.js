@@ -3,7 +3,7 @@ import React from 'react';
 const StaffAttendanceSheet = () => {
     return (
         <div>
-            This is attendance sheet
+            This is attendance sheet for teacher
         </div>
     );
 };
