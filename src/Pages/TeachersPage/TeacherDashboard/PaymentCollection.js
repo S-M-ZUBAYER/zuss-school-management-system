@@ -51,12 +51,12 @@ function PaymentCollection() {
     };
 
     return (
-        <div>
+        <div className="text-white">
             <h1>Payment Calculator</h1>
             <form onSubmit={handleSubmit}>
                 <label>
                     Class Name:
-                    <select name="className" value={className} onChange={handleInputChange}>
+                    <select name="className" className="text-black" value={className} onChange={handleInputChange}>
                         <option value="Class1">Class 1</option>
                         <option value="Class2">Class 2</option>
                         <option value="Class3">Class 3</option>
@@ -73,11 +73,11 @@ function PaymentCollection() {
                 </label>
                 <label>
                     Purpose:
-                    <input type="text" name="purpose" value={purpose} onChange={handleInputChange} />
+                    <input type="text" className="text-black" name="purpose" value={purpose} onChange={handleInputChange} />
                 </label>
                 <label>
                     Amount:
-                    <input type="number" name="amount" value={amount} onChange={handleInputChange} />
+                    <input type="number" className="text-black" name="amount" value={amount} onChange={handleInputChange} />
                 </label>
                 <button type="submit">Add Payment</button>
             </form>

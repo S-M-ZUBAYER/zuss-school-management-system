@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
-
+import { toast } from "react-hot-toast";
+import { AiOutlineDownload } from 'react-icons/ai';
+import html2pdf from "html2pdf.js";
+// import { saveAs } from 'file-saver';
 
 
 function LeaveApplication({ name, color }) {
 
-    console.log(name)
     const [fontSize, setFontSize] = useState(16);
     const [fontFamily, setFontFamily] = useState("sans-serif");
     const [isBold, setIsBold] = useState(false);
@@ -27,9 +29,9 @@ function LeaveApplication({ name, color }) {
             formData.append('key', process.env.REACT_APP_imgbbKey);
 
             const response = await axios.post('https://api.imgbb.com/1/upload', formData);
+            toast.success("Img Load successfully. Please press Upload button to set img as background")
 
             setImageUrl(response.data.data.url);
-            console.log(imageUrl)
         } catch (error) {
             console.error(error);
         }
@@ -63,13 +65,27 @@ function LeaveApplication({ name, color }) {
     const handleUnderlineClick = () => {
         setIsUnderline(!isUnderline);
     };
+    function generatePDF(divId) {
+        const element = document.getElementById(divId);
+
+        const opt = {
+            margin: 0.5,
+            filename: "result.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+        };
+        html2pdf().set(opt).from(element).save();
+
+    }
+
 
     return (
         <div className="h-screen bg-gray-100 flex flex-col">
 
 
             <div>
-                <div {...getRootProps()} className="border-dashed border-2 p-4">
+                <div {...getRootProps()} className="border-dashed border-2 p-4 cursor-pointer bg-yellow-100 w-2/6 mx-auto my-3">
                     <input {...getInputProps()} />
                     {isDragActive ? (
                         <p>Drop the files here ...</p>
@@ -84,7 +100,6 @@ function LeaveApplication({ name, color }) {
                 >
                     Upload
                 </button>
-                {imageUrl && <img src={imageUrl} alt="Uploaded" />}
             </div>
 
 
@@ -132,6 +147,7 @@ function LeaveApplication({ name, color }) {
                         <option value="24">24</option>
                         <option value="32">32</option>
                     </select>
+
                 </div>
                 <div className="flex items-center">
                     <label htmlFor="font-family" className="mr-2">
@@ -148,10 +164,14 @@ function LeaveApplication({ name, color }) {
                         <option value="monospace">Monospace</option>
                     </select>
                 </div>
+                <div className="flex items-center w-1/2  md:ml-20">
+                    <AiOutlineDownload className="ml-auto text-3xl font-bold" onClick={() => generatePDF("leaveForm")} ></AiOutlineDownload>
+                </div>
+
             </div>
-            <div className="my-32 bg-white">
+            <div className="my-5 bg-white" id="leaveForm">
                 <div className={`relative z-10 border-blue-500 border-dashed border-4 ${color} rounded-lg p-4 m-10`}>
-                    <span class="absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-45 text-gray-200 opacity-10 text-4xl font-bold">
+                    <span class="absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-200 opacity-10 text-4xl font-bold">
                         {/* <img z-10 src="https://tse4.mm.bing.net/th?id=OIP.IhMJ0rAv6sBTVr5doQJHgAHaHa&pid=Api&P=0"></img> */}
                         <img z-10 src={imageUrl}></img>
                     </span>
