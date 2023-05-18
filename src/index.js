@@ -6,11 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import AuthProvider from './AuthProvider/AuthProvider';
 import ContextWrapper from './AuthProvider/Context/ContextWrapper';
 import UserContext from './context/UserContext';
+import { Toaster } from 'react-hot-toast';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserContext>
+      <Toaster />
       <ContextWrapper>
         <AuthProvider>
           <App />

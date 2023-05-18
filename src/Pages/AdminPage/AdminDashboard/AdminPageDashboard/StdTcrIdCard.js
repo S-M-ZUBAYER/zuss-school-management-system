@@ -27,6 +27,7 @@ const StdTcrIdCard = () => {
     const { schoolName } = useContext(AuthContext);
     const [stdId, setStdId] = useState('');
     const [stdEmail, setStdEmail] = useState('');
+    const [stdPhone, setStdPhone] = useState('');
     const [stdName, setStdName] = useState('');
     const [stdClass, setStdClass] = useState('');
     const [stdGender, setStdGender] = useState('');
@@ -79,6 +80,10 @@ const StdTcrIdCard = () => {
     }
     const handleToStdEmail = (event) => {
         setStdEmail(event.target.value)
+    }
+
+    const handleToStdPhone = (event) => {
+        setStdPhone(event.target.value)
     }
     const handleToStdClass = (event) => {
         setStdClass(event.target.value)
@@ -219,6 +224,9 @@ const StdTcrIdCard = () => {
                                 <input type="email" className="w-full bg-black pl-2 text-white" placeholder="please provide student Email ID" id="StdEmail" value={stdEmail} onChange={handleToStdEmail} />
                                 <hr className="border-slate-300 mb-8 mx-1"></hr>
 
+                                <input type="email" className="w-full bg-black pl-2 text-white" placeholder="please provide student Email ID" id="stdPhone" value={stdPhone} onChange={handleToStdPhone} />
+                                <hr className="border-slate-300 mb-8 mx-1"></hr>
+
                                 <input type="digit" className="w-full bg-black pl-2 text-white" placeholder="please provide student Class" id="stdClass" value={stdClass} onChange={handleToStdClass} />
                                 <hr className="border-slate-300 mb-8 mx-1"></hr>
 
@@ -253,6 +261,7 @@ const StdTcrIdCard = () => {
                         img={stdImg}
                         stdClass={stdClass}
                         email={stdEmail}
+                        phone={stdPhone}
                         id={stdId}
                         dateOfBirth={stdDateBirth}
                         cardIssue={stdCardIssue}
@@ -267,6 +276,7 @@ const StdTcrIdCard = () => {
                         img={stdImg}
                         stdClass={stdClass}
                         email={stdEmail}
+                        phone={stdPhone}
                         id={stdId}
                         dateOfBirth={stdDateBirth}
                         cardIssue={stdCardIssue}
@@ -279,6 +289,7 @@ const StdTcrIdCard = () => {
                         img={stdImg}
                         stdClass={stdClass}
                         email={stdEmail}
+                        phone={stdPhone}
                         id={stdId}
                         dateOfBirth={stdDateBirth}
                         cardIssue={stdCardIssue}
@@ -291,6 +302,7 @@ const StdTcrIdCard = () => {
                         img={stdImg}
                         stdClass={stdClass}
                         email={stdEmail}
+                        phone={stdPhone}
                         id={stdId}
                         dateOfBirth={stdDateBirth}
                         cardIssue={stdCardIssue}

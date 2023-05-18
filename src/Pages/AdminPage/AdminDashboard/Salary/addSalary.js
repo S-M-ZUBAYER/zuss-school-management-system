@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useState } from "react";
 import { AuthContext } from "../../../../context/UserContext";
+import { toast } from "react-hot-toast";
 
 function AddSalary() {
     const { teachersList, setTeachersList } = useContext(AuthContext)
@@ -33,6 +34,7 @@ function AddSalary() {
             medicalAllowance: 0,
             others: 0
         });
+        toast.success("Salary status added successfully")
     };
 
     const handleInputChange = (e) => {

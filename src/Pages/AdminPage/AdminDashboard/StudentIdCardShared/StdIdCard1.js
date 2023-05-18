@@ -4,7 +4,7 @@ import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 import html2canvas from 'html2canvas';
 import { saveAs } from 'file-saver';
 
-const StdIdCard1 = ({ name, email, id, gender, stdClass, expire, cardIssue, dateOfBirth, img }) => {
+const StdIdCard1 = ({ name, email, phone, id, gender, stdClass, expire, cardIssue, dateOfBirth, img }) => {
     const { schoolName } = useContext(AuthContext);
     console.log(schoolName)
     const divRef = useRef(null);
@@ -46,7 +46,7 @@ const StdIdCard1 = ({ name, email, id, gender, stdClass, expire, cardIssue, date
             <button onClick={handlePrint}>
                 Print
             </button> */}
-            <div ref={divRef} id="targetDiv" className="w-72 h-96 rounded-md overflow-hidden shadow-lg flex flex-col justify-between bg-cover bg-no-repeat" style={{ backgroundImage: `url(${img1})` }}>
+            <div ref={divRef} id="targetDiv" className="w-72 h-[450px] rounded-md overflow-hidden shadow-lg flex flex-col justify-between bg-cover bg-no-repeat" style={{ backgroundImage: `url(${img1})` }}>
                 <div className="flex flex-col items-center justify-center h-24 bg-blue-500 text-white">
                     <h2 className="text-lg font-bold">{schoolName}</h2>
                     <p className="mt-1">Student ID</p>
@@ -69,6 +69,10 @@ const StdIdCard1 = ({ name, email, id, gender, stdClass, expire, cardIssue, date
                         <div className="flex justify-between ">
                             <p className="text-sm font-bold text-gray-800">Class:</p>
                             <p className="text-gray-700">{stdClass}</p>
+                        </div>
+                        <div className="flex justify-between ">
+                            <p className="text-sm font-bold text-gray-800">Phone:</p>
+                            <p className="text-gray-700">{phone}</p>
                         </div>
                         <div className="flex justify-between mb-2">
                             <p className="text-sm font-bold text-gray-800">Expires:</p>
