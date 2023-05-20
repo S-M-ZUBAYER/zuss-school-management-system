@@ -38,8 +38,8 @@ import AllStaffInfo from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/A
 import AllStaffIntro from "../Pages/IntroductionPage/IntroDashboard/AllStaffIntro";
 import TcrLeaveApplication from "../Pages/TeachersPage/TeacherDashboard/TcrLeaveApplication";
 import AddResultCalculation from "../Pages/TeachersPage/TeacherDashboard/AddResultCalculation";
-import AcademicCalendar from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AcademicCalander/AcademicCalender";
 import AddSalary from "../Pages/AdminPage/AdminDashboard/Salary/addSalary";
+import AcademicCalender from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AcademicCalenderPage/AcademicCalender";
 
 export const router = createBrowserRouter([
     {
@@ -263,7 +263,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/:name/admin/calender',
-                element: <AcademicCalendar></AcademicCalendar>
+                element: <AcademicCalender></AcademicCalender>
             },
             {
                 path: '/:name/admin/result',
