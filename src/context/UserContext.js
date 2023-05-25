@@ -11,6 +11,7 @@ const auth = getAuth(app);
 const UserContext = ({ children }) => {
 
     const [user, setUser] = useState({});
+    const [schoolName, setSchoolName] = useState(null)
     const [loading, setLoading] = useState(true);
     const [teachersList, setTeachersList] = useState([]);
 
@@ -58,7 +59,7 @@ const UserContext = ({ children }) => {
 
     }, [])
 
-    const authInfo = { user, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList, isPaid, setIsPaid }
+    const authInfo = { user, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList, isPaid, setIsPaid, schoolName, setSchoolName }
 
     return (
         <AuthContext.Provider value={authInfo}>
