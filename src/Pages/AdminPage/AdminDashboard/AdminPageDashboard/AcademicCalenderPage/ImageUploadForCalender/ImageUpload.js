@@ -28,10 +28,12 @@ const ImageUpload = () => {
             </button>
 
             {uploadedImage && (
-                <div className="mt-4 w-full mx-auto">
-                    <img src={uploadedImage} alt="Uploaded" className="w-4/6" />
+                <div className="mt-12 h-96 w-full flex justify-center">
+                    <img src={uploadedImage} alt="Uploaded" className="w-5/6 rounded-lg" />
                 </div>
             )}
+
+
 
             {isModalOpen && (
                 <ModalForInput

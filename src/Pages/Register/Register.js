@@ -15,11 +15,18 @@ const Register = () => {
     const [lengthError, setLengthError] = useState(null);
 
     const [fileError, setFileError] = useState(null);
+    const [selectedOption, setSelectedOption] = useState('');
 
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
+
+    const allSchools = [
+        "Kamalapur High School", "Kutubpur Model School", "Lahini Ideal School"
+    ]
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const name = event.target.name.value;
@@ -70,6 +77,10 @@ const Register = () => {
             .catch(err => console.log(err))
     }
 
+    const handleChange = (event) => {
+        setSelectedOption(event.target.value);
+    };
+
 
     return (
         <div className='flex justify-center items-center pt-8 drop-shadow-2xl bg-gradient-to-l from-blue-900 via-slate-900 to-black '>
@@ -102,6 +113,20 @@ const Register = () => {
                                 />
                             </div>
                         </div>
+                        <div>
+                            <label htmlFor='SchoolName' className='block mb-2 text-sm text-left'>
+                                School Name:
+                            </label>
+                            <select id="mySelect" className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900' value={selectedOption} onChange={handleChange}>
+                                <option value="">-- Select --</option>
+                                {
+                                    allSchools.map(element => <option value={element}>{element}</option>)
+                                }
+
+
+                            </select>
+                        </div>
+
                         <div>
                             <label htmlFor='email' className='block mb-2 text-sm text-left'>
                                 Name
