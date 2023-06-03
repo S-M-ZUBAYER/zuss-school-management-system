@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import img from "../../../Assets/Images/School.jpg"
-import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import { AuthContext } from '../../../context/UserContext';
+// import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const Navbar = () => {
     // console.log(globalVariable)
@@ -9,7 +10,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen)
 
-    const { schoolName } = useContext(AuthContext);
+    const { schoolName, user } = useContext(AuthContext);
     console.log(schoolName)
 
     const handleToLogOut = () => {
@@ -47,11 +48,18 @@ const Navbar = () => {
                         <Link rel="noopener noreferrer" to={`/${schoolName}/admin`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Admin</Link>
                     </li>
                     <li className="flex">
+                        <Link rel="noopener noreferrer" to={`/${schoolName}/attendance`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Attendance</Link>
+                    </li>
+                    <li className="flex">
                         <Link rel="noopener noreferrer" to={`/${schoolName}/contact`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Contact</Link>
                     </li>
                 </ul>
                 <div className="items-center flex-shrink-0 hidden lg:flex">
-                    <Link to={`/${schoolName}/login`}><button className="self-center px-8 py-3 rounded">Sign in</button></Link>
+                    {
+                        user?.email ?
+                            <Link to={`/${schoolName}/login`}><button className="self-center px-8 py-3 rounded">Sign in</button></Link> :
+                            <Link to={`/${schoolName}/login`} onClick={handleToLogOut}>Log Out</Link>
+                    }
                     {/* <Link to={`/${schoolName}/register`}><button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">Sign up</button></Link> */}
                     {/* <Link to={`/${schoolName}/register`}><button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900" onClick={handleToLogOut} >Log Out</button></Link> */}
                 </div>
@@ -111,6 +119,14 @@ const Navbar = () => {
                                 >
                                     Admin
                                 </Link>
+                                <Link
+                                    to={`/${schoolName}/attendance`}
+                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                    role="menuitem"
+                                >
+                                    Attendance
+                                </Link>
+
                                 <Link
                                     to={`/${schoolName}/contact`}
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"

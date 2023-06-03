@@ -46,6 +46,7 @@ const Staff = () => {
                                 {/* <li><Link to={`/${schoolName}/staff/atd`}>Attendance Sheet</Link></li> */}
                                 <li><Link to={`/${schoolName}/staff/salary`}>Salary Status</Link></li>
                                 <li><Link to={`/${schoolName}/staff/leave`}>leave application</Link></li>
+                                <li><Link to={`/${schoolName}/staff/calender`}>Academic Calender</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}

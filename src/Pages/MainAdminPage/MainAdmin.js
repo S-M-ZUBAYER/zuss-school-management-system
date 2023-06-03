@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
+// import { AuthContext } from '../../AuthProvider/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/UserContext';
 // import { globalVariable } from '../../App';
 
 const MainAdmin = () => {

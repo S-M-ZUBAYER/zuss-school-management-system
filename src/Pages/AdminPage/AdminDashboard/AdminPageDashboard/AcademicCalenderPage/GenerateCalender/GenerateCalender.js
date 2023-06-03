@@ -1,15 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../../../../../context/UserContext';
 
 const Calendar = () => {
-    const [year, setYear] = useState(new Date().getFullYear());
-    const [startMonth, setStartMonth] = useState(1);
-    const [endMonth, setEndMonth] = useState(12);
-    const [events, setEvents] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [eventName, setEventName] = useState('');
-    const [eventColor, setEventColor] = useState('#ff0000');
-    const [showModal, setShowModal] = useState(false);
+    const { year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, events, setEvents, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName } = useContext(AuthContext)
+
 
     const months = [
         'January',
@@ -20,11 +15,16 @@ const Calendar = () => {
         'June',
         'July',
         'August',
-        'September',
-        'October',
-        'November',
-        'December'
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
     ];
+
+
+
+
+
 
     const generateCalendar = () => {
         const calendar = [];
@@ -34,23 +34,31 @@ const Calendar = () => {
 
             const monthName = months[month - 1];
 
+            calendar.push(
+                <div key={monthName} className="text-center font-bold mt-4 text-black bg-lime-300 text-3xl border-2 flex items-center rounded-tl-lg rounded-br-lg">
+                    {monthName}
+                </div>
+            );
+
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month - 1, day);
                 const formattedDate = date.toISOString().split('T')[0];
-
                 const dayEvents = events.filter((event) => event.date === formattedDate);
+
+                const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+                const isFriday = dayName === 'Fri';
+                const dayStyle = isFriday ? 'bg-red-500' : '';
 
                 calendar.push(
                     <div
                         key={formattedDate}
-                        className="relative border border-gray-300 p-2 text-sm"
+                        className={`relative border border-gray-300 p-2 text-sm text-white ${dayStyle}`}
                     >
                         <div className="flex justify-between items-center">
-                            <div>{day}</div>
-                            <button
-                                className="text-blue-500"
-                                onClick={() => handleAddEvent(date)}
-                            >
+                            <div>
+                                {dayName}, {day}
+                            </div>
+                            <button className="text-blue-500" onClick={() => handleAddEvent(date)}>
                                 Add Event
                             </button>
                         </div>
@@ -66,16 +74,11 @@ const Calendar = () => {
                     </div>
                 );
             }
-
-            calendar.push(
-                <div key={monthName} className="text-center font-bold mt-4">
-                    {monthName}
-                </div>
-            );
         }
 
         return calendar;
     };
+
 
     const handleAddEvent = (date) => {
         setSelectedDate(date);
@@ -148,7 +151,7 @@ const Calendar = () => {
                 </select>
             </div>
 
-            <div className="my-4 grid grid-cols-7 gap-4">
+            <div className="my-4 grid grid-cols-7 gap-4 mx-5 mb-32">
                 {generateCalendar()}
             </div>
 

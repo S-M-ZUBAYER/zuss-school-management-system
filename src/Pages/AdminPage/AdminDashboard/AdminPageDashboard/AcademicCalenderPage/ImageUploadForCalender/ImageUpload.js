@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ModalForInput from './ModalForInput';
+import { AuthContext } from '../../../../../../context/UserContext';
 
 const ImageUpload = () => {
-    const [uploadedImage, setUploadedImage] = useState('');
+    const { uploadedImage, setUploadedImage } = useContext(AuthContext)
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOpenModal = () => {

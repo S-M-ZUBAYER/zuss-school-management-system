@@ -15,6 +15,19 @@ const UserContext = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [teachersList, setTeachersList] = useState([]);
 
+    // useState for calender
+    const [year, setYear] = useState(new Date().getFullYear());
+    const [startMonth, setStartMonth] = useState(1);
+    const [endMonth, setEndMonth] = useState(12);
+    const [events, setEvents] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [eventName, setEventName] = useState('');
+    const [eventColor, setEventColor] = useState('#ff0000');
+    const [showModal, setShowModal] = useState(false);
+    const [uploadedImage, setUploadedImage] = useState('');
+
+
+
     const [className, setClassName] = useState('Class1');
     const [purpose, setPurpose] = useState('');
     const [amount, setAmount] = useState('');
@@ -59,7 +72,7 @@ const UserContext = ({ children }) => {
 
     }, [])
 
-    const authInfo = { user, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList, isPaid, setIsPaid, schoolName, setSchoolName }
+    const authInfo = { user, schoolName, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList, isPaid, setIsPaid, setSchoolName, year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, events, setEvents, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName, uploadedImage, setUploadedImage }
 
     return (
         <AuthContext.Provider value={authInfo}>

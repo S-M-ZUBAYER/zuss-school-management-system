@@ -45,6 +45,7 @@ const Students = () => {
                                 {/* <li><Link to={`/${schoolName}/student/StdAttendance`}>Attendance Status</Link></li> */}
                                 <li><Link to={`/${schoolName}/student/payment`}>Payment</Link></li>
                                 <li><Link to={`/${schoolName}/student/leave`}>Leave Application</Link></li>
+                                <li><Link to={`/${schoolName}/student/calender`}>Academic Calender</Link></li>
                             </>
                         }
                         {/* {users?.accountType === "Buyer" && !isAdmin && */}

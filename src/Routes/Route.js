@@ -40,6 +40,7 @@ import TcrLeaveApplication from "../Pages/TeachersPage/TeacherDashboard/TcrLeave
 import AddResultCalculation from "../Pages/TeachersPage/TeacherDashboard/AddResultCalculation";
 import AddSalary from "../Pages/AdminPage/AdminDashboard/Salary/addSalary";
 import AcademicCalender from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AcademicCalenderPage/AcademicCalender";
+import AttendanceTaken from "../Pages/AttendancePage/AttendanceTaken";
 
 export const router = createBrowserRouter([
     {
@@ -185,6 +186,10 @@ export const router = createBrowserRouter([
                 path: '/:name/student/leave',
                 element: <LeaveApplication></LeaveApplication>
             },
+            {
+                path: '/:name/student/calender',
+                element: <Calender></Calender>
+            }
             // {
             //     path: '/:name/student/allSellers',
             //     element: <AllSellers></AllSellers>
@@ -231,6 +236,10 @@ export const router = createBrowserRouter([
                 path: '/:name/staff/atd',
                 element: <StaffAttendanceSheet></StaffAttendanceSheet>
             },
+            {
+                path: '/:name/staff/calender',
+                element: <Calender></Calender>
+            }
             // {
             //     path: '/dashboard/allSellers',
             //     element: <AllSellers></AllSellers>
@@ -297,6 +306,10 @@ export const router = createBrowserRouter([
         ]
 
     },
+    {
+        path: '/:name/attendance',
+        element: <AttendanceTaken></AttendanceTaken>,
+    }
 
 
 

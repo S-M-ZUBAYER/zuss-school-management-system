@@ -14,7 +14,7 @@ const LogIn = () => {
     const { signIn, loading, setLoading, resetPassword } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname || `/${schoolName}`;
     const handleSubmit = (event) => {
         event.preventDefault();
         const email = event.target.email.value;
@@ -38,16 +38,16 @@ const LogIn = () => {
 
 
     const handleToResetPassword = () => {
-        // resetPassword(userEmail)
-        //     .then(() => {
-        //         toast.success('Please check your email to reset')
-        //         setLoading(false);
-        //     })
-        //     .catch(err => {
-        //         toast.error(err.message);
-        //         console.log(err);
-        //         setLoading(false);
-        //     })
+        resetPassword(userEmail)
+            .then(() => {
+                toast.success('Please check your email to reset')
+                setLoading(false);
+            })
+            .catch(err => {
+                toast.error(err.message);
+                console.log(err);
+                setLoading(false);
+            })
     }
 
     return (
