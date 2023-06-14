@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react';
-import img1 from "../../../../Assets/IdCard/id_1.jpg"
+import img1 from "../../../../Assets/IdCard/id_8.jpg"
 import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 import html2canvas from 'html2canvas';
 import { saveAs } from 'file-saver';

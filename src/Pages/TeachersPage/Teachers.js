@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
 import { MdOutlineArrowDropDown } from "react-icons/md";
-import { AuthContext } from '../../AuthProvider/AuthProvider';
+import { AuthContext } from '../../context/UserContext';
 
 const Teachers = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +55,7 @@ const Teachers = () => {
                         <>
                             <li><Link to={`/${schoolName}/teacher/leave`}>Leave Application</Link></li>
                             <li><Link to={`/${schoolName}/teacher/payment`}>Payment Collection</Link></li>
+                            <li><Link to={`/${schoolName}/teacher/attendance`}>Attendance</Link></li>
                         </>
                         {/* } */}
 

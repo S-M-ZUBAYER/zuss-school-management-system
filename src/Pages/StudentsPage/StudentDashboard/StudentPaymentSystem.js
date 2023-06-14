@@ -22,7 +22,7 @@ function StudentPaymentSystem() {
             setSelectedPayments([...selectedPayments, payment]);
         }
     };
-
+    console.log(selectedPayments)
     const handlePayment = () => {
         // Perform payment logic here
         // Mark selected payments as paid

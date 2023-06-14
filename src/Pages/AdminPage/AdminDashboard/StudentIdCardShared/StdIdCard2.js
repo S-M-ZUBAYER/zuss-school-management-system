@@ -1,8 +1,8 @@
 import React from 'react';
-import img2 from "../../../../Assets/IdCard/Id_2.jpg"
+import img2 from "../../../../Assets/IdCard/id_6.jpg"
 const StdIdCard2 = ({ name, email, phone, id, stdClass, gender, Class, expire, cardIssue, dateOfBirth, img, schoolName }) => {
     return (
-        <div className="w-80 h-56 bg-white shadow-md rounded-md overflow-hidden" style={{ backgroundImage: `url(${img2})` }}>
+        <div className="w-96 h-56 border border-gray-300 rounded-lg overflow-hidden flex flex-col justify-between bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url(${img2})` }}>
 
             <div className="bg-gray-800 text-white py-2 px-4">
                 <h2 className="text-lg font-bold">{name}</h2>
@@ -11,7 +11,7 @@ const StdIdCard2 = ({ name, email, phone, id, stdClass, gender, Class, expire, c
             </div>
             <div className="flex p-4 py-2">
                 <img src="https://s.yimg.com/fz/api/res/1.2/IfHPji1C1Il0NM5LyT_UQg--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpbGw7aD0yMjA7cT04MDt3PTE2NQ--/https://s.yimg.com/zb/imgv1/880eb131-c93c-3bb5-98e5-076c4f996c4f/t_500x300" alt={name} className="w-24 h-24 rounded-full" />
-                <div className="text-sm ml-3 flex-1">
+                <div className="text-sm ml-3 flex-1 text-black font-bold">
                     <p className=" font-semibold">ID: <span>{id}</span></p>
                     <p>Gender: <span>{gender}</span></p>
                     <p>Class: <span> {stdClass}</span></p>

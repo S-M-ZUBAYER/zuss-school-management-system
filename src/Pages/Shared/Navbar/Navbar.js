@@ -47,9 +47,7 @@ const Navbar = () => {
                     <li className="flex">
                         <Link rel="noopener noreferrer" to={`/${schoolName}/admin`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Admin</Link>
                     </li>
-                    <li className="flex">
-                        <Link rel="noopener noreferrer" to={`/${schoolName}/attendance`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Attendance</Link>
-                    </li>
+
                     <li className="flex">
                         <Link rel="noopener noreferrer" to={`/${schoolName}/contact`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Contact</Link>
                     </li>
@@ -119,13 +117,7 @@ const Navbar = () => {
                                 >
                                     Admin
                                 </Link>
-                                <Link
-                                    to={`/${schoolName}/attendance`}
-                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                    role="menuitem"
-                                >
-                                    Attendance
-                                </Link>
+
 
                                 <Link
                                     to={`/${schoolName}/contact`}

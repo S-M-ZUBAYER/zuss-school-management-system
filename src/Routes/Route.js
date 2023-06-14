@@ -44,7 +44,7 @@ import AttendanceTaken from "../Pages/AttendancePage/AttendanceTaken";
 
 export const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/mainAdmin",
         element: <MainAdmin></MainAdmin>,
     },
     {
@@ -156,6 +156,10 @@ export const router = createBrowserRouter([
                 path: '/:name/teacher/completion',
                 element: <CourseCompletionCertificate></CourseCompletionCertificate>
             },
+            {
+                path: '/:name/teacher/attendance',
+                element: <AttendanceTaken></AttendanceTaken>
+            }
             // {
             //     path: '/dashboard/payment/:id',
             //     element: <Payment></Payment>,
@@ -305,12 +309,7 @@ export const router = createBrowserRouter([
 
         ]
 
-    },
-    {
-        path: '/:name/attendance',
-        element: <AttendanceTaken></AttendanceTaken>,
     }
-
 
 
 ])

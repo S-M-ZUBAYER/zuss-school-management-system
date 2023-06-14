@@ -16,6 +16,7 @@ const Register = () => {
 
     const [fileError, setFileError] = useState(null);
     const [selectedOption, setSelectedOption] = useState('');
+    const [selectedId, setSelectedId] = useState('');
 
 
     const navigate = useNavigate();
@@ -24,6 +25,10 @@ const Register = () => {
 
     const allSchools = [
         "Kamalapur High School", "Kutubpur Model School", "Lahini Ideal School"
+    ]
+
+    const allSchoolId = [
+        "322", "3343", "3434"
     ]
 
 
@@ -80,6 +85,9 @@ const Register = () => {
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
     };
+    const handleIdChange = (event) => {
+        setSelectedId(event.target.value);
+    };
 
 
     return (
@@ -101,16 +109,14 @@ const Register = () => {
                                 <label htmlFor='id' className='block mb-2 text-sm text-left'>
                                     School ID
                                 </label>
-                                <input
-                                    // onBlur={event => setUserEmail()}
-                                    type='digit'
-                                    name='Id'
-                                    id='School_Id'
-                                    required
-                                    placeholder='Enter school Id'
-                                    className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
-                                    data-temp-mail-org='0'
-                                />
+                                <select id="mySelectId" className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900' value={selectedId} onChange={handleIdChange}>
+                                    <option value="">-- Select --</option>
+                                    {
+                                        allSchoolId.map(element => <option value={element}>{element}</option>)
+                                    }
+
+
+                                </select>
                             </div>
                         </div>
                         <div>

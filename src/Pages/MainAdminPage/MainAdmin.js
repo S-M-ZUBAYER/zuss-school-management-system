@@ -1,65 +1,86 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import { AuthContext } from '../../AuthProvider/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/UserContext';
+import axios from 'axios';
 // import { globalVariable } from '../../App';
 
 const MainAdmin = () => {
     const { schoolName, setSchoolName } = useContext(AuthContext)
 
 
-    const [schools, setSchools] = useState([
-        {
-            name: "School 1",
-            code: "123",
-            address: "Address 1",
-            about: "About school 1",
-            bgSchoolImg: "bg-img-1.jpg",
-            schoolImg: "https://ibb.co/MZXqbCf",
-            email: "school1@example.com",
-        },
-        {
-            name: "School 2",
-            code: "456",
-            address: "Address 2",
-            about: "About school 2",
-            bgSchoolImg: "bg-img-2.jpg",
-            schoolImg: "https://ibb.co/MZXqbCf",
-            email: "school2@example.com",
-        },
-    ])
+    const [schools, setSchools] = useState([]);
 
     //declare useState to get the update value
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [code, setCode] = useState('');
-    const [bgSchoolImg, setBgSchoolImg] = useState('');
-    const [schoolImg, setSchoolImg] = useState('');
-    const [address, setAddress] = useState('');
-    const [about, setAbout] = useState('');
-    const [number, setNumber] = useState([])
+    const [schoolEmail, setSchoolEmail] = useState('');
+    const [schoolCode, setSchoolCode] = useState('');
+    const [schoolBackgroundImg, setSchoolBackgroundImg] = useState('');
+    const [schoolBannerImg, setSchoolBannerImg] = useState('');
+    const [schoolLocation, setSchoolLocation] = useState('');
+    const [aboutSchool, setAboutSchool] = useState('');
 
 
-    const handleSubmit = (event) => {
+
+    useEffect(() => {
+        const fetchSchools = async () => {
+            try {
+                // Send a GET request to retrieve all schools
+                const response = await axios.get('http://localhost:5000/api/schools');
+                const fetchedSchools = response.data;
+                setSchools(fetchedSchools);
+            } catch (error) {
+                console.error(error);
+                // Handle the error as needed
+            }
+        };
+
+        fetchSchools();
+    }, []);
+
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(name, email, code, address, about, bgSchoolImg, schoolImg, about);
+        console.log(name, schoolEmail, schoolCode, schoolLocation, aboutSchool, schoolBannerImg, schoolBackgroundImg);
+        if (name === "" || schoolEmail === "" || schoolCode === "" || schoolLocation === "" || aboutSchool === "" || schoolBannerImg === "" || schoolBackgroundImg === "") {
+            toast.error("please input all the information properly")
+            return;
+        }
         const newSchool = {
             name,
-            code,
-            email,
-            address,
-            about,
-            bgSchoolImg,
-            schoolImg
+            schoolEmail,
+            schoolCode,
+            schoolLocation,
+            aboutSchool,
+            schoolBannerImg,
+            schoolBackgroundImg
         }
 
-        const newSchools = [...schools, newSchool];
-        setSchools(newSchools)
+        try {
+            // Send the newSchool object to the API endpoint
+            const response = await axios.post('http://localhost:5000/api/schools', newSchool);
+            console.log(response.data); // Handle the response data as needed
+            toast.success("New school added successfully")
+            // Update the schools state with the newSchool added
+            const updatedSchools = [...schools, newSchool];
+            setSchools(updatedSchools);
 
-        console.log(schools)
-        // Do something with the form values, e.g. send them to a server or display them on the page
+            // Reset the form fields
+            setName('');
+            setSchoolEmail('');
+            setSchoolCode('');
+            setSchoolBackgroundImg('');
+            setSchoolBannerImg('');
+            setSchoolLocation('');
+            setAboutSchool('');
+        } catch (error) {
+            console.error(error);
+            toast.error(error)
+            // Handle the error as needed
+        };
+
     };
 
     const handleImageUpload = async (event) => {
@@ -83,7 +104,7 @@ const MainAdmin = () => {
 
                 // Access the image URL from the response and log it
                 const imageUrl = data.data.url;
-                setSchoolImg(imageUrl);
+                setSchoolBannerImg(imageUrl);
             } catch (error) {
                 console.error('Error uploading image:', error);
             }
@@ -113,7 +134,7 @@ const MainAdmin = () => {
 
                 // Access the image URL from the response and log it
                 const imageUrl = data.data.url;
-                setBgSchoolImg(imageUrl);
+                setSchoolBackgroundImg(imageUrl);
             } catch (error) {
                 console.error('Error uploading image:', error);
             }
@@ -126,24 +147,72 @@ const MainAdmin = () => {
 
     const [editingSchool, setEditingSchool] = useState(null);
 
-    const deleteSchool = (index) => {
-        const updatedSchools = [...schools];
-        updatedSchools.splice(index, 1);
-        setSchools(updatedSchools);
+    const deleteSchool = async (schoolId, schoolName, index) => {
+        try {
+            const confirmed = window.confirm(`Are you sure to delete ${schoolName} site and information?`);
+            if (!confirmed) {
+                return;
+            }
+            // Send a DELETE request to remove the school
+            await axios.delete(`http://localhost:5000/api/schools/${schoolId}`);
+            toast.success(` ${schoolName} site and information deleted successfully`)
+            // fetchSchools(); // Fetch the updated schools after deletion
+            const updatedSchools = [...schools];
+            updatedSchools.splice(index, 1);
+            setSchools(updatedSchools);
+        } catch (error) {
+            console.error(error);
+            toast.error(error)
+        }
+
     };
+
+    // const handleDelete = async (schoolId) => {
+    //     try {
+    //       // Send a DELETE request to remove the school
+    //       await axios.delete(`http://localhost:5000/api/schools/${schoolId}`);
+    //       fetchSchools(); // Fetch the updated schools after deletion
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   };
+
 
     const editSchool = (index) => {
         setEditingSchool(schools[index]);
+        console.log(schools[index])
     };
 
-    const updateSchool = () => {
-        console.log(editingSchool)
-        // Perform the update logic here
-        // You can use the editingSchool state to access the updated values
-        // and update the schools array accordingly
-        // After updating, setEditingSchool(null) to close the modal
-        setEditingSchool(null);
+    // const updateSchool = () => {
+    //     console.log(editingSchool)
+    //     // Perform the update logic here
+    //     // You can use the editingSchool state to access the updated values
+    //     // and update the schools array accordingly
+    //     // After updating, setEditingSchool(null) to close the modal
+
+    // };
+
+
+    const updateSchool = async (schoolId, schoolName) => {
+
+        // console.log(schools, schoolId, editingSchool)
+
+        try {
+            await axios.put(`http://localhost:5000/api/schools/${schoolId}`, editingSchool);
+            toast.success(`${schoolName} information update successfully`)
+            const restSchools = schools.filter((school) => school?._id !== schoolId)
+            //   fetchSchools();
+            setSchools([...restSchools, editingSchool])
+            setEditingSchool(null);
+        } catch (error) {
+            console.error(error);
+        }
+        // console.log(schools)
     };
+
+
+
+
 
     const handleToSetSchoolName = (schoolName) => {
         setSchoolName(schoolName);
@@ -154,23 +223,33 @@ const MainAdmin = () => {
 
     return (
         <div className="bg-lime-200 pt-5 pb-10 md:w-8/12 md:mx-auto">
-            <h1 className="text-center text-lg font-bold my-5 bg-emerald-300 py-2 md:w-8/12 md:mx-auto">Please input the School information</h1>
-            <form className="mt-10 text-start md:w-7/12 mx-auto bg-fuchsia-300 p-4" onSubmit={handleSubmit} >
+            <h1 className="text-center text-lg font-bold my-5 bg-emerald-300 py-2 md:w-11/12 md:mx-auto">Please input the School information to create new site </h1>
+            <form className="mt-10 text-start md:w-7/12 mx-auto bg-amber-500 p-4" onSubmit={handleSubmit} >
+
                 <label className="mr-2" htmlFor="name">School Name:</label>
-                <input type="text" className="my-3 w-9/12 pl-1" id="name" value={name} onChange={(event) => setName(event.target.value)} /><br />
+                <div>
+                    <input placeholder="Enter School Name" type="text" className="my-3 w-full pl-1" id="name" value={name} onChange={(event) => setName(event.target.value)} /><br />
+                </div>
 
                 <label className="mr-3" htmlFor="email">School Email:</label>
-                <input type="email" className="my-3 w-9/12 pl-1" id="email" value={email} onChange={(event) => setEmail(event.target.value)} /><br />
+                <div>
+                    <input placeholder="Enter School Email" type="email" className="my-3 w-full pl-1" id="email" value={schoolEmail} onChange={(event) => setSchoolEmail(event.target.value)} /><br />
+                </div>
 
                 <label className="mr-3" htmlFor="code">School code:</label>
-                <input type="digit" className="my-3 w-9/12 pl-1" id="code" value={code} onChange={(event) => setCode(event.target.value)} /><br />
+                <div>
+                    <input placeholder="Enter School Code" type="digit" className="my-3 w-full pl-1" id="code" value={schoolCode} onChange={(event) => setSchoolCode(event.target.value)} /><br />
+                </div>
 
                 <label className="mr-3 mt-2" htmlFor="code">School Address:</label>
-                <textarea type="test" className="my-3 w-8/12 pl-1" id="code" value={address} onChange={(event) => setAddress(event.target.value)} /><br />
+                <div>
+                    <textarea placeholder="Enter School Address" type="test" className="my-3 w-full pl-1" id="code" value={schoolLocation} onChange={(event) => setSchoolLocation(event.target.value)} /><br />
+                </div>
 
                 <label className="mr-3 mt-2" htmlFor="code">About Shool:</label>
-                <textarea type="text" className="my-3 w-9/12 pl-1" id="code" value={about} onChange={(event) => setAbout(event.target.value)} /><br />
-
+                <div>
+                    <textarea placeholder="Write Something About School" type="text" className="my-3 w-full pl-1" id="code" value={aboutSchool} onChange={(event) => setAboutSchool(event.target.value)} /><br />
+                </div>
                 {/* <label htmlFor="name">School Address:</label>
                 <input type="text" className="my-3" id="name" value={address} onChange={(event) => setAddress(event.target.value)} /><br />
 
@@ -187,7 +266,7 @@ const MainAdmin = () => {
                     <input type="file" className="mt-2 " accept="image/*" onChange={handleImageUpload} />
                 </div>
 
-                <button className="bg-yellow-200 py-2 px-5 rounded-lg  my-5" type="submit">Submit</button>
+                <button className="bg-yellow-200 hover:bg-red-400  py-2 px-5 rounded-lg  my-5" type="submit">Submit</button>
             </form>
 
 
@@ -198,30 +277,31 @@ const MainAdmin = () => {
             </div>
             <div>
                 {schools.map((school, index) => (
-                    <div key={index} className="border border-gray-300 p-2 mb-4 flex justify-between bg-purple-400 w-8/12 mt-8 mx-auto">
-                        <Link to={`/${school.name}`} onClick={() => handleToSetSchoolName(school?.name)} className="flex items-center justify-between w-10/12">
-                            <img src={school?.schoolImg} alt="School" className="w-8 h-8 rounded-full" />
-                            <div className="mt-2">
+                    <div key={index} className="border border-gray-300 p-2 mb-4 flex justify-between items-center bg-purple-400 w-11/12 mt-8 mx-auto">
+                        <Link to={`/${school.name}`} onClick={() => handleToSetSchoolName(school?.name)} className="flex items-center justify-between w-8/12 lg:w-10/12">
+                            <img src={school ? school?.schoolBannerImg : "https://www.kindpng.com/picc/m/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png"} alt="School" className="w-8 h-8 rounded-full" />
+                            {/* <img src="https://www.kindpng.com/picc/m/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png" alt="School" className="w-8 h-8 rounded-full" /> */}
+                            <div className="">
                                 {school.name}
                             </div>
-                            <div>
-                                {school.email}
+                            <div className="hidden lg:block">
+                                {school.schoolEmail}
                             </div>
                             <div>
-                                {school.code}
+                                {school.schoolCode}
                             </div>
                         </Link>
 
-                        <div className="flex mt-2 ml-4 w-2/12">
+                        <div className="flex justify-around items-center mt-2 ml-4 w-4/12 lg:w-2/12">
                             <button
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 mr-2"
+                                className="bg-blue-500 hover:bg-blue-700 rounded-lg text-white font-bold py-1 px-2 mr-2"
                                 onClick={() => editSchool(index)}
                             >
                                 Edit
                             </button>
                             <button
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2"
-                                onClick={() => deleteSchool(index)}
+                                className="bg-red-500 hover:bg-red-700  rounded-lg text-white font-bold py-1 px-2"
+                                onClick={() => deleteSchool(school?._id, school?.name, index)}
                             >
                                 Delete
                             </button>
@@ -254,9 +334,10 @@ const MainAdmin = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    value={editingSchool.email}
+                                    value={editingSchool.schoolEmail}
+                                    readOnly
                                     onChange={(e) =>
-                                        setEditingSchool({ ...editingSchool, email: e.target.value })
+                                        setEditingSchool({ ...editingSchool, schoolEmail: e.target.value })
                                     }
                                     className="border border-gray-300 p-2 mb-2 w-8/12"
                                     placeholder="Email"
@@ -269,9 +350,9 @@ const MainAdmin = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    value={editingSchool.code}
+                                    value={editingSchool.schoolCode}
                                     onChange={(e) =>
-                                        setEditingSchool({ ...editingSchool, code: e.target.value })
+                                        setEditingSchool({ ...editingSchool, schoolCode: e.target.value })
                                     }
                                     className="border border-gray-300 p-2 mb-2 w-8/12"
                                     placeholder="Code"
@@ -284,9 +365,9 @@ const MainAdmin = () => {
                                 </label>
                                 <textarea
                                     type="text"
-                                    value={editingSchool.address}
+                                    value={editingSchool.schoolLocation}
                                     onChange={(e) =>
-                                        setEditingSchool({ ...editingSchool, address: e.target.value })
+                                        setEditingSchool({ ...editingSchool, schoolLocation: e.target.value })
                                     }
                                     className="border border-gray-300 p-2 mb-2 w-8/12"
                                     placeholder="About"
@@ -298,9 +379,9 @@ const MainAdmin = () => {
                                 </label>
                                 <textarea
                                     type="text"
-                                    value={editingSchool.about}
+                                    value={editingSchool.aboutSchool}
                                     onChange={(e) =>
-                                        setEditingSchool({ ...editingSchool, about: e.target.value })
+                                        setEditingSchool({ ...editingSchool, aboutSchool: e.target.value })
                                     }
                                     className="border border-gray-300 p-2 mb-2 w-8/12"
                                     placeholder="About"
@@ -310,7 +391,7 @@ const MainAdmin = () => {
                             <div className="mt-8">
                                 <button
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2"
-                                    onClick={updateSchool}
+                                    onClick={() => updateSchool(editingSchool?._id, editingSchool?.name)}
                                 >
                                     Save
                                 </button>

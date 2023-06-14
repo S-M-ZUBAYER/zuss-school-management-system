@@ -16,29 +16,29 @@ const StaffIdCard3 = ({ name, email, id, stdClass, gender, designation, expire, 
             </div>
             <div className="flex flex-row justify-between items-center px-2">
                 <div className="flex flex-col">
-                    <p className="text-sm font-medium text-gray-700">Designation</p>
+                    <p className="text-sm font-bold text-gray-700">Designation</p>
                     <p className="text-sm font-bold">{designation}</p>
                 </div>
                 <div className="flex flex-col">
-                    <p className="text-sm font-medium text-gray-700">Gender</p>
+                    <p className="text-sm font-bold text-gray-700">Gender</p>
                     <p className="text-sm font-bold">{gender}</p>
                 </div>
                 <div className="flex flex-col">
-                    <p className="text-sm font-medium text-gray-700">Expires</p>
+                    <p className="text-sm font-bold text-gray-700">Expires</p>
                     <p className="text-sm font-bold">{expire}</p>
                 </div>
             </div>
             <div className="flex flex-row justify-between items-center pb-2 px-2">
                 <div className="flex flex-col">
-                    <p className="text-sm font-medium text-gray-700">Card Issue</p>
+                    <p className="text-sm font-bold text-gray-700">Card Issue</p>
                     <p className="text-sm font-bold">{cardIssue}</p>
                 </div>
                 <div className="flex flex-col">
-                    <p className="text-sm font-medium text-gray-700">Teacher id</p>
+                    <p className="text-sm font-bold text-gray-700">Teacher id</p>
                     <p className="text-sm font-bold">{id}</p>
                 </div>
                 <div className="flex flex-col">
-                    <p className="text-sm font-medium text-gray-700">DOB</p>
+                    <p className="text-sm font-bold text-gray-700">DOB</p>
                     <p className="text-sm font-bold">{dateOfBirth}</p>
                 </div>
             </div>

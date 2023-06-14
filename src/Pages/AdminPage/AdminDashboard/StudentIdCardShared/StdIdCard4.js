@@ -1,5 +1,5 @@
 import React from 'react';
-import img4 from "../../../../Assets/IdCard/id_4.jpg"
+import img4 from "../../../../Assets/IdCard/id_5.jpg"
 
 const StdIdCard4 = ({ name, email, phone, id, gender, stdClass, expire, cardIssue, dateOfBirth, img, schoolName }) => {
     return (
@@ -9,13 +9,13 @@ const StdIdCard4 = ({ name, email, phone, id, gender, stdClass, expire, cardIssu
                     <img src="https://s.yimg.com/fz/api/res/1.2/IfHPji1C1Il0NM5LyT_UQg--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpbGw7aD0yMjA7cT04MDt3PTE2NQ--/https://s.yimg.com/zb/imgv1/880eb131-c93c-3bb5-98e5-076c4f996c4f/t_500x300" alt={name} className="w-16 h-16 rounded-full border-4 border-blue-500" />
                     <div>
                         <h2 className="text-base font-bold text-gray-800">{name}</h2>
-                        <p className="text-sm text-gray-700">{email}</p>
+                        <p className="text-sm text-gray-700 font-bold">{email}</p>
                     </div>
                 </div>
                 <div className="text-right">
                     <h3 className="text-sm font-medium text-gray-800">DOB: {dateOfBirth}</h3>
-                    <p className="text-xs text-gray-700">ID: {id}</p>
-                    <p className="text-xs text-gray-700">Phone: {phone}</p>
+                    <p className="text-xs text-gray-700 font-bold">ID: {id}</p>
+                    <p className="text-xs text-gray-700 font-bold">Phone: {phone}</p>
                 </div>
             </div >
             <div className="bg-blue-500 px-3">
@@ -24,22 +24,22 @@ const StdIdCard4 = ({ name, email, phone, id, gender, stdClass, expire, cardIssu
             <div className="p-5">
                 <div className="flex flex-row justify-around items-center text-gray-600">
                     <div className="flex flex-col">
-                        <p className="text-xs font-medium text-gray-700">Class</p>
+                        <p className="text-xs  text-gray-700 font-bold">Class</p>
                         <p className="text-base font-bold">{stdClass}</p>
                     </div>
                     <div className="flex flex-col">
-                        <p className="text-xs font-medium text-gray-700">Gender</p>
+                        <p className="text-xs text-gray-700 font-bold">Gender</p>
                         <p className="text-base font-bold">{gender}</p>
                     </div>
 
                 </div>
                 <div className="flex flex-row justify-around items-center text-gray-600 mt-2">
                     <div className="flex flex-col">
-                        <p className="text-xs font-medium text-gray-700">Card Issue</p>
+                        <p className="text-xs text-gray-700 font-bold">Card Issue</p>
                         <p className="text-base font-bold">{cardIssue}</p>
                     </div>
                     <div className="flex flex-col">
-                        <p className="text-xs font-medium text-gray-700">Expires</p>
+                        <p className="text-xs  text-gray-700 font-bold">Expires</p>
                         <p className="text-base font-bold">{expire}</p>
                     </div>
                 </div>

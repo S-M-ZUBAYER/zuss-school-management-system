@@ -25,11 +25,13 @@ const SchoolStartEndField = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
+        <form className="text-white" onSubmit={handleSubmit}>
+            <h1 className="text-2xl font-bold mt-5 text-sky-400 mb-10">Set Time</h1>
+            <div className="mb-2" >
                 <label htmlFor="start-time">School Start Time:</label>
                 <input
                     type="time"
+                    className="ml-2 bg-slate-800"
                     id="start-time"
                     value={startTime}
                     onChange={handleStartTimeChange}
@@ -39,12 +41,13 @@ const SchoolStartEndField = () => {
                 <label htmlFor="end-time">School End Time:</label>
                 <input
                     type="time"
+                    className="ml-2 bg-slate-800"
                     id="end-time"
                     value={endTime}
                     onChange={handleEndTimeChange}
                 />
             </div>
-            <button type="submit">Save</button>
+            <button className="bg-green-300 py-1 px-4 rounded-tr-lg rounded-bl-lg mt-5 mb-10" type="submit">Save</button>
         </form>
     );
 };
