@@ -1,19 +1,26 @@
 import React, { useEffect } from 'react';
+import { useContext } from 'react';
 import { useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import Modal from 'react-modal';
+import { AuthContext } from '../../../../context/UserContext';
+import { toast } from 'react-hot-toast';
 
 const AdminProfile = () => {
+    const { schoolName, currentSchoolCode, user } = useContext(AuthContext);
+
+
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [name, setName] = useState('');
     const [designation, setDesignation] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(user?.email);
     const [about, setAbout] = useState('');
     const [userImage, setUserImage] = useState('');
     // const [imagePublicId, setImagePublicId] = useState('');
     const [userProfileData, setUserProfileData] = useState({})
+
 
 
     useEffect(() => {
@@ -50,7 +57,7 @@ const AdminProfile = () => {
     }
 
     function handleEmailChange(event) {
-        setEmail(event.target.value);
+        setEmail(user?.email);
     }
 
     function handleAboutChange(event) {
@@ -68,7 +75,7 @@ const AdminProfile = () => {
 
         const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbbKey}`;
         fetch(url, {
-            method: "POST",
+            method: "PATCH",
             body: formData
         })
             .then(res => res.json())
@@ -84,18 +91,135 @@ const AdminProfile = () => {
 
         const profileData = {
             name,
+            schoolName,
+            schoolCode: currentSchoolCode,
             designation,
-            address,
             phone,
             email,
+            address,
             about,
             userImage
         };
-        console.log(profileData);
-        setUserProfileData(profileData);
-        localStorage.setItem('AdminProfile', JSON.stringify(profileData));
+
+        fetch(`http://localhost:5000/api/profiles/${encodeURIComponent(user?.email)}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(profileData),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json(); // Parse the response body as JSON
+                } else {
+                    throw new Error('Failed to update profile');
+                }
+            })
+            .then(profile => {
+                // Handle the created profile, e.g., update state or perform any necessary actions
+                console.log('Profile created:', profile);
+                closeModal();
+                toast.success(`${name}, your profile update successfully!!!`);
+                setName("")
+                setDesignation("")
+                setPhone("")
+                setEmail("")
+                setAddress("")
+                setAbout("")
+                setUserImage("")
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle error case
+            });
+
+    }
+
+    const handleToClose = () => {
         closeModal();
     }
+
+    // const updateProfile = (email, updatedData) => {
+    //     fetch(`http://localhost:5000/api/profiles/${encodeURIComponent(user?.email)}`, {
+    //         method: 'PATCH',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(updatedData),
+    //     })
+    //         .then((response) => {
+    //             if (response.ok) {
+    //                 return response.json(); // Parse the response body as JSON
+    //             } else {
+    //                 throw new Error('Failed to update profile');
+    //             }
+    //         })
+    //         .then((updatedProfile) => {
+    //             // Handle the updated profile, e.g., update state or perform any necessary actions
+    //             console.log(updatedProfile);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error:', error);
+    //             // Handle error case
+    //         });
+    // };
+
+    // // Example usage:
+    // const updatedData = {
+    //     name: 'John Doe',
+    //     schoolName: 'Example School',
+    //     schoolCode: '1234',
+    //     designation: 'Teacher',
+    //     phone: '1234567890',
+    //     address: '123 Main St, City',
+    //     about: 'Lorem ipsum dolor sit amet',
+    // };
+
+    // const email = 'example@example.com';
+    // updateProfile(email, updatedData);
+
+
+
+    // const handleCreateProfile = () => {
+    //     const profileData = {
+    //         name: 'John Doe',
+    //         schoolName: 'Example School',
+    //         schoolCode: '1234',
+    //         designation: 'Teacher',
+    //         phone: '1234567890',
+    //         email: 'john.doe@example.com',
+    //         address: '123 Example Street',
+    //         about: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    //     };
+
+    //     fetch('http://localhost:5000/api/profiles/', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(profileData)
+    //     })
+    //         .then(response => {
+    //             if (response.ok) {
+    //                 return response.json(); // Parse the response body as JSON
+    //             } else {
+    //                 throw new Error('Failed to create profile');
+    //             }
+    //         })
+    //         .then(profile => {
+    //             // Handle the created profile, e.g., update state or perform any necessary actions
+    //             console.log('Profile created:', profile);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //             // Handle error case
+    //         });
+    // };
+
+
+
+
+
 
     return (
         <div>
@@ -123,7 +247,7 @@ const AdminProfile = () => {
                 </p>
                 <p className="text-lg font-semibold text-orange-300 mt-3">
                     Email: {
-                        userProfileData ? userProfileData?.email : "Email"
+                        user?.email
                     }
                 </p>
                 <p className="text-lg text-white mt-3">
@@ -138,37 +262,37 @@ const AdminProfile = () => {
                 </p>
             </div>
             {/* Rest of the page content */}
-            <Modal isOpen={modalIsOpen} className=" w-3/6 rounded-2xl mx-auto bg-white mt-20" onRequestClose={closeModal}>
+            <Modal isOpen={modalIsOpen} className=" w-3/6 rounded-2xl mx-auto bg-white mt-10" onRequestClose={closeModal}>
                 <h2 className="font-bold text-2xl text-center py-3">Edit Profile</h2>
-                <form onSubmit={handleSubmit} className="pb-10 pt-3 px-20 text-lg">
+                <form onSubmit={handleSubmit} className="pb-5 pt-3 px-20 text-lg">
                     <div className="mb-2">
                         <label htmlFor="name">Name:</label>
-                        <input className="border ml-2 pl-1" type="text" id="name" value={name} onChange={handleNameChange} />
+                        <input className="border ml-2 w-full pl-1" type="text" id="name" value={name} onChange={handleNameChange} />
                     </div>
                     <div className="mb-2">
                         <label htmlFor="designation">Designation:</label>
-                        <input className="border ml-2 pl-1" type="text" id="designation" value={designation} onChange={handleDesignationChange} />
+                        <input className="border ml-2 w-full pl-1" type="text" id="designation" value={designation} onChange={handleDesignationChange} />
                     </div>
 
                     <div className="mb-2">
                         <label htmlFor="phone">Phone:</label>
-                        <input className="border ml-2 pl-1" type="tel" id="phone" value={phone} onChange={handlePhoneChange} />
+                        <input className="border ml-2 w-full pl-1" type="tel" id="phone" value={phone} onChange={handlePhoneChange} />
                     </div>
 
                     <div className="mb-2">
                         <label htmlFor="email">Email:</label>
-                        <input className="border ml-2 pl-1" type="email" id="email" value={email} onChange={handleEmailChange} />
+                        <input className="border ml-2 w-full pl-1" type="email" id="email" value={email} onChange={handleEmailChange} />
                     </div>
 
                     <label htmlFor="address">Address:</label>
                     <div className="mb-2">
-                        <textarea className="border ml-2 pl-1 w-4/6" id="address" value={address} onChange={handleAddressChange}></textarea>
+                        <textarea className="border ml-2 w-full pl-1 " id="address" value={address} onChange={handleAddressChange}></textarea>
                     </div>
 
                     <label htmlFor="about">About Me:</label>
                     <div className="mb-2">
 
-                        <textarea className="border ml-2 pl-1 w-4/6" id="about" value={about} onChange={handleAboutChange}></textarea>
+                        <textarea className="border ml-2 w-full pl-1 w-4/6" id="about" value={about} onChange={handleAboutChange}></textarea>
                     </div>
 
 
@@ -186,7 +310,8 @@ const AdminProfile = () => {
                         />
                     </div>
                     <div className="text-center">
-                        <button type="submit" className="bg-lime-300 text-lg font-semibold px-5 py-1 mt-3 rounded-md">Save</button>
+                        <button type="submit" className="bg-lime-300 text-lg font-semibold px-5 py-1 mt-3 rounded-md mr-2">Save</button>
+                        <button onClick={handleToClose} className="bg-red-300 text-lg font-semibold px-5 py-1 mt-3 rounded-md">Cancel</button>
                     </div>
 
                 </form>

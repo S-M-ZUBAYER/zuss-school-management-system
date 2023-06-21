@@ -2,15 +2,25 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
-const Banner = () => {
+const Banner = ({ currentShool }) => {
+    // console.log(currentShool)
+
+    const backgroundImage = currentShool?.schoolBackgroundImg || '';
+
+    const containerStyle = {
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+    };
+
 
     const { schoolName } = useContext(AuthContext);
 
     return (
         <div>
-            <section
-                className="relative bg-[url(https://i.ytimg.com/vi/wYaXaWjROOk/maxresdefault.jpg)] bg-cover bg-center bg-no-repeat"
-            >
+            <section className="relative" style={containerStyle}>
+                {/* // className="relative bg-[url(https://i.ytimg.com/vi/wYaXaWjROOk/maxresdefault.jpg)] bg-cover bg-center bg-no-repeat" */}
                 <div
                     className="absolute inset-0 bg-white/75 sm:bg-transparent sm:bg-gradient-to-r sm:from-white/95 sm:to-white/25"
                 ></div>
@@ -23,7 +33,7 @@ const Banner = () => {
                             Welcome To
 
                             <strong className="block font-extrabold text-yellow-500">
-                                {schoolName}
+                                {currentShool?.name}
                             </strong>
                         </h1>
 

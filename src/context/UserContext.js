@@ -25,6 +25,7 @@ const UserContext = ({ children }) => {
     const [eventColor, setEventColor] = useState('#ff0000');
     const [showModal, setShowModal] = useState(false);
     const [uploadedImage, setUploadedImage] = useState('');
+    const [currentSchoolCode, setCurrentSchoolCode] = useState('');
 
 
 
@@ -72,7 +73,8 @@ const UserContext = ({ children }) => {
 
     }, [])
 
-    const authInfo = { user, schoolName, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList, isPaid, setIsPaid, setSchoolName, year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, events, setEvents, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName, uploadedImage, setUploadedImage }
+
+    const authInfo = { user, schoolName, currentSchoolCode, setCurrentSchoolCode, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList, isPaid, setIsPaid, setSchoolName, year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, events, setEvents, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName, uploadedImage, setUploadedImage }
 
     return (
         <AuthContext.Provider value={authInfo}>

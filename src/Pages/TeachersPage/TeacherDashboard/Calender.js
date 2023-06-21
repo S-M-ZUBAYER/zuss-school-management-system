@@ -20,7 +20,7 @@ const Calender = () => {
         'Dec'
     ];
 
-
+    console.log(events)
     // const generateCalendar = () => {
     //     const calendar = [];
 
@@ -79,7 +79,7 @@ const Calender = () => {
             const monthName = months[month - 1];
 
             calendar.push(
-                <div key={monthName} className="text-center font-bold mt-4 text-black bg-lime-300 text-3xl border-2 mx-auto px-1 py-1 rounded-tl-lg rounded-br-lg">
+                <div key={monthName} className="text-center font-bold text-black bg-lime-300 text-3xl border-2 mx-auto px-1 py-1 rounded-tl-lg rounded-br-lg mt-5 mb-3">
                     {monthName}
                 </div>
             );

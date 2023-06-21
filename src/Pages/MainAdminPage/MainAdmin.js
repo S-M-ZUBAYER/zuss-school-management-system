@@ -8,7 +8,7 @@ import axios from 'axios';
 // import { globalVariable } from '../../App';
 
 const MainAdmin = () => {
-    const { schoolName, setSchoolName } = useContext(AuthContext)
+    const { schoolName, setSchoolName, currentSchoolCode, setCurrentSchoolCode } = useContext(AuthContext)
 
 
     const [schools, setSchools] = useState([]);
@@ -21,6 +21,7 @@ const MainAdmin = () => {
     const [schoolBannerImg, setSchoolBannerImg] = useState('');
     const [schoolLocation, setSchoolLocation] = useState('');
     const [aboutSchool, setAboutSchool] = useState('');
+
 
 
 
@@ -214,9 +215,9 @@ const MainAdmin = () => {
 
 
 
-    const handleToSetSchoolName = (schoolName) => {
+    const handleToSetSchool = (schoolName, schoolCode) => {
         setSchoolName(schoolName);
-        console.log(schoolName)
+        setCurrentSchoolCode(schoolCode)
     }
 
 
@@ -278,7 +279,7 @@ const MainAdmin = () => {
             <div>
                 {schools.map((school, index) => (
                     <div key={index} className="border border-gray-300 p-2 mb-4 flex justify-between items-center bg-purple-400 w-11/12 mt-8 mx-auto">
-                        <Link to={`/${school.name}`} onClick={() => handleToSetSchoolName(school?.name)} className="flex items-center justify-between w-8/12 lg:w-10/12">
+                        <Link to={`/${school.name}`} onClick={() => handleToSetSchool(school?.name, school?.schoolCode)} className="flex items-center justify-between w-8/12 lg:w-10/12">
                             <img src={school ? school?.schoolBannerImg : "https://www.kindpng.com/picc/m/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png"} alt="School" className="w-8 h-8 rounded-full" />
                             {/* <img src="https://www.kindpng.com/picc/m/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png" alt="School" className="w-8 h-8 rounded-full" /> */}
                             <div className="">

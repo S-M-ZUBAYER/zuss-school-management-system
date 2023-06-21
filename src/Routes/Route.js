@@ -41,16 +41,22 @@ import AddResultCalculation from "../Pages/TeachersPage/TeacherDashboard/AddResu
 import AddSalary from "../Pages/AdminPage/AdminDashboard/Salary/addSalary";
 import AcademicCalender from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AcademicCalenderPage/AcademicCalender";
 import AttendanceTaken from "../Pages/AttendancePage/AttendanceTaken";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import AddNotice from "../Pages/AdminPage/AddNotice";
+import AddStudent from "../Pages/AdminPage/AddStudent/AddStudent";
+import AddStaff from "../Pages/AdminPage/AddStaff/AddStaff";
 
 export const router = createBrowserRouter([
     {
-        path: "/mainAdmin",
+        path: "/",
         element: <MainAdmin></MainAdmin>,
+        errorElement: <ErrorPage></ErrorPage>
     },
     {
 
         path: "/:name",
         element: <Main></Main>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: "/:name",
@@ -299,12 +305,24 @@ export const router = createBrowserRouter([
                 element: <AddSalary></AddSalary>
             },
             {
+                path: '/:name/admin/addNotice',
+                element: <AddNotice></AddNotice>
+            },
+            {
                 path: '/:name/admin/Student_attendance',
                 element: <StudentAttendanceStatus></StudentAttendanceStatus>
             },
             {
                 path: '/:name/admin/teacher_attendance',
                 element: <Tcr_Atd_Sheet></Tcr_Atd_Sheet>
+            },
+            {
+                path: '/:name/admin/addStudent',
+                element: <AddStudent></AddStudent>
+            },
+            {
+                path: '/:name/admin/addStaff',
+                element: <AddStaff></AddStaff>
             }
 
         ]

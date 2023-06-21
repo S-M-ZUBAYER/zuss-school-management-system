@@ -2,12 +2,13 @@ import React, { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
+import { AuthContext } from '../../context/UserContext';
 
 const Introduction = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen);
-    const { schoolName } = useContext(AuthContext)
+    const { schoolName } = useContext(AuthContext);
+    console.log(schoolName)
     return (
         <div>
             <Navbar></Navbar>
