@@ -1,10 +1,26 @@
 
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../../../../../context/UserContext';
+import EventComponent from './EventComponent';
 
-const Calendar = () => {
+const Calendar = ({ calendarImg }) => {
     const { year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, events, setEvents, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName } = useContext(AuthContext)
+    const schoolCode = 'yourSchoolCode'; // Replace with the actual school code
 
+    fetch(`/api/calendar/${schoolCode}`)
+        .then(response => response.json())
+        .then(data => {
+            // Handle the data retrieved from the API
+            console.log(data);
+            // Process the data as needed
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the request
+            console.error(error);
+        });
+
+
+    console.log(calendarImg, startMonth, endMonth, events, eventColor, selectedDate, eventName)
 
     const months = [
         'January',
@@ -102,6 +118,8 @@ const Calendar = () => {
         setEventColor('#ff0000');
     };
 
+    const calendarData = { calendarImg, year, startMonth, endMonth, events }
+
     return (
         <div>
             <h2>Calendar</h2>
@@ -196,6 +214,11 @@ const Calendar = () => {
                     </div>
                 </div>
             )}
+
+            <EventComponent
+                calendarData={calendarData}
+            ></EventComponent>
+
         </div>
     );
 };

@@ -23,7 +23,7 @@ function OurSchool() {
                 <div className=" flex justify-evenly items-center">
                     <div className="flex items-center justify-center">
                         {/* <img className="h-4/6 rounded-2xl shadow-lg" src={currentShool?.schoolBannerImg} alt="" /> */}
-                        <img className="h-4/6 rounded-2xl shadow-lg" src={currentShool?.schoolBannerImg} alt="" />
+                        <img className="w-4/6 rounded-2xl shadow-lg" src={currentShool?.schoolBannerImg} alt="" />
                     </div>
                     <div className="px-20 flex items-center">
                         <p className=" text-white">{currentShool?.aboutSchool}</p>

@@ -45,6 +45,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import AddNotice from "../Pages/AdminPage/AddNotice";
 import AddStudent from "../Pages/AdminPage/AddStudent/AddStudent";
 import AddStaff from "../Pages/AdminPage/AddStaff/AddStaff";
+import AllStudent from "../Pages/AdminPage/AllStudent/AllStudent";
 
 export const router = createBrowserRouter([
     {
@@ -291,6 +292,10 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/admin/staff',
                 element: <AllStaffInfo></AllStaffInfo>
+            },
+            {
+                path: '/:name/admin/student',
+                element: <AllStudent></AllStudent>
             },
             {
                 path: '/:name/admin/idCard',

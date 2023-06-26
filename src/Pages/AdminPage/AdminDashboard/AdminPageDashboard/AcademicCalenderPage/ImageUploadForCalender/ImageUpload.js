@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import ModalForInput from './ModalForInput';
 import { AuthContext } from '../../../../../../context/UserContext';
 
-const ImageUpload = () => {
+const ImageUpload = ({ setCalenderImg }) => {
     const { uploadedImage, setUploadedImage } = useContext(AuthContext)
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -16,6 +16,7 @@ const ImageUpload = () => {
 
     const handleImageUpload = (imageUrl) => {
         setUploadedImage(imageUrl);
+        setCalenderImg(imageUrl);
     };
 
     return (

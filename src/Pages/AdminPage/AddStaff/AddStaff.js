@@ -13,16 +13,17 @@ const AddStaff = () => {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
+    const [bloodGroup, setBloodGroup] = useState('');
     const [about, setAbout] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         // Validate form fields
-        if (!name || !designation || !phone || !email || !address || !about) {
+        if (!name || !designation || !phone || !email || !address || !bloodGroup || !about) {
             toast.error('Please fill in all fields');
             return;
         }
+
 
         try {
             // Make POST request to backend
@@ -33,6 +34,7 @@ const AddStaff = () => {
                 designation,
                 phone,
                 email,
+                bloodGroup,
                 address,
                 about,
             });
@@ -44,6 +46,7 @@ const AddStaff = () => {
             setEmail('');
             setAddress('');
             setAbout('');
+            setBloodGroup("")
 
             // Show success toast
             toast.success('Staff information added successfully');
@@ -106,6 +109,19 @@ const AddStaff = () => {
                         placeholder='Please Enter Email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+                <div>
+                    <label htmlFor="email" className="block text-gray-300">
+                        Blood Group
+                    </label>
+                    <input
+                        type="text"
+                        id="bloodGroup"
+                        placeholder='Please Enter Blood Group'
+                        value={bloodGroup}
+                        onChange={(e) => setBloodGroup(e.target.value)}
                         className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
