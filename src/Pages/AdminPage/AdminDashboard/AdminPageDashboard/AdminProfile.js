@@ -101,7 +101,7 @@ const AdminProfile = () => {
             userImage
         };
 
-        fetch(`http://localhost:5000/api/profiles/${encodeURIComponent(user?.email)}`, {
+        fetch(`https://zuss-school-management-system-server.vercel.app/api/profiles/${encodeURIComponent(user?.email)}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const AdminProfile = () => {
     }
 
     // const updateProfile = (email, updatedData) => {
-    //     fetch(`http://localhost:5000/api/profiles/${encodeURIComponent(user?.email)}`, {
+    //     fetch(`https://zuss-school-management-system-server.vercel.app/api/profiles/${encodeURIComponent(user?.email)}`, {
     //         method: 'PATCH',
     //         headers: {
     //             'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ const AdminProfile = () => {
     //         about: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     //     };
 
-    //     fetch('http://localhost:5000/api/profiles/', {
+    //     fetch('https://zuss-school-management-system-server.vercel.app/api/profiles/', {
     //         method: 'POST',
     //         headers: {
     //             'Content-Type': 'application/json'

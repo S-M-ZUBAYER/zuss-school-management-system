@@ -3,11 +3,13 @@ import About from './About';
 import Banner from './Banner';
 import NewsTicker from './NewsSticker';
 import { AuthContext } from '../../../context/UserContext';
+import ShortOverView from '../ShortOverView';
+import Review from '../Review';
 
 const Home = () => {
     const { currentSchoolCode } = useContext(AuthContext);
     const [currentShool, setCurrentSchool] = useState(null)
-    fetch(`http://localhost:5000/api/schools/school/${currentSchoolCode}`)
+    fetch(`https://zuss-school-management-system-server.vercel.app/api/schools/school/${currentSchoolCode}`)
         .then(response => response.json())
         .then(data => {
             // Process the data or do something with it
@@ -25,6 +27,10 @@ const Home = () => {
             <About
                 currentShool={currentShool}
             ></About>
+
+            <ShortOverView></ShortOverView>
+
+            <Review></Review>
         </div>
     );
 };

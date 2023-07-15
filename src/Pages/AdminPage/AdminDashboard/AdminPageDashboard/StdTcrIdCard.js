@@ -191,7 +191,7 @@ const StdTcrIdCard = () => {
             <h1 className="text-2xl text-lime-200 font-bold my-5 mt-10">
                 Student Id Card Section
             </h1>
-            <div className="grid grid-cols-3 text-white my-20 mb-10">
+            <div className="grid gri  lg:grid-cols-3 text-white my-20 mb-10">
                 <div>
                     <div>
                         <h1 className="text-xl font-bold text-yellow-200 mb-3">
@@ -254,7 +254,7 @@ const StdTcrIdCard = () => {
 
                 </div>
 
-                <div className="col-span-2 grid grid-cols-2 gap-3 mx-auto">
+                <div className="col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-3 mx-auto">
                     <StdIdCard1
                         schoolName={schoolName}
                         name={stdName}

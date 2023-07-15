@@ -9,7 +9,7 @@ import { toast } from 'react-hot-toast';
 
 const LogIn = () => {
     const [userEmail, setUserEmail] = useState('');
-    const { schoolName } = useContext(AuthContext);
+    const { schoolName, currentSchoolCode } = useContext(AuthContext);
 
     const { signIn, loading, setLoading, resetPassword } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -76,6 +76,8 @@ const LogIn = () => {
                                     type='digit'
                                     name='Id'
                                     id='School_Id'
+                                    value={currentSchoolCode}
+                                    readOnly
                                     required
                                     placeholder='Enter school Id'
                                     className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'

@@ -10,7 +10,7 @@ import { AuthContext } from '../../context/UserContext';
 
 
 const Register = () => {
-    const { createUser, updateUserProfile, loading, setLoading } = useContext(AuthContext);
+    const { createUser, currentSchoolCode, schoolName, updateUserProfile, loading, setLoading } = useContext(AuthContext);
     const [matchError, setMatchError] = useState(null);
     const [lengthError, setLengthError] = useState(null);
 
@@ -39,11 +39,11 @@ const Register = () => {
         const email = event.target.email.value;
         const password = event.target.password.value;
         const confirmPassword = event.target.confirmPassword.value;
-        const shoolId = event.target.Id.value;
         setLoading(true);
-        console.log(name, image, email, password, shoolId, confirmPassword);
+        console.log(schoolName, currentSchoolCode, name, image, email, password, confirmPassword);
         if (password.length < 6) {
             setLengthError("Your Password have to minimum 6 characters");
+
             return;
         }
 
@@ -91,7 +91,7 @@ const Register = () => {
 
 
     return (
-        <div className='flex justify-center items-center pt-8 drop-shadow-2xl bg-gradient-to-l from-blue-900 via-slate-900 to-black '>
+        <div className='flex justify-center items-center py-8 drop-shadow-2xl bg-gradient-to-l from-blue-900 via-slate-900 to-black '>
             <div data-aos="zoom-in-down" data-aos-duration="2000" className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
                 <div className='mb-8 text-center'>
                     <h1 className='my-3 text-4xl font-bold'>Signup</h1>
@@ -105,7 +105,7 @@ const Register = () => {
                 >
                     <div className='space-y-4'>
                         <div className="form-control">
-                            <div>
+                            {/* <div>
                                 <label htmlFor='id' className='block mb-2 text-sm text-left'>
                                     School ID
                                 </label>
@@ -117,9 +117,9 @@ const Register = () => {
 
 
                                 </select>
-                            </div>
+                            </div> */}
                         </div>
-                        <div>
+                        {/* <div>
                             <label htmlFor='SchoolName' className='block mb-2 text-sm text-left'>
                                 School Name:
                             </label>
@@ -131,7 +131,41 @@ const Register = () => {
 
 
                             </select>
+                        </div> */}
+
+                        <div>
+                            <label htmlFor='schoolName' className='block mb-2 text-sm text-left'>
+                                School Name
+                            </label>
+                            <input
+                                type='text'
+                                name='schoolName'
+                                id='mySelect'
+                                required
+                                readOnly
+                                value={schoolName}
+                                placeholder='Enter Your Name Here'
+                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
+                                data-temp-mail-org='0'
+                            />
                         </div>
+
+                        <div>
+                            <label htmlFor='id' className='block mb-2 text-sm text-left'>
+                                School Code
+                            </label>
+                            <input
+                                type='text'
+                                name='schoolId'
+                                id='mySelectId'
+                                required
+                                value={currentSchoolCode}
+                                placeholder='Enter Your Name Here'
+                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
+                                data-temp-mail-org='0'
+                            />
+                        </div>
+
 
                         <div>
                             <label htmlFor='email' className='block mb-2 text-sm text-left'>

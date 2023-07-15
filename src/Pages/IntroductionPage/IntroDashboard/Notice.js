@@ -11,7 +11,7 @@
 // //     const [notices, setNotices] = useState([]);
 // //     const { schoolName, currentSchoolCode } = useContext(AuthContext);
 // //     console.log(currentSchoolCode)
-// //     fetch(`http://localhost:5000/api/notices/?schoolCode=${encodeURIComponent(currentSchoolCode)}`)
+// //     fetch(`https://zuss-school-management-system-server.vercel.app/api/notices/?schoolCode=${encodeURIComponent(currentSchoolCode)}`)
 // //         .then(response => {
 // //             if (response.ok) {
 // //                 return response.json(); // Parse the response body as JSON
@@ -38,7 +38,7 @@
 // //         else {
 
 
-// //             fetch(`http://localhost:5000/api/notices/${id}`, {
+// //             fetch(`https://zuss-school-management-system-server.vercel.app/api/notices/${id}`, {
 // //                 method: 'DELETE',
 // //             })
 // //                 .then(response => {
@@ -118,7 +118,7 @@ function Notice() {
     console.log(currentSchoolCode);
 
     const fetchNotices = () => {
-        fetch(`http://localhost:5000/api/notices/?schoolCode=${encodeURIComponent(currentSchoolCode)}`)
+        fetch(`https://zuss-school-management-system-server.vercel.app/api/notices/?schoolCode=${encodeURIComponent(currentSchoolCode)}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -142,7 +142,7 @@ function Notice() {
     useEffect(() => {
         const fetchNotices = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/notices/?schoolCode=${currentSchoolCode}`);
+                const response = await fetch(`https://zuss-school-management-system-server.vercel.app/api/notices/?schoolCode=${currentSchoolCode}`);
                 if (response.ok) {
                     const noticesData = await response.json();
                     setNotices(noticesData);
@@ -165,7 +165,7 @@ function Notice() {
         if (!confirmed) {
             return;
         } else {
-            fetch(`http://localhost:5000/api/notices/${id}`, {
+            fetch(`https://zuss-school-management-system-server.vercel.app/api/notices/${id}`, {
                 method: 'DELETE',
             })
                 .then(response => {
@@ -197,7 +197,7 @@ function Notice() {
                 message: editedMessage,
             };
 
-            fetch(`http://localhost:5000/api/notices/${editingNotice._id}`, {
+            fetch(`https://zuss-school-management-system-server.vercel.app/api/notices/${editingNotice._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -223,7 +223,7 @@ function Notice() {
     };
 
     return (
-        <div className="w-4/5 mx-auto">
+        <div className="w-3/5 md:w-4/5 mx-auto">
             <div className="mx-auto my-20">
                 <div className="flex justify-center mb-20">
                     <img className='rounded-lg' src={noticeBanner} alt="" />
@@ -234,7 +234,7 @@ function Notice() {
                         :
 
                         notices.map((notice, index) => (
-                            <div key={index} className="shadow-md text-start rounded px-8 py-5 mb-4">
+                            <div key={index} className="shadow-md text-start rounded md:px-8 py-5 mb-4">
                                 <div className="grid grid-cols-12">
                                     <div className="flex items-center justify-start col-span-9">
                                         <p className="text-base mt-2 mr-5 text-teal-600 font-semibold">{notice?.time.split("T")[0]}</p>
