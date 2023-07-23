@@ -1,176 +1,141 @@
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from 'react';
 
-const ImageUploader = () => {
-    const [image, setImage] = useState(null);
-    const [newClassName, setNewClassName] = useState([]);
+const AddClassInfo = () => {
     const [classNames, setClassNames] = useState([]);
-    const [selectedClassName, setSelectedClassName] = useState('');
-    const [newSection, setNewSection] = useState('');
-    const [newShift, setNewShift] = useState('');
-    const [sections, setSections] = useState({});
+    const [className, setClassName] = useState('');
+    const [section, setSection] = useState('');
+    const [shift, setShift] = useState('');
 
-    const handleFileUpload = (acceptedFiles) => {
-        // Handle file upload logic
-    };
 
-    const handleInputChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            handleFileUpload([file]);
+    console.log(classNames, section, shift);
+
+    const addClassName = () => {
+        if (className.trim() !== '') {
+            setClassNames([...classNames, { name: className, sections: [] }]);
+            setClassName('');
         }
     };
 
-    const handleAddClass = () => {
-        if (newClassName.trim() === '') {
-            toast.error('Please enter a class name.');
-            return;
-        }
-
-        setClassNames((prevClassNames) => [...prevClassNames, newClassName]);
-        setSections((prevSections) => ({
-            ...prevSections,
-            [newClassName]: [],
-        }));
-        setNewClassName('');
+    const removeClassName = (index) => {
+        const updatedClassNames = classNames.filter((_, i) => i !== index);
+        setClassNames(updatedClassNames);
     };
 
-    const handleAddSection = () => {
-        if (!selectedClassName || newSection.trim() === '') {
-            toast.error('Please select a class and enter a section name.');
-            return;
+    const addSection = (index) => {
+        if (section.trim() !== '') {
+            const updatedClassNames = [...classNames];
+            updatedClassNames[index].sections.push({ name: section, shifts: [] });
+            setClassNames(updatedClassNames);
+            setSection('');
         }
-
-        setSections((prevSections) => ({
-            ...prevSections,
-            [selectedClassName]: [
-                ...prevSections[selectedClassName],
-                { section: newSection, shifts: [] },
-            ],
-        }));
-        setNewSection('');
     };
 
-    const handleAddShift = (sectionIndex) => {
-        if (!selectedClassName || newShift.trim() === '') {
-            toast.error('Please select a class, section, and enter a shift name.');
-            return;
-        }
+    const removeSection = (classIndex, sectionIndex) => {
+        const updatedClassNames = [...classNames];
+        updatedClassNames[classIndex].sections.splice(sectionIndex, 1);
+        setClassNames(updatedClassNames);
+    };
 
-        setSections((prevSections) => {
-            const updatedSections = { ...prevSections };
-            const section = updatedSections[selectedClassName][sectionIndex];
-            section.shifts = [...section.shifts, newShift];
-            return updatedSections;
-        });
-        setNewShift('');
+    const addShift = (classIndex, sectionIndex) => {
+        if (shift.trim() !== '') {
+            const updatedClassNames = [...classNames];
+            updatedClassNames[classIndex].sections[sectionIndex].shifts.push(shift);
+            setClassNames(updatedClassNames);
+            setShift('');
+        }
+    };
+
+    const removeShift = (classIndex, sectionIndex, shiftIndex) => {
+        const updatedClassNames = [...classNames];
+        updatedClassNames[classIndex].sections[sectionIndex].shifts.splice(
+            shiftIndex,
+            1
+        );
+        setClassNames(updatedClassNames);
     };
 
     return (
-        <div className="container mx-auto p-4">
-            <div className="mb-4">
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleInputChange}
-                    className="mb-2"
-                />
-                {image && (
-                    <div>
-                        <img src={image} alt="Uploaded" className="max-w-full h-auto" />
-                    </div>
-                )}
-            </div>
+        <div className="p-4">
+            <h1 className="text-2xl font-bold mb-4">Class and Section Manager</h1>
 
-            <div className="mb-4">
+            <div className="flex mb-4">
                 <input
-                    className="text-black mr-2 px-2 py-1 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
                     type="text"
-                    placeholder="Enter class name"
-                    value={newClassName}
-                    onChange={(e) => setNewClassName(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-md mr-2 text-black"
+                    placeholder="Enter ClassName"
+                    value={className}
+                    onChange={(e) => setClassName(e.target.value)}
                 />
                 <button
-                    onClick={handleAddClass}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                    onClick={addClassName}
                 >
-                    Add Class
+                    Add ClassName
                 </button>
             </div>
 
-            <div>
-                <h3 className="mb-2">Class Names:</h3>
-                <ul className="list-disc ml-6">
-                    {classNames.map((className) => (
-                        <li key={className} className="mb-4">
-                            <label className="inline-flex items-center">
+            {classNames.map((item, classIndex) => (
+                <div key={classIndex} className="border rounded-md p-4 mb-4">
+                    <div className="flex justify-between mb-2">
+                        <h2 className="text-lg font-semibold">{item.name}</h2>
+                        <button
+                            className="px-2 py-1 text-red-600"
+                            onClick={() => removeClassName(classIndex)}
+                        >
+                            Remove
+                        </button>
+                    </div>
+
+                    <div className="flex mb-4">
+                        <input
+                            type="text"
+                            className="w-full px-4 py-2 border rounded-md mr-2 text-black"
+                            placeholder="Enter Section"
+                            value={section}
+                            onChange={(e) => setSection(e.target.value)}
+                        />
+                        <button
+                            className="px-4 py-2 bg-green-500 text-white rounded-md"
+                            onClick={() => addSection(classIndex)}
+                        >
+                            Add Section
+                        </button>
+                    </div>
+
+                    {item.sections.map((sectionItem, sectionIndex) => (
+                        <div key={sectionIndex} className="mb-2">
+                            <div className="flex mb-2">
                                 <input
-                                    type="radio"
-                                    name="selectedClassName"
-                                    value={className}
-                                    onChange={(e) => setSelectedClassName(e.target.value)}
-                                    className="mr-2"
+                                    type="text"
+                                    className="w-full px-4 py-2 border rounded-md mr-2 text-black"
+                                    placeholder="Enter Shift"
+                                    value={shift}
+                                    onChange={(e) => setShift(e.target.value)}
                                 />
-                                {className}
-                            </label>
-                            {selectedClassName === className && (
-                                <div className="ml-6">
-                                    <input
-                                        type="text"
-                                        placeholder="Enter section"
-                                        value={newSection}
-                                        onChange={(e) => setNewSection(e.target.value)}
-                                        className="mr-2 px-2 py-1 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-                                    />
+                                <button
+                                    className="px-4 py-2 bg-green-500 text-white rounded-md"
+                                    onClick={() => addShift(classIndex, sectionIndex)}
+                                >
+                                    Add Shift
+                                </button>
+                            </div>
+                            {sectionItem.shifts.map((shiftItem, shiftIndex) => (
+                                <div key={shiftIndex} className="flex justify-between">
+                                    <p>{shiftItem}</p>
                                     <button
-                                        onClick={handleAddSection}
-                                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+                                        className="px-2 py-1 text-red-600"
+                                        onClick={() => removeShift(classIndex, sectionIndex, shiftIndex)}
                                     >
-                                        Add Section
+                                        Remove
                                     </button>
-                                    <ul className="list-disc ml-6">
-                                        {sections[className]?.map((section, sectionIndex) => (
-                                            <li key={sectionIndex} className="mb-4">
-                                                <label className="inline-flex items-center">
-                                                    <input
-                                                        type="checkbox"
-                                                        onChange={() => { }}
-                                                        className="mr-2"
-                                                    />
-                                                    {section.section}
-                                                </label>
-                                                <div className="ml-6">
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Enter shift"
-                                                        value={newShift}
-                                                        onChange={(e) => setNewShift(e.target.value)}
-                                                        className="mr-2 px-2 py-1 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-                                                    />
-                                                    <button
-                                                        onClick={() => handleAddShift(sectionIndex)}
-                                                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
-                                                    >
-                                                        Add Shift
-                                                    </button>
-                                                    <ul className="list-disc ml-6">
-                                                        {section.shifts.map((shift, shiftIndex) => (
-                                                            <li key={shiftIndex}>{shift}</li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
                                 </div>
-                            )}
-                        </li>
+                            ))}
+                        </div>
                     ))}
-                </ul>
-            </div>
+                </div>
+            ))}
         </div>
     );
 };
 
-export default ImageUploader;
+export default AddClassInfo;
