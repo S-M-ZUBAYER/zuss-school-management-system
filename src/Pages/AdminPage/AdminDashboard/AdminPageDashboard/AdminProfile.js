@@ -27,7 +27,6 @@ const AdminProfile = () => {
         const stdProfile = JSON.parse(localStorage.getItem('AdminProfile'));
         if (stdProfile) {
             setUserProfileData(stdProfile);
-            console.log(userProfileData?.userImage)
         }
     }, []);
 
@@ -80,9 +79,7 @@ const AdminProfile = () => {
         })
             .then(res => res.json())
             .then(imgData => {
-                console.log(imgData.data.display_url)
                 setUserImage(imgData.data.display_url)
-                console.log(userImage)
             })
             .catch(err => console.log(err));
 

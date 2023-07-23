@@ -46,6 +46,8 @@ import AddNotice from "../Pages/AdminPage/AddNotice";
 import AddStudent from "../Pages/AdminPage/AddStudent/AddStudent";
 import AddStaff from "../Pages/AdminPage/AddStaff/AddStaff";
 import AllStudent from "../Pages/AdminPage/AllStudent/AllStudent";
+import Admission from "../Pages/AdmissionPage/Admission";
+import AdmissionInfo from "../Pages/AdminPage/AdminDashboard/Admission/AdmissionInfo";
 
 export const router = createBrowserRouter([
     {
@@ -79,6 +81,10 @@ export const router = createBrowserRouter([
             //     path: "/admin",
             //     element: <Admin></Admin>
             // },
+            {
+                path: "/:name/admission",
+                element: <Admission></Admission>
+            },
             {
                 path: "/:name/contact",
                 element: <Contact></Contact>
@@ -328,6 +334,10 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/admin/addStaff',
                 element: <AddStaff></AddStaff>
+            },
+            {
+                path: '/:name/admin/admission',
+                element: <AdmissionInfo></AdmissionInfo>
             }
 
         ]

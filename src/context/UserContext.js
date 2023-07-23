@@ -72,6 +72,25 @@ const UserContext = ({ children }) => {
             unsubscribe();
         }
 
+    }, []);
+
+
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("schoolUser");
+        if (storedUser) {
+            try {
+                const parsedUser = JSON.parse(storedUser);
+                setSchoolName(parsedUser?.schoolName);
+                setCurrentSchoolCode(parsedUser?.schoolCode);
+                setLoading(false)
+            } catch (error) {
+                console.log('Error parsing user from local storage', error);
+                setLoading(false)
+            }
+
+        }
+        setLoading(false)
     }, [])
 
 

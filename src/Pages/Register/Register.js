@@ -2,35 +2,99 @@ import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/UserContext';
-// import { AuthContext } from '../../AuthProvider/AuthProvider';
-// import { setAuthToken, setAuthTokenGmail } from '../../../Api/Auth/Auth'
-// import BtnSpinner from '../../../components/Sprinners/BtnSpinner/BtnSpinner'
-// import { AuthContext } from '../../../Context/AuthProvider/AuthProvider'
+import { useEffect } from 'react';
+import axios from 'axios';
+
 
 
 
 const Register = () => {
-    const { createUser, currentSchoolCode, schoolName, updateUserProfile, loading, setLoading } = useContext(AuthContext);
+    const { createUser, currentSchoolCode, setCurrentSchoolCode, schoolName, setSchoolName, updateUserProfile, loading, setLoading } = useContext(AuthContext);
     const [matchError, setMatchError] = useState(null);
     const [lengthError, setLengthError] = useState(null);
 
     const [fileError, setFileError] = useState(null);
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedId, setSelectedId] = useState('');
-
+    const [schools, setSchools] = useState([]);
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
-    const allSchools = [
-        "Kamalapur High School", "Kutubpur Model School", "Lahini Ideal School"
-    ]
 
-    const allSchoolId = [
-        "322", "3343", "3434"
-    ]
+    useEffect(() => {
+        const fetchSchools = async () => {
+            try {
+                // Send a GET request to retrieve all schools
+                const response = await axios.get('https://zuss-school-management-system-server.vercel.app/api/schools');
+                setSchools(response.data);
+                console.log(response?.data)
+            } catch (error) {
+                console.error(error);
+                // Handle the error as needed
+            }
+        };
 
+        fetchSchools();
+    }, []);
+
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     const name = event.target.name.value;
+    //     const image = event.target.image.files[0];
+    //     const email = event.target.email.value;
+    //     const password = event.target.password.value;
+    //     const confirmPassword = event.target.confirmPassword.value;
+    //     setLoading(true);
+    //     console.log(schoolName, currentSchoolCode, name, image, email, password, confirmPassword);
+    //     if (password.length < 6) {
+    //         setLengthError("Your Password have to minimum 6 characters");
+
+    //         return;
+    //     }
+
+    //     if (password !== confirmPassword) {
+    //         setMatchError("Your Password did not match");
+    //         return;
+    //     }
+
+    //     const formData = new FormData();
+    //     formData.append('image', image);
+
+
+    //     console.log(process.env.REACT_APP_imgbbKey)
+
+    //     const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbbKey}`;
+    //     fetch(url, {
+    //         method: "POST",
+    //         body: formData
+    //     })
+    //         .then(res => res.json())
+    //         .then(imgData => {
+    //             createUser(email, password)
+    //                 .then(result => {
+    //                     // updateUserProfile(name, imgData.data.display_url)
+    //                     // .then(() => {
+    //                     console.log(result)
+    //                     // setAuthToken(result.user, accountType)
+    //                     toast.success('Registration Completed successfully...');
+    //                     navigate('/:name/intro/notice')
+    //                     setLoading(false)
+    //                     // })
+    //                 })
+    //                 .catch(err => {
+    //                     console.log(err);
+    //                     toast.error(err)
+    //                 });
+    //             setLoading(false);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //             toast.error(err);
+    //         });
+    // }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -42,23 +106,22 @@ const Register = () => {
         setLoading(true);
         console.log(schoolName, currentSchoolCode, name, image, email, password, confirmPassword);
         if (password.length < 6) {
-            setLengthError("Your Password have to minimum 6 characters");
-
+            setLengthError("Your Password has to be a minimum of 6 characters");
+            setLoading(false);
             return;
         }
 
         if (password !== confirmPassword) {
-            setMatchError("Your Password did not match");
+            setMatchError("Your Passwords do not match");
+            setLoading(false);
             return;
         }
 
         const formData = new FormData();
         formData.append('image', image);
 
-
-        console.log(process.env.REACT_APP_imgbbKey)
-
         const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbbKey}`;
+
         fetch(url, {
             method: "POST",
             body: formData
@@ -67,27 +130,44 @@ const Register = () => {
             .then(imgData => {
                 createUser(email, password)
                     .then(result => {
-                        // updateUserProfile(name, imgData.data.display_url)
-                        // .then(() => {
-                        console.log(result)
-                        // setAuthToken(result.user, accountType)
-                        toast.success('Registration Completed successfully...');
-                        navigate('/:name/intro/notice')
-                        setLoading(false)
-                        // })
-                    })
-                    .catch(err => console.log(err));
-                setLoading(false);
-            })
-            .catch(err => console.log(err))
-    }
+                        const schoolUser = {
+                            name: name,
+                            image: imgData.data.display_url,
+                            schoolName: schoolName,
+                            schoolCode: currentSchoolCode,
+                            email: email
+                        };
 
-    const handleChange = (event) => {
-        setSelectedOption(event.target.value);
+                        // Sending the POST request to http://localhost:5000/api/schoolUser/
+                        axios.post('http://localhost:5000/api/schoolUser/add', schoolUser)
+                            .then(response => {
+                                console.log(response.data);
+                                localStorage.setItem('schoolUser', JSON.stringify(response.data))
+                                // Handle the response if needed
+                                toast.success('Registration Completed successfully...');
+                                navigate('/:name/intro/notice');
+                                setLoading(false);
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                toast.error(err.message); // Display the error message using toast.error
+                                setLoading(false);
+                            });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        toast.error(err.message); // Display the error message using toast.error
+                        setLoading(false);
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error(err.message); // Display the error message using toast.error
+                setLoading(false);
+            });
     };
-    const handleIdChange = (event) => {
-        setSelectedId(event.target.value);
-    };
+
+
 
 
     return (
@@ -137,34 +217,46 @@ const Register = () => {
                             <label htmlFor='schoolName' className='block mb-2 text-sm text-left'>
                                 School Name
                             </label>
-                            <input
-                                type='text'
+                            <select
                                 name='schoolName'
                                 id='mySelect'
                                 required
-                                readOnly
                                 value={schoolName}
-                                placeholder='Enter Your Name Here'
+                                onChange={(e) => setSchoolName(e.target.value)}
                                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
                                 data-temp-mail-org='0'
-                            />
+                            >
+                                <option value=''>Select a School Name</option>
+                                {schools.map((school) => (
+                                    <option key={school.name} value={school.name}>
+                                        {school.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         <div>
-                            <label htmlFor='id' className='block mb-2 text-sm text-left'>
+                            <label htmlFor='schoolId' className='block mb-2 text-sm text-left'>
                                 School Code
                             </label>
-                            <input
-                                type='text'
+                            <select
                                 name='schoolId'
                                 id='mySelectId'
                                 required
                                 value={currentSchoolCode}
-                                placeholder='Enter Your Name Here'
+                                onChange={(e) => setCurrentSchoolCode(e.target.value)}
                                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
                                 data-temp-mail-org='0'
-                            />
+                            >
+                                <option value=''>Select a School Code</option>
+                                {schools.map((school) => (
+                                    <option key={school.name} value={school.schoolCode}>
+                                        {school.schoolCode}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
+
 
 
                         <div>
@@ -264,5 +356,4 @@ const Register = () => {
 }
 
 export default Register;
-
 

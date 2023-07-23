@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const Banner = ({ currentShool }) => {
-    // console.log(currentShool)
+
 
     const backgroundImage = currentShool?.schoolBackgroundImg || '';
+
 
     const containerStyle = {
         backgroundImage: `url(${backgroundImage})`,

@@ -47,6 +47,7 @@ const Admin = () => {
                                 <li><Link to={`/${schoolName}/admin/calender`}>Academic Calender</Link></li>
                                 <li><Link to={`/${schoolName}/admin/result`}>All Result sheet</Link></li>
                                 <li><Link to={`/${schoolName}/admin/salary`}>Add Salary</Link></li>
+                                <li><Link to={`/${schoolName}/admin/admission`}>Admission</Link></li>
                                 <li><Link to={`/${schoolName}/admin/addNotice`}>Add Notice</Link></li>
                                 <li><Link to={`/${schoolName}/admin/addStudent`}>Add Student</Link></li>
                                 <li><Link to={`/${schoolName}/admin/addStaff`}>Add Staff</Link></li>

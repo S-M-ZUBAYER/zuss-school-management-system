@@ -1,29 +1,46 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/UserContext';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
 // import { setAuthToken, setAuthTokenGmail } from '../../../Api/Auth/Auth';
 // import BtnSpinner from '../../../components/Sprinners/BtnSpinner/BtnSpinner';
 // import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const LogIn = () => {
     const [userEmail, setUserEmail] = useState('');
-    const { schoolName, currentSchoolCode } = useContext(AuthContext);
+    const { schoolName, setSchoolName, currentSchoolCode, setCurrentSchoolCode } = useContext(AuthContext);
+    const [userData, setUserData] = useState('');
 
     const { signIn, loading, setLoading, resetPassword } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || `/${schoolName}`;
+
+
+    console.log(schoolName, currentSchoolCode, "ksjfdjalsdjladsjlf ikkjiuijjmdjf i")
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
-        const schoolId = event.target.Id.value;
-        console.log(email, password, schoolId)
+        console.log(email, password)
         signIn(email, password)
             .then(result => {
+                axios.get(`http://localhost:5000/api/schoolUser/${email}`)
+                    .then(response => {
+                        setUserData(response.data); // Store the fetched data in state
+                        setSchoolName((response?.data).schoolName)
+                        setCurrentSchoolCode((response?.data).schoolCode);
+                        localStorage.setItem('schoolUser', JSON.stringify(response.data))
+
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                    });
                 toast.success('logIn successfully');
+
                 // setAuthToken(result.user, accountType)
                 navigate(from, { replace: true });
             })
@@ -66,7 +83,7 @@ const LogIn = () => {
                     className='space-y-6 ng-untouched ng-pristine ng-valid'
                 >
                     <div className='space-y-4'>
-                        <div className="form-control">
+                        {/* <div className="form-control">
                             <div>
                                 <label htmlFor='id' className='block mb-2 text-sm text-left'>
                                     School ID
@@ -84,7 +101,7 @@ const LogIn = () => {
                                     data-temp-mail-org='0'
                                 />
                             </div>
-                        </div>
+                        </div> */}
                         <div>
                             <label htmlFor='email' className='block mb-2 text-sm text-left'>
                                 Email address
