@@ -16,52 +16,22 @@ const Staff = () => {
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content bg-gradient-to-l from-blue-900 via-slate-900 to-black">
 
-                    {/* <div className="text-white pt-12 pb-5">
-                        <img data-aos="fade-down" data-aos-duration="2000" className="h-40 w-40 rounded-full border-8 border-x-fuchsia-500 border-yellow-300 mx-auto"
-                        src={user?.photoURL} alt="" 
-                        />
-                        <div data-aos="fade-up" data-aos-duration="2000">
-                            <h1 className="text-2xl font-bold" >
-                                Hi <span className="text-lime-400">{user?.displayName}</span>
-                                Hi
-                            </h1>
-                            <p className="text-xl text-green-300">
-                                Welcome to your dashboard
-                            </p>
-                        </div>
-
-                    </div> */}
                     <Outlet></Outlet>
-
 
                 </div>
                 <div className="drawer-side text-gray-200 font-bold text-xl bg-gradient-to-l from-blue-900 via-slate-900 to-black">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-                    <ul data-aos="fade-up-right" data-aos-duration="2000" className="menu p-4 w-80 ">
+                    <ul data-aos="fade-up-right" data-aos-duration="2000" className="menu py-4 w-70 text-base">
 
                         {
                             // isAdmin && 
                             <>
-                                <li><Link to={`/${schoolName}/staff/profile`}>My Profile</Link></li>
-                                {/* <li><Link to={`/${schoolName}/staff/atd`}>Attendance Sheet</Link></li> */}
+                                <li><Link to={`/${schoolName}/staff/calender`}>Academic Calender</Link></li>
                                 <li><Link to={`/${schoolName}/staff/salary`}>Salary Status</Link></li>
                                 <li><Link to={`/${schoolName}/staff/leave`}>leave application</Link></li>
-                                <li><Link to={`/${schoolName}/staff/calender`}>Academic Calender</Link></li>
                             </>
                         }
-                        {/* {users?.accountType === "Buyer" && !isAdmin && */}
-                        {/* <>
-                            <li><Link to='/dashboard/orders'>My Orders</Link></li>
-                            <li><Link to='/dashboard/wishList'>WishList</Link></li>
-                        </> */}
-                        {/* } */}
 
-
-                        <Link className="text-left" to={`/${schoolName}`}>
-                            <button className='px-4 py-2 mt-8 ml-0 font-semibold text-black lg:text-lg rounded bg-green-300'>
-                                Back to homepage
-                            </button>
-                        </Link>
                     </ul>
 
                 </div>

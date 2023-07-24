@@ -38,21 +38,21 @@ const Introduction = () => {
                 </div>
                 <div className="drawer-side text-gray-200 font-bold text-xl bg-gradient-to-l from-blue-900 via-slate-900 to-black">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-                    <ul data-aos="fade-up-right" data-aos-duration="2000" className="menu p-4 w-80 ">
+                    <ul data-aos="fade-up-right" data-aos-duration="2000" className="menu py-4 w-70 text-base ">
 
 
                         <li><Link to={`/${schoolName}/intro/schoolIntro`}>Our School</Link></li>
                         <li><Link to={`/${schoolName}/intro/notice`}>Notice</Link></li>
                         <li><Link to={`/${schoolName}/intro/allStaffIntro`}>All Staff</Link></li>
-                        <li><Link to={`/${schoolName}/intro/activities`}>Activities</Link></li>
+                        <li><Link to={`/${schoolName}/intro/activities`}>Academic Calender</Link></li>
 
 
 
-                        <Link className="text-left" to={`/${schoolName}`}>
+                        {/* <Link className="text-left" to={`/${schoolName}`}>
                             <button className='px-4 py-2 mt-8 ml-0 font-semibold text-black lg:text-lg rounded bg-green-300'>
                                 Back to homepage
                             </button>
-                        </Link>
+                        </Link> */}
                     </ul>
 
                 </div>

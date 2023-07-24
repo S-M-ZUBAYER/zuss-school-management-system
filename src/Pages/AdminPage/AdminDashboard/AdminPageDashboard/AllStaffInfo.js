@@ -249,7 +249,6 @@ const AllStaffInfo = () => {
                 const response = await fetch('https://zuss-school-management-system-server.vercel.app/api/staffs');
                 const data = await response.json();
                 setStaffs(data);
-                console.log(data);
             } catch (error) {
                 console.error('Failed to fetch staffs:', error);
             }

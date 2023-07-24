@@ -83,6 +83,7 @@ const UserContext = ({ children }) => {
                 const parsedUser = JSON.parse(storedUser);
                 setSchoolName(parsedUser?.schoolName);
                 setCurrentSchoolCode(parsedUser?.schoolCode);
+                // console.log(parsedUser)
                 setLoading(false)
             } catch (error) {
                 console.log('Error parsing user from local storage', error);

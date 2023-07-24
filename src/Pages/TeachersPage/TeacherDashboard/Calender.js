@@ -1,8 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../context/UserContext';
 import axios from 'axios';
+import { useRef } from 'react';
 
 const Calender = () => {
+
+    const divRef = useRef();
+
+    const handlePrint = () => {
+        console.log("print")
+        const printableContent = divRef.current.innerHTML;
+        const originalContents = document.body.innerHTML;
+        document.body.innerHTML = printableContent;
+        window.print();
+        document.body.innerHTML = originalContents;
+    };
 
     const { schoolName, currentSchoolCode } = useContext(AuthContext);
     // const { schoolName, currentSchoolCode, year, startMonth, endMonth, events, eventColor, setShowModal, setSelectedDate, eventName, uploadedImage } = useContext(AuthContext)
@@ -171,20 +183,23 @@ const Calender = () => {
     return (
         <div>
 
-            {calendarData?.calendarImg && (
-                <div className="mt-12 h-96 w-full flex justify-center">
-                    <img src={calendarData?.calendarImg} alt="Uploaded" className="w-5/6 rounded-lg" />
-                </div>
-            )}
-            <h1 className="text-2xl text-white font-bold">Year:- {calendarData?.year}</h1>
-            <h1 className="text-2xl text-white font-bold">School:-{schoolName}</h1>
-            {/* <div className="my-4 grid grid-cols-7 gap-4 mx-5 mb-32">
+            <button onClick={handlePrint}>Print</button>
+            <div ref={divRef}>
+                {calendarData?.calendarImg && (
+                    <div className="mt-12 h-96 w-full flex justify-center">
+                        <img src={calendarData?.calendarImg} alt="Uploaded" className="w-5/6 rounded-lg" />
+                    </div>
+                )}
+                <h1 className="text-2xl text-white font-bold">Year:- {calendarData?.year}</h1>
+                <h1 className="text-2xl text-white font-bold">School:-{schoolName}</h1>
+                {/* <div className="my-4 grid grid-cols-7 gap-4 mx-5 mb-32">
                 {generateCalendar()}
             </div> */}
-            <div className="my-4 mx-5 mb-32">
-                {generateCalendar()}
-            </div>
+                <div className="my-4 mx-5 mb-32">
+                    {generateCalendar()}
+                </div>
 
+            </div>
         </div>
     );
 };
