@@ -11,7 +11,7 @@
 //     useEffect(() => {
 //         const fetchStudents = async () => {
 //             try {
-//                 const response = await axios.get('https://zuss-school-management-system-server.vercel.app/api/students');
+//                 const response = await axios.get('http://localhost:5000/api/students');
 //                 setStudents(response.data);
 //             } catch (error) {
 //                 console.error('Failed to fetch students:', error);
@@ -29,7 +29,7 @@
 //         try {
 //             const confirmed = window.confirm('Are you sure you want to delete this student?');
 //             if (confirmed) {
-//                 await axios.delete(`https://zuss-school-management-system-server.vercel.app/api/students/${id}`);
+//                 await axios.delete(`http://localhost:5000/api/students/${id}`);
 //                 setStudents((prevStudents) => prevStudents.filter((student) => student._id !== id));
 //                 alert('Student deleted successfully!');
 //             }
@@ -50,7 +50,7 @@
 
 //     const handleUpdateStudent = async (formData) => {
 //         try {
-//             await axios.put(`https://zuss-school-management-system-server.vercel.app/api/students/${selectedStudent._id}`, formData);
+//             await axios.put(`http://localhost:5000/api/students/${selectedStudent._id}`, formData);
 //             setStudents((prevStudents) =>
 //                 prevStudents.map((student) => (student._id === selectedStudent._id ? { ...student, ...formData } : student))
 //             );
@@ -151,7 +151,7 @@ const AllStudent = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await axios.get('https://zuss-school-management-system-server.vercel.app/api/students');
+                const response = await axios.get('http://localhost:5000/api/students');
                 setStudents(response.data);
             } catch (error) {
                 console.error('Failed to fetch students:', error);
@@ -169,7 +169,7 @@ const AllStudent = () => {
         try {
             const confirmed = window.confirm('Are you sure you want to delete this student?');
             if (confirmed) {
-                await axios.delete(`https://zuss-school-management-system-server.vercel.app/api/students/${id}`);
+                await axios.delete(`http://localhost:5000/api/students/${id}`);
                 setStudents((prevStudents) => prevStudents.filter((student) => student._id !== id));
                 alert('Student deleted successfully!');
             }
@@ -190,7 +190,7 @@ const AllStudent = () => {
 
     const handleUpdateStudent = async (formData) => {
         try {
-            await axios.put(`https://zuss-school-management-system-server.vercel.app/api/students/${selectedStudent._id}`, formData);
+            await axios.put(`http://localhost:5000/api/students/${selectedStudent._id}`, formData);
             setStudents((prevStudents) =>
                 prevStudents.map((student) => (student._id === selectedStudent._id ? { ...student, ...formData } : student))
             );

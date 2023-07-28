@@ -8,7 +8,7 @@ const Introduction = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen);
     const { schoolName } = useContext(AuthContext);
-    console.log(schoolName)
+
     return (
         <div>
             <Navbar></Navbar>

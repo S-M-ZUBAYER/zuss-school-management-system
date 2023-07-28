@@ -2,24 +2,26 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import img from "../../../Assets/Images/School.jpg"
 import { AuthContext } from '../../../context/UserContext';
+import { toast } from 'react-hot-toast';
 // import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const Navbar = () => {
-    // console.log(globalVariable)
+
     const { logOut } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen)
 
     const { schoolName, user } = useContext(AuthContext);
-    console.log(schoolName)
 
     const handleToLogOut = () => {
+        // Removing the item with key "username" from local storage
+        localStorage.removeItem("schoolUser");
         logOut()
             .then(() => { })
             .catch(err => {
                 console.log(err)
             })
-        console.log("successful")
+        toast.success("LogOut Successfully")
     }
 
     return (
@@ -58,8 +60,8 @@ const Navbar = () => {
                 <div className="items-center flex-shrink-0 hidden lg:flex">
                     {
                         user?.email ?
-                            <Link to={`/${schoolName}/login`}><button className="self-center px-8 py-3 rounded">Sign in</button></Link> :
-                            <Link to={`/${schoolName}/login`} onClick={handleToLogOut}>Log Out</Link>
+                            <Link to={`/${schoolName}/login`} onClick={handleToLogOut}>Log Out</Link> :
+                            <Link to={`/${schoolName}/login`}><button className="self-center px-8 py-3 rounded">Sign in</button></Link>
                     }
                     {/* <Link to={`/${schoolName}/register`}><button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">Sign up</button></Link> */}
                     {/* <Link to={`/${schoolName}/register`}><button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900" onClick={handleToLogOut} >Log Out</button></Link> */}

@@ -8,6 +8,7 @@ const AddStaff = () => {
 
     const { schoolName, currentSchoolCode } = useContext(AuthContext);
 
+    const [teacherId, setTeacherId] = useState('');
     const [name, setName] = useState('');
     const [designation, setDesignation] = useState('');
     const [phone, setPhone] = useState('');
@@ -38,7 +39,6 @@ const AddStaff = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Validate form fields
         if (!name || !designation || !phone || !email || !address || !bloodGroup || !about) {
             toast.error('Please fill in all fields');
             return;
@@ -47,17 +47,21 @@ const AddStaff = () => {
 
         try {
             // Make POST request to backend
-            const response = await axios.post('https://zuss-school-management-system-server.vercel.app/api/staffs', {
+            const response = await axios.post('http://localhost:5000/api/staffs', {
+                teacherId,
                 name,
                 schoolName,
                 schoolCode: currentSchoolCode,
                 designation,
                 phone,
                 email,
+                image,
                 bloodGroup,
                 address,
                 about,
             });
+
+            console.log(response)
 
             // Clear form fields
             setName('');
@@ -83,10 +87,31 @@ const AddStaff = () => {
         }
     };
 
+    const handleToGenerateId = () => {
+        const currentDate = new Date();
+        const randomNumbers = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit number
+        const id = `${currentDate.getFullYear()}${currentDate.getMonth()}${currentDate.getDate()}${currentDate.getHours()}${currentDate.getMinutes()}${currentDate.getSeconds()}${randomNumbers}`;
+        setTeacherId(id);
+    };
+
+
     return (
         <div className="my-10 px-10 py-10 md:mx-5 border-2">
             <h1 className="text-3xl font-bold text-lime-300 mb-4">Please Input New Staff Information</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="flex justify-between items-center">
+                    <label htmlFor="name" className="block font-semibold text-gray-300">
+                        Teacher Id :
+                    </label>
+                    <input
+                        type="text"
+                        id="teacherId"
+                        placeholder='Click To generate Automatic teacher id'
+                        value={teacherId}
+                        onClick={handleToGenerateId}
+                        className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
                 <div className="flex justify-between items-center">
                     <label htmlFor="name" className="block font-semibold text-gray-300">
                         Name :
@@ -139,8 +164,11 @@ const AddStaff = () => {
                         className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
-                <div>
-                    <input type="file" accept="image/*" onChange={handleInputChange} />
+                <div className="text-gray-300 flex justify-between items-center">
+                    <label htmlFor="email" className="block font-semibold text-gray-300">
+                        Image :
+                    </label>
+                    <input className="w-5/6 bg-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" type="file" accept="image/*" onChange={handleInputChange} />
                 </div>
                 <div className="flex justify-between items-center">
                     <label htmlFor="email" className="block font-semibold text-gray-300">

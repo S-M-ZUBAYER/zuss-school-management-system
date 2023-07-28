@@ -4,16 +4,19 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import img from "../../../Assets/Images/School.jpg"
 
-const EachStaff = ({ name, designation, email, phone, bloodGroup, key, handleToDelete, handleMakeAdmin, handleOpenModal }) => {
-
+const EachStaff = ({ name, image, designation, email, phone, bloodGroup, key, handleToDelete, handleMakeAdmin, handleOpenModal }) => {
+    console.log(image)
 
     return (
-        <tbody key={key}>
+        <tbody className="border-2" key={key}>
             <td>
 
                 <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                        <img src={img} alt="img" />
+                    <div className="mask mask-squircle w-9 h-9">
+                        {
+                            image ? <img src={image} alt="img" /> : <img src={img} alt="img" />
+                        }
+
                     </div>
                 </div>
 

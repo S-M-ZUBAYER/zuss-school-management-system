@@ -2,9 +2,9 @@ import React from 'react';
 
 const Review = () => {
     return (
-        <div className="bg-gradient-to-l from-blue-900 via-slate-900 to-black text-slate-100 lg:px-24">
+        <div className="bg-gradient-to-l pt-24 from-blue-900 via-slate-900 to-black text-slate-100 lg:px-24">
             <section className="bg-white text-slate-300 bg-gradient-to-l from-blue-900 via-slate-900 to-black">
-                <div className="mx-auto  px-10 md:px-20 py-16 sm:px-6 sm:py-24 lg:px-8">
+                <div className="mx-auto  px-10 md:px-20 pt-32 sm:px-6 sm:py-24 lg:px-8">
                     <div className="mx-auto  text-center">
                         <h2 className="text-2xl text-lime-300 md:text-5xl font-bold tracking-tight">
                             Read trusted reviews from our student's parents

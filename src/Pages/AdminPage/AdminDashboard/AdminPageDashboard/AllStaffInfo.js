@@ -8,7 +8,7 @@
 //     useEffect(() => {
 //         const fetchData = async () => {
 //             try {
-//                 const response = await fetch('https://zuss-school-management-system-server.vercel.app/api/staffs');
+//                 const response = await fetch('http://localhost:5000/api/staffs');
 //                 const data = await response.json();
 //                 setStaffs(data);
 //                 console.log(data)
@@ -81,7 +81,7 @@
 //     useEffect(() => {
 //         const fetchData = async () => {
 //             try {
-//                 const response = await fetch('https://zuss-school-management-system-server.vercel.app/api/staffs');
+//                 const response = await fetch('http://localhost:5000/api/staffs');
 //                 const data = await response.json();
 //                 setStaffs(data);
 //                 console.log(data);
@@ -107,7 +107,7 @@
 
 //     const handleUpdateStaff = async (formData) => {
 //         try {
-//             const response = await fetch(`https://zuss-school-management-system-server.vercel.app/api/staffs/${selectedStaff.id}`, {
+//             const response = await fetch(`http://localhost:5000/api/staffs/${selectedStaff.id}`, {
 //                 method: 'PUT',
 //                 headers: {
 //                     'Content-Type': 'application/json',
@@ -246,7 +246,7 @@ const AllStaffInfo = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://zuss-school-management-system-server.vercel.app/api/staffs');
+                const response = await fetch('http://localhost:5000/api/staffs');
                 const data = await response.json();
                 setStaffs(data);
             } catch (error) {
@@ -263,7 +263,7 @@ const AllStaffInfo = () => {
     };
 
     const handleCloseModal = () => {
-        setSelectedStaff(null);
+        setSelectedStaff("");
         setIsModalOpen(false);
     };
 
@@ -271,7 +271,7 @@ const AllStaffInfo = () => {
 
     const handleUpdateStaff = async (formData) => {
         try {
-            const response = await fetch(`https://zuss-school-management-system-server.vercel.app/api/staffs/${selectedStaff.id}`, {
+            const response = await fetch(`http://localhost:5000/api/staffs/${selectedStaff.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -282,13 +282,14 @@ const AllStaffInfo = () => {
             if (response.ok) {
                 const updatedStaff = await response.json();
                 setStaffs((prevStaffs) =>
-                    prevStaffs.map((staff) => (staff.id === updatedStaff.id ? updatedStaff : staff))
+                    prevStaffs.map((staff) => (staff.id !== updatedStaff._id ? updatedStaff : staff))
                 );
             } else {
                 console.error('Failed to update staff');
             }
 
             handleCloseModal();
+
         } catch (error) {
             console.error('Failed to update staff:', error);
         }
@@ -299,13 +300,13 @@ const AllStaffInfo = () => {
             const confirmed = window.confirm('Are you sure you want to delete this staff?');
 
             if (confirmed) {
-                const response = await fetch(`https://zuss-school-management-system-server.vercel.app/api/staffs/${staffId}`, {
+                const response = await fetch(`http://localhost:5000/api/staffs/${staffId}`, {
                     method: 'DELETE',
                 });
 
                 if (response.ok) {
-                    setStaffs((prevStaffs) => prevStaffs.filter((staff) => staff.id !== staffId));
-                    toast.success("Delete successfully")
+                    setStaffs((prevStaffs) => prevStaffs.filter((staff) => staff._id !== staffId));
+                    toast.success("Staff Deleted Successfully")
                 } else {
                     toast.error('Failed to delete staff');
                 }
@@ -369,6 +370,7 @@ const AllStaffInfo = () => {
                         filteredStaffs.map((staff, index) => (
                             <EachStaff
                                 name={staff.name}
+                                image={staff?.image}
                                 designation={staff.designation}
                                 email={staff.email}
                                 phone={staff.phone}
@@ -376,7 +378,6 @@ const AllStaffInfo = () => {
                                 key={index}
                                 handleToDelete={() => handleDeleteStaff(staff._id)}
                                 handleUpdateStaff={handleUpdateStaff}
-
                                 handleOpenModal={() => handleOpenModal(staff)}
                             />
                         ))}

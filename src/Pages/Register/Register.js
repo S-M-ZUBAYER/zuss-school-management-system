@@ -27,7 +27,7 @@ const Register = () => {
         const fetchSchools = async () => {
             try {
                 // Send a GET request to retrieve all schools
-                const response = await axios.get('https://zuss-school-management-system-server.vercel.app/api/schools');
+                const response = await axios.get('http://localhost:5000/api/schools');
                 setSchools(response.data);
                 console.log(response?.data)
             } catch (error) {

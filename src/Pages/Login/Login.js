@@ -19,7 +19,6 @@ const LogIn = () => {
     const from = location.state?.from?.pathname || `/${schoolName}`;
 
 
-    console.log(schoolName, currentSchoolCode, "ksjfdjalsdjladsjlf ikkjiuijjmdjf i")
 
     const handleSubmit = (event) => {
         event.preventDefault();
