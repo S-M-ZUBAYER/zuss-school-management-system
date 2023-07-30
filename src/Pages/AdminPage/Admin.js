@@ -38,6 +38,7 @@ const Admin = () => {
 
                                 <li><Link to={`/${schoolName}/admin/idCard`}>ID Card Generate</Link></li>
                                 <li><Link to={`/${schoolName}/admin/addNotice`}>Add Notice</Link></li>
+                                <li><Link to={`/${schoolName}/admin/addEvents`}>Add Events</Link></li>
                                 <li><Link to={`/${schoolName}/admin/calender`}>Academic Calender</Link></li>
 
 
@@ -83,7 +84,15 @@ const Admin = () => {
                                                     role="menuitem"
                                                     onClick={toggleStudentMenu}
                                                 >
-                                                    Admission Info
+                                                    Add Admission Info
+                                                </Link>
+                                                <Link
+                                                    to={`/${schoolName}/admin/class`}
+                                                    className="block px-4 py-2 text-base text-gray-100 hover:bg-gray-100 hover:text-gray-900"
+                                                    role="menuitem"
+                                                    onClick={toggleStudentMenu}
+                                                >
+                                                    Add Class
                                                 </Link>
                                                 <Link
                                                     to={`/${schoolName}/admin/addStudent`}

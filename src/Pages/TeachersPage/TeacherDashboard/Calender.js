@@ -8,7 +8,7 @@ const Calender = () => {
     const divRef = useRef();
 
     const handlePrint = () => {
-        console.log("print")
+
         const printableContent = divRef.current.innerHTML;
         const originalContents = document.body.innerHTML;
         document.body.innerHTML = printableContent;
@@ -27,13 +27,14 @@ const Calender = () => {
 
     const [calendarData, setCalendarData] = useState(null);
     const [loading, setLoading] = useState(true);
-    console.log(calendarData)
+
 
     useEffect(() => {
         const fetchCalendarData = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/calendar/${currentSchoolCode}`);
                 setCalendarData(response.data);
+                console.log(response.data)
                 setLoading(false);
             } catch (error) {
                 console.error('Error retrieving calendar:', error);
@@ -69,7 +70,7 @@ const Calender = () => {
         'Dec'
     ];
 
-    console.log(calendarData?.events)
+
     // const generateCalendar = () => {
     //     const calendar = [];
 
@@ -139,12 +140,9 @@ const Calender = () => {
                     {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(day => {
                         const date = new Date(calendarData?.year, month - 1, day);
                         const formattedDate = date.toISOString().split('T')[0];
-                        console.log(formattedDate)
                         const dayEvents = (calendarData?.events).filter(event => {
-                            console.log(formattedDate, event?.date)
                             return event.date.split("T")[0] === formattedDate
                         })
-                        console.log(dayEvents)
 
                         const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
                         const isFriday = dayName === 'Fri';

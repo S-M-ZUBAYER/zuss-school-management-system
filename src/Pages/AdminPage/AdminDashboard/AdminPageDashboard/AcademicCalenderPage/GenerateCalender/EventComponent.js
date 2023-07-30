@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../../../../../context/UserContext';
+import { toast } from 'react-hot-toast';
 
 const EventComponent = ({ calendarData }) => {
     const { calendarImg, year, startMonth, endMonth, events } = calendarData;
@@ -44,21 +45,23 @@ const EventComponent = ({ calendarData }) => {
             .then((updatedData) => {
                 // Handle the updated data as needed
                 console.log('Calendar updated:', updatedData);
+                toast.success("Calender Updated successfully")
             })
             .catch((error) => {
                 console.error('Error updating calendar:', error);
+                toast.error("Calender Updated failed")
             });
 
     };
 
     return (
-        <div>
+        <div className="text-white">
             <img src={calendarImg} alt="Calendar" />
             <p>Start Month:{startMonth}</p>
             <p>End Month:{endMonth}</p>
             <p>Year:{year}</p>
             <h2>Events:</h2>
-            <div>
+            <div className="border-2 mb-2">
                 {events.map((event) => (
                     <div key={event.id}>
                         <p>Date: {event.date}</p>
@@ -85,7 +88,7 @@ const EventComponent = ({ calendarData }) => {
                     ))}
                 </div>
 
-                <button onClick={handleUpdateCalendar}>Update Calendar</button>
+                <button className="bg bg-green-400 px-3 py-1 font-semibold my-5" onClick={handleUpdateCalendar}>Update Calendar</button>
             </div>
 
 

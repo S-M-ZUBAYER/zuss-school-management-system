@@ -43,8 +43,9 @@ const Introduction = () => {
 
                         <li><Link to={`/${schoolName}/intro/schoolIntro`}>Our School</Link></li>
                         <li><Link to={`/${schoolName}/intro/notice`}>Notice</Link></li>
-                        <li><Link to={`/${schoolName}/intro/allStaffIntro`}>All Staff</Link></li>
-                        <li><Link to={`/${schoolName}/intro/activities`}>Academic Calender</Link></li>
+                        <li><Link to={`/${schoolName}/intro/allStaffIntro`}>School Team</Link></li>
+                        <li><Link to={`/${schoolName}/intro/activities`}>School Events</Link></li>
+                        <li><Link to={`/${schoolName}/intro/calender`}>Academic Calender</Link></li>
 
 
 

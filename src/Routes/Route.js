@@ -44,6 +44,14 @@ import AddStaff from "../Pages/AdminPage/AddStaff/AddStaff";
 import AllStudent from "../Pages/AdminPage/AllStudent/AllStudent";
 import Admission from "../Pages/AdmissionPage/Admission";
 import AdmissionInfo from "../Pages/AdminPage/AdminDashboard/Admission/AdmissionInfo";
+import AddEvents from "../Pages/AdminPage/AddEvents";
+import ActivitiesDetails from "../Pages/IntroductionPage/IntroDashboard/ActivitiesDetails";
+import IntroductionDashboard from "../Pages/IntroductionPage/IntroDashboard/IntroductionDashboard";
+import AdminDashboard from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AdminDashboard";
+import StaffDashboard from "../Pages/StaffPage/StaffDashboard";
+import StudentDashboard from "../Pages/StudentsPage/StudentDashboard";
+import TeacherDashboard from "../Pages/TeachersPage/TeacherDashboard";
+import AddClassInfo from "../Pages/AdminPage/AdminDashboard/Admission/AddClassInfo/AddClassInfo";
 
 export const router = createBrowserRouter([
     {
@@ -85,6 +93,10 @@ export const router = createBrowserRouter([
         element: <Introduction></Introduction>,
         children: [
             {
+                path: '/:name/intro/dashboard',
+                element: <IntroductionDashboard></IntroductionDashboard>
+            },
+            {
                 path: '/:name/intro/schoolIntro',
                 element: <SchoolIntro></SchoolIntro>
             },
@@ -98,7 +110,18 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/:name/intro/activities',
-                element: <Activities></Activities>
+                element: <Activities></Activities>,
+
+            },
+            {
+                path: '/:name/intro/activities/details/:id',
+                element: <ActivitiesDetails></ActivitiesDetails>,
+
+            },
+
+            {
+                path: '/:name/intro/calender',
+                element: <Calender></Calender>
             }
 
         ]
@@ -109,6 +132,10 @@ export const router = createBrowserRouter([
         path: '/:name/teacher',
         element: <Teachers></Teachers>,
         children: [
+            {
+                path: '/:name/teacher/dashboard',
+                element: <TeacherDashboard></TeacherDashboard>
+            },
             {
                 path: '/:name/teacher/information',
                 element: <StdInformation></StdInformation>
@@ -160,6 +187,10 @@ export const router = createBrowserRouter([
         element: <Students></Students>,
         children: [
             {
+                path: '/:name/student/dashboard',
+                element: <StudentDashboard></StudentDashboard>
+            },
+            {
                 path: '/:name/student/StdAttendance',
                 element: <StudentAttendanceStatus></StudentAttendanceStatus>
             },
@@ -184,6 +215,10 @@ export const router = createBrowserRouter([
         path: '/:name/staff',
         element: <Staff></Staff>,
         children: [
+            {
+                path: '/:name/staff/dashboard',
+                element: <StaffDashboard></StaffDashboard>
+            },
             {
                 path: '/:name/staff/leave',
                 element: <LeaveApplication></LeaveApplication>
@@ -210,6 +245,10 @@ export const router = createBrowserRouter([
         path: '/:name/admin',
         element: <Admin></Admin>,
         children: [
+            {
+                path: '/:name/admin/dashboard',
+                element: <AdminDashboard></AdminDashboard>
+            },
             {
                 path: '/:name/admin/calender',
                 element: <AcademicCalender></AcademicCalender>
@@ -239,6 +278,10 @@ export const router = createBrowserRouter([
                 element: <AddNotice></AddNotice>
             },
             {
+                path: '/:name/admin/addEvents',
+                element: <AddEvents></AddEvents>
+            },
+            {
                 path: '/:name/admin/Student_attendance',
                 element: <StudentAttendanceStatus></StudentAttendanceStatus>
             },
@@ -257,6 +300,10 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/admin/admission',
                 element: <AdmissionInfo></AdmissionInfo>
+            },
+            {
+                path: '/:name/admin/class',
+                element: <AddClassInfo></AddClassInfo>
             }
 
         ]

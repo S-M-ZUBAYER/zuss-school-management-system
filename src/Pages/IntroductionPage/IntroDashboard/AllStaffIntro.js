@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import EachStaff from './EachStaff';
 import EachStaffIntro from './EachStaffIntro';
+import OurTeam from './OurSchoool/OurTeam';
 // import axios from 'axios';
 // import EachUser from './EachUser';
 // import { AuthContext } from '../../../../Context/AuthProvider/AuthProvider';
@@ -111,48 +112,13 @@ const AllStaffIntro = () => {
     return (
 
 
-        <div className="bg-gradient-to-l from-blue-900 via-slate-900 to-black pt-12">
-            <h2 data-aos="fade-down" data-aos-duration="2000" className="text-3xl text-lime-500 font-bold mb-5">
+        <div className="bg-gradient-to-l from-blue-900 via-slate-900 to-black mt-[-100px] text-white">
+            {/* <h2 data-aos="fade-down" data-aos-duration="2000" className="text-3xl text-lime-500 font-bold mb-5">
                 Available user In your site .......
-            </h2>
+            </h2> */}
 
 
-            <div data-aos="flip-up" data-aos-duration="2000" className="overflow-x-auto w-5/6 mx-auto mb-20">
-                <table className="table w-full">
-
-                    <thead>
-                        <tr>
-                            <th >Image</th>
-                            <th >Staff Name</th>
-                            <th>Designation</th>
-                            <th>email</th>
-                            <th>Phone No</th>
-                            <th>Blood Group</th>
-                        </tr>
-                    </thead>
-                    {/* {users?.length !== 0 && users?.map(user =>
-                        <EachUser
-                            user={user}
-                            key={user._id}
-                            handleToDelete={handleToDelete}
-                        // handleMakeAdmin={handleMakeAdmin}
-                        ></EachUser>
-                    )} */}
-                    {allStaff?.length !== 0 && allStaff?.map(staff =>
-                        <EachStaffIntro
-                            name={staff?.name}
-                            designation={staff?.designation}
-                            email={staff?.email}
-                            phone={staff?.phone}
-                            bloodGroup={staff?.bloodGroup}
-                            key={staff.phone}
-                        // handleToDelete={handleToDelete}
-                        // handleMakeAdmin={handleMakeAdmin}
-                        ></EachStaffIntro>
-                    )}
-
-                </table>
-            </div>
+            <OurTeam></OurTeam>
         </div>
     );
 };

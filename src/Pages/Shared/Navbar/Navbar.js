@@ -35,19 +35,19 @@ const Navbar = () => {
                         <Link rel="noopener noreferrer" to={`/${schoolName}`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Home</Link>
                     </li>
                     <li className="flex">
-                        <Link rel="noopener noreferrer" to={`/${schoolName}/intro`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Introduction</Link>
+                        <Link rel="noopener noreferrer" to={`/${schoolName}/intro/dashboard`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Introduction</Link>
                     </li>
                     <li className="flex">
-                        <Link rel="noopener noreferrer" to={`/${schoolName}/teacher`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Teacher</Link>
+                        <Link rel="noopener noreferrer" to={`/${schoolName}/teacher/dashboard`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Teacher</Link>
                     </li>
                     <li className="flex">
-                        <Link rel="noopener noreferrer" to={`/${schoolName}/student`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Student</Link>
+                        <Link rel="noopener noreferrer" to={`/${schoolName}/student/dashboard`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Student</Link>
                     </li>
                     <li className="flex">
-                        <Link rel="noopener noreferrer" to={`/${schoolName}/staff`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Staff</Link>
+                        <Link rel="noopener noreferrer" to={`/${schoolName}/staff/dashboard`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Staff</Link>
                     </li>
                     <li className="flex">
-                        <Link rel="noopener noreferrer" to={`/${schoolName}/admin`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Admin</Link>
+                        <Link rel="noopener noreferrer" to={`/${schoolName}/admin/dashboard`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Admin</Link>
                     </li>
                     <li className="flex">
                         <Link rel="noopener noreferrer" to={`/${schoolName}/admission`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Admission</Link>

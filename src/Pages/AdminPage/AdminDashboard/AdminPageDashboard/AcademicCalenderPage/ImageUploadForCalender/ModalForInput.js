@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const ModalForInput = ({ onClose, onImageUpload }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -21,11 +22,15 @@ const ModalForInput = ({ onClose, onImageUpload }) => {
                 })
                     .then(res => res.json())
                     .then(imgData => {
-                        console.log(imgData.data.display_url)
                         onImageUpload(imgData.data.display_url)
+                        toast.success("Img processing completed")
                         setSelectedImage(null);
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        console.log(err)
+                        toast.success("Img processing completed")
+                    });
+
 
                 // if (response.data && response.data.data && response.data.data.url) {
                 //     onImageUpload(response.data.data.url);

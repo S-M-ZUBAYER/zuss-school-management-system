@@ -231,11 +231,12 @@
 // export default AllStaffInfo;
 
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import EachStaff from '../../../IntroductionPage/IntroDashboard/EachStaff';
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../../../context/UserContext';
 
 const AllStaffInfo = () => {
     const [staffs, setStaffs] = useState([]);
@@ -243,19 +244,41 @@ const AllStaffInfo = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
+    const { currentSchoolCode } = useContext(AuthContext);
+    console.log(currentSchoolCode)
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await fetch('http://localhost:5000/api/staffs');
+    //             const data = await response.json();
+    //             setStaffs(data);
+    //         } catch (error) {
+    //             console.error('Failed to fetch staffs:', error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []);
+
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchNotices = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/staffs');
-                const data = await response.json();
-                setStaffs(data);
+                const response = await fetch(`http://localhost:5000/api/staffs/?schoolCode=${currentSchoolCode}`);
+                if (response.ok) {
+                    const staffsData = await response.json();
+                    setStaffs(staffsData);
+                } else {
+                    throw new Error('Failed to fetch staffs');
+                }
             } catch (error) {
-                console.error('Failed to fetch staffs:', error);
+                console.error('Error:', error);
+                // Handle error case
             }
         };
 
-        fetchData();
-    }, []);
+        fetchNotices();
+    }, [currentSchoolCode]);
 
     const handleOpenModal = (staff) => {
         setSelectedStaff(staff);

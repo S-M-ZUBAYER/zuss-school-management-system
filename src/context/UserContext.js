@@ -12,7 +12,8 @@ const UserContext = ({ children }) => {
 
     const [user, setUser] = useState({});
     const [schools, setSchools] = useState([]);
-    const [schoolName, setSchoolName] = useState(null)
+    const [schoolName, setSchoolName] = useState(null);
+    const [events, setEvents] = useState([])
     const [loading, setLoading] = useState(true);
     const [teachersList, setTeachersList] = useState([]);
 
@@ -20,7 +21,6 @@ const UserContext = ({ children }) => {
     const [year, setYear] = useState(new Date().getFullYear());
     const [startMonth, setStartMonth] = useState(1);
     const [endMonth, setEndMonth] = useState(12);
-    const [events, setEvents] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
     const [eventName, setEventName] = useState('');
     const [eventColor, setEventColor] = useState('#ff0000');
@@ -95,7 +95,7 @@ const UserContext = ({ children }) => {
     }, [])
 
 
-    const authInfo = { user, schools, setSchools, schoolName, currentSchoolCode, setCurrentSchoolCode, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList, isPaid, setIsPaid, setSchoolName, year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, events, setEvents, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName, uploadedImage, setUploadedImage }
+    const authInfo = { user, schools, setSchools, schoolName, currentSchoolCode, setCurrentSchoolCode, events, setEvents, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList, isPaid, setIsPaid, setSchoolName, year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName, uploadedImage, setUploadedImage }
 
     return (
         <AuthContext.Provider value={authInfo}>

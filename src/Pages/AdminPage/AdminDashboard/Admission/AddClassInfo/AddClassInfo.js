@@ -6,8 +6,7 @@ const AddClassInfo = () => {
     const [section, setSection] = useState('');
     const [shift, setShift] = useState('');
 
-
-    console.log(classNames, section, shift);
+    console.log(classNames);
 
     const addClassName = () => {
         if (className.trim() !== '') {
@@ -21,10 +20,10 @@ const AddClassInfo = () => {
         setClassNames(updatedClassNames);
     };
 
-    const addSection = (index) => {
+    const addSection = (classIndex) => {
         if (section.trim() !== '') {
             const updatedClassNames = [...classNames];
-            updatedClassNames[index].sections.push({ name: section, shifts: [] });
+            updatedClassNames[classIndex].sections.push({ name: section, shifts: [] });
             setClassNames(updatedClassNames);
             setSection('');
         }
@@ -47,29 +46,27 @@ const AddClassInfo = () => {
 
     const removeShift = (classIndex, sectionIndex, shiftIndex) => {
         const updatedClassNames = [...classNames];
-        updatedClassNames[classIndex].sections[sectionIndex].shifts.splice(
-            shiftIndex,
-            1
-        );
+        updatedClassNames[classIndex].sections[sectionIndex].shifts.splice(shiftIndex, 1);
         setClassNames(updatedClassNames);
     };
 
+    const handleLog = () => {
+        console.log(classNames);
+    };
+
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Class and Section Manager</h1>
+        <div className="p-4 text-white">
+            <h1 className="text-2xl font-bold mb-4">Class, Section, Shift Management</h1>
 
             <div className="flex mb-4">
                 <input
                     type="text"
-                    className="w-full px-4 py-2 border rounded-md mr-2 text-black"
+                    className="w-1/2 px-4 py-2 border rounded-md mr-2 text-black"
                     placeholder="Enter ClassName"
                     value={className}
                     onChange={(e) => setClassName(e.target.value)}
                 />
-                <button
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                    onClick={addClassName}
-                >
+                <button className="px-4 py-2 bg-blue-500 text-white rounded-md" onClick={addClassName}>
                     Add ClassName
                 </button>
             </div>
@@ -82,14 +79,14 @@ const AddClassInfo = () => {
                             className="px-2 py-1 text-red-600"
                             onClick={() => removeClassName(classIndex)}
                         >
-                            Remove
+                            Remove ClassName
                         </button>
                     </div>
 
                     <div className="flex mb-4">
                         <input
                             type="text"
-                            className="w-full px-4 py-2 border rounded-md mr-2 text-black"
+                            className="w-1/2 px-4 py-2 border rounded-md mr-2 text-black"
                             placeholder="Enter Section"
                             value={section}
                             onChange={(e) => setSection(e.target.value)}
@@ -104,10 +101,21 @@ const AddClassInfo = () => {
 
                     {item.sections.map((sectionItem, sectionIndex) => (
                         <div key={sectionIndex} className="mb-2">
+                            <div className="flex justify-between mb-2">
+                                <p className="w-1/2 px-4 py-2  rounded-md mr-2 text-green-400">
+                                    {sectionIndex + 1}. {sectionItem.name}
+                                </p>
+                                <button
+                                    className="px-2 py-1 text-red-600"
+                                    onClick={() => removeSection(classIndex, sectionIndex)}
+                                >
+                                    Remove Section
+                                </button>
+                            </div>
                             <div className="flex mb-2">
                                 <input
                                     type="text"
-                                    className="w-full px-4 py-2 border rounded-md mr-2 text-black"
+                                    className="w-1/2 px-4 py-2 border rounded-md mr-2 text-black"
                                     placeholder="Enter Shift"
                                     value={shift}
                                     onChange={(e) => setShift(e.target.value)}
@@ -121,12 +129,14 @@ const AddClassInfo = () => {
                             </div>
                             {sectionItem.shifts.map((shiftItem, shiftIndex) => (
                                 <div key={shiftIndex} className="flex justify-between">
-                                    <p>{shiftItem}</p>
+                                    <p className="w-1/2 px-4 py-2 rounded-md mr-2 text-blue-500">
+                                        {shiftIndex + 1}. {shiftItem}
+                                    </p>
                                     <button
                                         className="px-2 py-1 text-red-600"
                                         onClick={() => removeShift(classIndex, sectionIndex, shiftIndex)}
                                     >
-                                        Remove
+                                        Remove Shift
                                     </button>
                                 </div>
                             ))}
@@ -134,6 +144,10 @@ const AddClassInfo = () => {
                     ))}
                 </div>
             ))}
+
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-md" onClick={handleLog}>
+                Log
+            </button>
         </div>
     );
 };
