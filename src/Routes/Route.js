@@ -52,6 +52,7 @@ import StaffDashboard from "../Pages/StaffPage/StaffDashboard";
 import StudentDashboard from "../Pages/StudentsPage/StudentDashboard";
 import TeacherDashboard from "../Pages/TeachersPage/TeacherDashboard";
 import AddClassInfo from "../Pages/AdminPage/AdminDashboard/Admission/AddClassInfo/AddClassInfo";
+import Apply from "../Pages/AdmissionPage/Apply";
 
 export const router = createBrowserRouter([
     {
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
             {
                 path: "/:name/admission",
                 element: <Admission></Admission>
+            },
+            {
+                path: "/:name/admission/apply",
+                element: <Apply></Apply>
             },
             {
                 path: "/:name/contact",

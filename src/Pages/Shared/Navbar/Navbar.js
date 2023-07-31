@@ -27,7 +27,7 @@ const Navbar = () => {
     return (
         <header className="p-4 dark:bg-gray-800 dark:text-gray-100 text-slate-200 bg-gradient-to-t from-blue-900 via-slate-900 to-black">
             <div className="container flex justify-between h-16 mx-auto">
-                <Link rel="noopener noreferrer" to="/" aria-label="Back to homepage" className="flex items-center p-2">
+                <Link rel="noopener noreferrer" to={`/${schoolName}`} aria-label="Back to homepage" className="flex items-center p-2">
                     <img className="h-10 w-10 rounded-full" src={img} alt="school logo" />
                 </Link>
                 <ul className="items-stretch hidden space-x-3 lg:flex">

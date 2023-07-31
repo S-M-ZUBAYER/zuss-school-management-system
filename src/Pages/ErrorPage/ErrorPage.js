@@ -1,8 +1,11 @@
 import { HandThumbDownIcon } from '@heroicons/react/24/solid'
 import React from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/UserContext'
 
 const ErrorPage = () => {
+    const { schoolName } = useContext(AuthContext)
     return (
         <section className='flex items-center h-screen p-16 bg-gray-100 text-gray-900'>
             <div className='container flex flex-col items-center justify-center px-5 mx-auto my-8'>
@@ -19,7 +22,7 @@ const ErrorPage = () => {
                     <p className='text-2xl font-semibold md:text-3xl mb-8'>
                         Sorry, we couldn't find this page.
                     </p>
-                    <Link to='/'>
+                    <Link to={`/${schoolName}`}>
                         <button className='px-8 py-3 font-semibold text-lg rounded bg-red-300'>
                             Back to homepage
                         </button>

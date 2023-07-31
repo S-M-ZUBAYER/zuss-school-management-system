@@ -14,14 +14,14 @@ const ActivitiesDetails = () => {
 
     return (
         <div className="lg:px-32 p-6 text-center">
-            <img src={currentEvent?.image} alt="Event" className="w-full h-72 object-contain rounded-t-lg" />
+            <img src={currentEvent?.image} alt="Event" className="w-full h-84 object-contain rounded-t-lg" />
             <div className="py-4">
-                <h2 className="text-2xl text-white font-bold">{currentEvent?.eventName}</h2>
+                <h2 className="text-2xl font-bold text-green-300">{currentEvent?.eventName}</h2>
 
-                <h3 className="text-gray-50 text-lg"><span className="font-semibold">Place:</span> {currentEvent?.destination}</h3>
+                <h3 className="text-gray-50 text-lg"><span className="font-semibold text-amber-200">Place:</span> {currentEvent?.destination}</h3>
 
                 <div className="flex items-center justify-center text-lg ">
-                    <span className="text-gray-50"><span className="font-semibold">Time:</span> {currentEvent?.date}</span>
+                    <span className="text-gray-50"><span className="font-semibold text-amber-200">Time:</span> {currentEvent?.date}</span>
                     <span className="text-gray-50 mx-2">at</span>
                     <span className="text-gray-50">{currentEvent?.time}</span>
                 </div>
