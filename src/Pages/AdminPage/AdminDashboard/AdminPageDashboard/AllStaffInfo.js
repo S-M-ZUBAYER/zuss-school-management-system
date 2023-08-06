@@ -8,7 +8,7 @@
 //     useEffect(() => {
 //         const fetchData = async () => {
 //             try {
-//                 const response = await fetch('http://localhost:5000/api/staffs');
+//                 const response = await fetch('https://school-management-system-server-site.vercel.app/api/staffs');
 //                 const data = await response.json();
 //                 setStaffs(data);
 //                 console.log(data)
@@ -81,7 +81,7 @@
 //     useEffect(() => {
 //         const fetchData = async () => {
 //             try {
-//                 const response = await fetch('http://localhost:5000/api/staffs');
+//                 const response = await fetch('https://school-management-system-server-site.vercel.app/api/staffs');
 //                 const data = await response.json();
 //                 setStaffs(data);
 //                 console.log(data);
@@ -107,7 +107,7 @@
 
 //     const handleUpdateStaff = async (formData) => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/staffs/${selectedStaff.id}`, {
+//             const response = await fetch(`https://school-management-system-server-site.vercel.app/api/staffs/${selectedStaff.id}`, {
 //                 method: 'PUT',
 //                 headers: {
 //                     'Content-Type': 'application/json',
@@ -250,7 +250,7 @@ const AllStaffInfo = () => {
     // useEffect(() => {
     //     const fetchData = async () => {
     //         try {
-    //             const response = await fetch('http://localhost:5000/api/staffs');
+    //             const response = await fetch('https://school-management-system-server-site.vercel.app/api/staffs');
     //             const data = await response.json();
     //             setStaffs(data);
     //         } catch (error) {
@@ -264,7 +264,7 @@ const AllStaffInfo = () => {
     useEffect(() => {
         const fetchNotices = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/staffs/?schoolCode=${currentSchoolCode}`);
+                const response = await fetch(`https://school-management-system-server-site.vercel.app/api/staffs/?schoolCode=${currentSchoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);
@@ -294,7 +294,7 @@ const AllStaffInfo = () => {
 
     const handleUpdateStaff = async (formData) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/staffs/${selectedStaff.id}`, {
+            const response = await fetch(`https://school-management-system-server-site.vercel.app/api/staffs/${selectedStaff.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -323,7 +323,7 @@ const AllStaffInfo = () => {
             const confirmed = window.confirm('Are you sure you want to delete this staff?');
 
             if (confirmed) {
-                const response = await fetch(`http://localhost:5000/api/staffs/${staffId}`, {
+                const response = await fetch(`https://school-management-system-server-site.vercel.app/api/staffs/${staffId}`, {
                     method: 'DELETE',
                 });
 

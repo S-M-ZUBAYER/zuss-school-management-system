@@ -3,10 +3,10 @@ import { PieChart, Pie, Tooltip, BarChart, XAxis, YAxis, Legend, CartesianGrid, 
 
 const AdminDashboard = () => {
     const data = [
-        { name: "Students", users: 2000000000 },
-        { name: "Teachers", users: 1500000000 },
-        { name: "Admins", users: 1000000000 },
-        { name: "Others", users: 500000000 },
+        { name: "Students", users: 50000 },
+        { name: "Teachers", users: 80000 },
+        { name: "Admins", users: 20000 },
+        { name: "Others", users: 100000 },
     ];
 
     const pieColors = ["#ECC94B", "#63B3ED", "#F56565", "#68D391"];

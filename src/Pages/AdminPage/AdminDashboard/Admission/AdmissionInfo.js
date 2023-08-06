@@ -75,13 +75,13 @@ const AdmissionForm = () => {
         try {
             // Check if admission information exists for the particular school code
             const existingInfoResponse = await axios.get(
-                `http://localhost:5000/api/admissionInfo/${currentSchoolCode}`
+                `https://school-management-system-server-site.vercel.app/api/admissionInfo/${currentSchoolCode}`
             );
 
             if (existingInfoResponse.data.msg === true) {
                 // Admission information exists, make a PATCH request to update
                 const updateResponse = await axios.patch(
-                    `http://localhost:5000/api/admissionInfo/update/${currentSchoolCode}`,
+                    `https://school-management-system-server-site.vercel.app/api/admissionInfo/update/${currentSchoolCode}`,
                     admissionInfo
                 );
 
@@ -89,7 +89,7 @@ const AdmissionForm = () => {
                 toast.success('Admission information updated successfully');
             } else {
                 // Admission information does not exist, make a POST request to add new
-                const addResponse = await axios.post('http://localhost:5000/api/admissionInfo', {
+                const addResponse = await axios.post('https://school-management-system-server-site.vercel.app/api/admissionInfo', {
                     schoolName,
                     schoolCode: currentSchoolCode,
                     admissionInfo,

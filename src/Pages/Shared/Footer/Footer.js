@@ -78,7 +78,7 @@ const Footer = () => {
                 <hr className="h-px my-6 bg-gray-200 border-none dark:bg-gray-700" />
 
                 <div>
-                    <p className="text-center text-gray-200 dark:text-gray-400">© Cricket Lover 2022 - All rights reserved</p>
+                    <p className="text-center text-gray-200 dark:text-gray-400">© Astha Insight 2023 - All rights reserved</p>
                 </div>
             </div>
         </footer>
