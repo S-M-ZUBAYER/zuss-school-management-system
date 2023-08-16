@@ -53,7 +53,7 @@ const AddEvents = () => {
 
         try {
             // Make POST request to backend
-            const response = await axios.post('https://school-management-system-server-site.vercel.app/api/schoolEvents', {
+            const response = await axios.post('http://localhost:5000/api/schoolEvents', {
                 schoolName,
                 schoolCode: currentSchoolCode,
                 eventName,

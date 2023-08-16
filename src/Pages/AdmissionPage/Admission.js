@@ -13,7 +13,7 @@ const Admission = () => {
         const fetchData = async () => {
             try {
                 // Make a GET request to fetch admission data
-                const response = await axios.get('https://school-management-system-server-site.vercel.app/api/admissionInfo', {
+                const response = await axios.get('http://localhost:5000/api/admissionInfo', {
                     params: {
                         schoolCode: currentSchoolCode, // Replace with the school code you want to fetch data for
                     },
@@ -27,7 +27,7 @@ const Admission = () => {
         fetchData();
     }, []);
 
-    console.log(admissionData, currentSchoolCode)
+
 
     return (
         <div className="p-4 bg-gradient-to-l from-blue-900 via-slate-900 to-black text-slate-100 lg:px-24">

@@ -1,52 +1,63 @@
-import React, { useRef, useEffect } from 'react';
-import classNames from 'classnames';
+import React, { useState, useEffect, useContext } from 'react';
+import './NewsTicker.css'; // Import your CSS file for styling
+import { AuthContext } from '../../../context/UserContext';
 
-const NewsTicker = ({ items }) => {
-    const newsRef = useRef(null);
+const NewsTicker = () => {
+    const [visibleItems, setVisibleItems] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [newsItems, setNewsItems] = useState([]);
+
+    const { currentSchoolCode } = useContext(AuthContext);
 
     useEffect(() => {
-        const newsEl = newsRef.current;
-        const newsWidth = newsEl.offsetWidth;
-        const parentWidth = newsEl.parentElement.offsetWidth;
-        let animation;
-
-        if (newsWidth > parentWidth) {
-            const animationDuration = newsWidth / 50;
-            animation = newsEl.animate(
-                [
-                    { transform: 'translateX(0)' },
-                    { transform: `translateX(-${newsWidth}px)` },
-                ],
-                {
-                    duration: animationDuration * 1000,
-                    iterations: Infinity,
-                    playbackRate: 1,
+        const fetchNotices = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/notices/?schoolCode=${currentSchoolCode}`);
+                if (response.ok) {
+                    const noticesData = await response.json();
+                    setNewsItems(noticesData);
+                    console.log(noticesData);
+                } else {
+                    throw new Error('Failed to fetch notices');
                 }
-            );
-        }
-
-        return () => {
-            if (animation) {
-                animation.cancel();
+            } catch (error) {
+                console.error('Error:', error);
+                // Handle error case
             }
         };
-    }, []);
+
+        fetchNotices();
+    }, [currentSchoolCode]);
+    // console.log(newsItems, currentSchoolCode)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const newItem = newsItems[currentIndex];
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % newsItems.length);
+            setVisibleItems((prevItems) => {
+                if (prevItems.length < 3) {
+                    return [...prevItems, newItem];
+                } else {
+                    const newItems = [...prevItems];
+                    newItems.shift();
+                    newItems.push(newItem);
+                    return newItems;
+                }
+            });
+        }, 3000); // Adjust the interval duration as needed
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [newsItems, currentIndex]);
 
     return (
-        <div className="bg-blue-800 text-white px-4 py-2 text-sm">
-            <div
-                className={classNames(
-                    'inline-block whitespace-nowrap overflow-hidden',
-                    {
-                        'hover:cursor-pointer': items.length > 1,
-                    }
-                )}
-                ref={newsRef}
-            >
-                {items.map((item, index) => (
-                    <span key={index} className="px-2">
-                        {item}
-                    </span>
+        <div className="news-ticker-container">
+            <div className="news-ticker">
+                {newsItems.map((item, index) => (
+                    <div key={index} className="news-item text-xl bg-blue-800 text-white">
+                        {item.message}
+                    </div>
                 ))}
             </div>
         </div>

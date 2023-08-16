@@ -53,6 +53,8 @@ import StudentDashboard from "../Pages/StudentsPage/StudentDashboard";
 import TeacherDashboard from "../Pages/TeachersPage/TeacherDashboard";
 import AddClassInfo from "../Pages/AdminPage/AdminDashboard/Admission/AddClassInfo/AddClassInfo";
 import Apply from "../Pages/AdmissionPage/Apply";
+import AdmissionProcess from "../Pages/IntroductionPage/AdmissionProcess";
+import ApplicationDetails from "../Pages/IntroductionPage/ApplicationDetails";
 
 export const router = createBrowserRouter([
     {
@@ -127,6 +129,15 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/intro/calender',
                 element: <Calender></Calender>
+            },
+
+            {
+                path: '/:name/intro/admissionProcess',
+                element: <AdmissionProcess></AdmissionProcess>
+            },
+            {
+                path: '/:name/intro/admissionProcess/details/:applicationId',
+                element: <ApplicationDetails></ApplicationDetails>
             }
 
         ]

@@ -11,7 +11,7 @@ const OurTeam = () => {
     useEffect(() => {
         const fetchNotices = async () => {
             try {
-                const response = await fetch(`https://school-management-system-server-site.vercel.app/api/staffs/?schoolCode=${currentSchoolCode}`);
+                const response = await fetch(`http://localhost:5000/api/staffs/?schoolCode=${currentSchoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);

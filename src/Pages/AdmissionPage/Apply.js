@@ -12,7 +12,7 @@ const Apply = () => {
         const fetchData = async () => {
             try {
                 // Make a GET request to fetch admission data
-                const response = await axios.get('https://school-management-system-server-site.vercel.app/api/admissionInfo', {
+                const response = await axios.get('http://localhost:5000/api/admissionInfo', {
                     params: {
                         schoolCode: currentSchoolCode, // Replace with the school code you want to fetch data for
                     },
@@ -74,29 +74,8 @@ const Apply = () => {
 
 
     const handleSubmit = async (e) => {
-        console.log("click")
         e.preventDefault();
-        console.log(applicationId,
-            name,
-            designation,
-            schoolName, currentSchoolCode,
-            previousClass,
-            averageMark,
-            className,
-            gender,
-            fatherName,
-            motherName,
-            phone,
-            email,
-            division,
-            district,
-            number,
-            transactionId,
-            agentName,
-            amount,
-            extraInfo,
-            address)
-        // Validate form fields
+        const date = new Date().getFullYear();
         if (!applicationId || !name || !designation || !gender || !fatherName || !motherName || !division || !district || !address || !className || !previousClass || !averageMark || !fatherName || !motherName || !phone || !email) {
             toast.error('Please fill in all fields');
             return;
@@ -113,6 +92,7 @@ const Apply = () => {
             // Make POST request to backend
             const response = await axios.post('http://localhost:5000/api/application', {
                 applicationId,
+                date,
                 name,
                 designation,
                 schoolName,
@@ -135,7 +115,6 @@ const Apply = () => {
                 agentName,
                 amount
             });
-
             // Clear form fields
             setApplicationId("");
             setName('');
@@ -177,7 +156,7 @@ const Apply = () => {
             setImage(response.data.data.display_url);
             toast.success('Image uploaded successfully');
         } catch (error) {
-            console.log(error);
+            console.error(error);
             toast.error(error.message);
         }
     }, []);

@@ -27,7 +27,7 @@ const Register = () => {
         const fetchSchools = async () => {
             try {
                 // Send a GET request to retrieve all schools
-                const response = await axios.get('https://school-management-system-server-site.vercel.app/api/schools');
+                const response = await axios.get('http://localhost:5000/api/schools');
                 setSchools(response.data);
                 console.log(response?.data)
             } catch (error) {
@@ -138,8 +138,8 @@ const Register = () => {
                             email: email
                         };
 
-                        // Sending the POST request to https://school-management-system-server-site.vercel.app/api/schoolUser/
-                        axios.post('https://school-management-system-server-site.vercel.app/api/schoolUser/add', schoolUser)
+                        // Sending the POST request to http://localhost:5000/api/schoolUser/
+                        axios.post('http://localhost:5000/api/schoolUser/add', schoolUser)
                             .then(response => {
                                 console.log(response.data);
                                 localStorage.setItem('schoolUser', JSON.stringify(response.data))

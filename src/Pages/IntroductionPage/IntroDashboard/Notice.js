@@ -11,7 +11,7 @@
 // //     const [notices, setNotices] = useState([]);
 // //     const { schoolName, currentSchoolCode } = useContext(AuthContext);
 // //     console.log(currentSchoolCode)
-// //     fetch(`https://school-management-system-server-site.vercel.app/api/notices/?schoolCode=${encodeURIComponent(currentSchoolCode)}`)
+// //     fetch(`http://localhost:5000/api/notices/?schoolCode=${encodeURIComponent(currentSchoolCode)}`)
 // //         .then(response => {
 // //             if (response.ok) {
 // //                 return response.json(); // Parse the response body as JSON
@@ -38,7 +38,7 @@
 // //         else {
 
 
-// //             fetch(`https://school-management-system-server-site.vercel.app/api/notices/${id}`, {
+// //             fetch(`http://localhost:5000/api/notices/${id}`, {
 // //                 method: 'DELETE',
 // //             })
 // //                 .then(response => {
@@ -118,7 +118,7 @@ function Notice() {
     console.log(currentSchoolCode);
 
     const fetchNotices = () => {
-        fetch(`https://school-management-system-server-site.vercel.app/api/notices/?schoolCode=${encodeURIComponent(currentSchoolCode)}`)
+        fetch(`http://localhost:5000/api/notices/?schoolCode=${encodeURIComponent(currentSchoolCode)}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -142,7 +142,7 @@ function Notice() {
     useEffect(() => {
         const fetchNotices = async () => {
             try {
-                const response = await fetch(`https://school-management-system-server-site.vercel.app/api/notices/?schoolCode=${currentSchoolCode}`);
+                const response = await fetch(`http://localhost:5000/api/notices/?schoolCode=${currentSchoolCode}`);
                 if (response.ok) {
                     const noticesData = await response.json();
                     setNotices(noticesData);
@@ -165,7 +165,7 @@ function Notice() {
         if (!confirmed) {
             return;
         } else {
-            fetch(`https://school-management-system-server-site.vercel.app/api/notices/${id}`, {
+            fetch(`http://localhost:5000/api/notices/${id}`, {
                 method: 'DELETE',
             })
                 .then(response => {
@@ -197,7 +197,7 @@ function Notice() {
                 message: editedMessage,
             };
 
-            fetch(`https://school-management-system-server-site.vercel.app/api/notices/${editingNotice._id}`, {
+            fetch(`http://localhost:5000/api/notices/${editingNotice._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

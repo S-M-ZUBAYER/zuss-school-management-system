@@ -9,7 +9,7 @@ import Review from '../Review';
 const Home = () => {
     const { currentSchoolCode } = useContext(AuthContext);
     const [currentShool, setCurrentSchool] = useState(null)
-    fetch(`https://school-management-system-server-site.vercel.app/api/schools/school/${currentSchoolCode}`)
+    fetch(`http://localhost:5000/api/schools/school/${currentSchoolCode}`)
         .then(response => response.json())
         .then(data => {
             // Process the data or do something with it
@@ -23,7 +23,7 @@ const Home = () => {
             <Banner
                 currentShool={currentShool}
             ></Banner>
-            <NewsTicker items={['Breaking news!', 'Latest headlines', 'News update']} />
+            <NewsTicker newsItems={['Breaking news!', 'Latest headlines', 'News update', 'skfjlsakdjflakdsf', 'kdsjflajs flasjfsadkfda', 'sdjfasdfjlasfjls']} />
             <About
                 currentShool={currentShool}
             ></About>

@@ -7,7 +7,7 @@ import About from '../../../Homepage/Home/About';
 function OurSchool() {
     const { currentSchoolCode } = useContext(AuthContext);
     const [currentShool, setCurrentSchool] = useState(null)
-    fetch(`https://school-management-system-server-site.vercel.app/api/schools/school/${currentSchoolCode}`)
+    fetch(`http://localhost:5000/api/schools/school/${currentSchoolCode}`)
         .then(response => response.json())
         .then(data => {
             // Process the data or do something with it
