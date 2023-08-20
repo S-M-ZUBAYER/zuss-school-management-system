@@ -20,7 +20,7 @@ const AllStaffInfo = () => {
     useEffect(() => {
         const fetchNotices = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/staffs/?schoolCode=${currentSchoolCode}`);
+                const response = await fetch(`http://localhost:5000/api/staffs/${currentSchoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);

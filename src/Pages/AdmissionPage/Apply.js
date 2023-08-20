@@ -59,7 +59,7 @@ const Apply = () => {
             const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
             const classInfoData = response.data?.classInfo;
             if (classInfoData) {
-                const classNames = classInfoData.map((element) => element?.name);
+                const classNames = classInfoData?.map((element) => element?.name);
                 setAllClasses(classNames);
             }
         } catch (error) {
@@ -80,12 +80,12 @@ const Apply = () => {
             toast.error('Please fill in all fields');
             return;
         }
-        if (admissionData?.applicationFee) {
-            if (!agentName || !number || !transactionId || !amount) {
-                toast.error('Please fill the payment information');
-                return;
-            }
-        }
+        // if (admissionData?.applicationFee) {
+        //     if (!agentName || !number || !transactionId || !amount) {
+        //         toast.error('Please fill the payment information');
+        //         return;
+        //     }
+        // }
 
 
         try {
@@ -110,6 +110,9 @@ const Apply = () => {
                 district,
                 extraInfo,
                 address,
+                accept: false,
+                admitCard: false,
+                waiting: false,
                 number,
                 transactionId,
                 agentName,

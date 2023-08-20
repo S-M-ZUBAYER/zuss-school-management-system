@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import OurTeam from './OurTeam';
 import { AuthContext } from '../../../../context/UserContext';
 import About from '../../../Homepage/Home/About';
@@ -7,15 +7,26 @@ import About from '../../../Homepage/Home/About';
 function OurSchool() {
     const { currentSchoolCode } = useContext(AuthContext);
     const [currentShool, setCurrentSchool] = useState(null)
-    fetch(`http://localhost:5000/api/schools/school/${currentSchoolCode}`)
-        .then(response => response.json())
-        .then(data => {
-            // Process the data or do something with it
-            setCurrentSchool(data)
-        })
-        .catch(error => {
-            console.error('Error fetching school information:', error);
-        });
+    console.log(currentSchoolCode)
+
+    useEffect(() => {
+        const fetchSchoolData = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/schools/school/${currentSchoolCode}`);
+                if (response.ok) {
+                    const schoolData = await response.json();
+                    setCurrentSchool(schoolData);
+                } else {
+                    throw new Error('Failed to fetch staffs');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Handle error case
+            }
+        };
+
+        fetchSchoolData();
+    }, []);
 
     return (
         <div className="text-white">
@@ -31,7 +42,8 @@ function OurSchool() {
 
                 </div>
 
-                <OurTeam />
+                <OurTeam
+                    schoolCode={currentSchoolCode} />
             </div>
         </div>
     );

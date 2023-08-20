@@ -116,7 +116,7 @@ const AddClassInfo = () => {
                     </button>
                 </div>
 
-                {classNames.map((item, classIndex) => (
+                {classNames?.map((item, classIndex) => (
                     <div key={classIndex} className="border rounded-md p-4 mb-4">
                         <div className="flex justify-between mb-2">
                             <h2 className="text-lg font-semibold">{item.name}</h2>
@@ -196,7 +196,7 @@ const AddClassInfo = () => {
             </div>
             <div className="p-4 text-white mb-10">
                 <h2 className="font-bold text-3xl text-center my-8">Show the ClassName, Section and Shift</h2>
-                {classNames.map((classItem, classIndex) => (
+                {classNames?.map((classItem, classIndex) => (
                     <div key={classItem.name}>
                         <h2 className="text-xl font-bold">
                             {`${classIndex + 1}. ${classItem.name}`}

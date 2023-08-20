@@ -1,17 +1,18 @@
 import React from 'react';
-import { useContext } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { AuthContext } from '../../../../context/UserContext';
 
-const OurTeam = () => {
+
+
+const OurTeam = ({ schoolCode }) => {
+
     const [staffs, setStaffs] = useState([]);
-    const { currentSchoolCode } = useContext(AuthContext);
+    console.log(schoolCode)
 
     useEffect(() => {
-        const fetchNotices = async () => {
+        const fetchStaffs = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/staffs/?schoolCode=${currentSchoolCode}`);
+                const response = await fetch(`http://localhost:5000/api/staffs/${schoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);
@@ -24,9 +25,10 @@ const OurTeam = () => {
             }
         };
 
-        fetchNotices();
-    }, [currentSchoolCode]);
+        fetchStaffs();
+    }, []); // Empty dependency array ensures the effect runs only once
     console.log(staffs)
+    console.log(schoolCode, staffs)
 
     return (
         <section className="pt-32 pb-12  dark:bg-gray-800 dark:text-gray-100">
@@ -35,7 +37,7 @@ const OurTeam = () => {
                     <h3 className="text-2xl font-bold leading-none sm:text-5xl">Meet our school team</h3>
                     <p className="">Teachers and other staffs of a school change the students life and made them what they made themselves today. Our team became a success team teacher as a result of having top notch teachers grade school 1–6 grade proving a solid foundation for me to build all future educational endeavors. I cannot thank thank them enough for their hard work, dedication and enthusiasm every day I walked into their classroom. Now I know how much of a challenge it was and how many hours I am sure they gave outside of the classroom to insure my experience.</p>
                 </div>
-                <div className="grid w-full grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid w-full grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 
                     {
                         staffs.map((staff) => {

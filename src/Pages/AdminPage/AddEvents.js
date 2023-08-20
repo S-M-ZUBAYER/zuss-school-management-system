@@ -95,7 +95,7 @@ const AddEvents = () => {
 
     return (
         <div className="my-10 px-10 py-10 md:mx-5 border-2">
-            <h1 className="text-3xl font-bold text-lime-300 mb-4">Please Input New Staff Information</h1>
+            <h1 className="text-3xl font-bold text-lime-300 mb-4">Please Input New Event Information</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex justify-between items-center">
                     <label htmlFor="name" className="block font-semibold text-gray-300">
