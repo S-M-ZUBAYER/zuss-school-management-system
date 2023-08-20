@@ -141,27 +141,69 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
+import { useContext } from 'react';
+import { AuthContext } from '../../../context/UserContext';
+import EachStaff from '../../IntroductionPage/IntroDashboard/EachStaff';
 
 const AllStudent = () => {
     const [students, setStudents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [allStudents, setAllStudents] = useState([]);
+    const [classSearchQuery, setClassSearchQuery] = useState([]);
+    const [sectionSearchQuery, setSectionSearchQuery] = useState([]);
+    const [shiftSearchQuery, setShiftSearchQuery] = useState([]);
+    const [nameSearchQuery, setNameSearchQuery] = useState([]);
+    const [year, setYear] = useState(new Date().getFullYear());
 
+
+    const { currentSchoolCode } = useContext(AuthContext);
+
+    const [allClasses, setAllclasses] = useState([]);
+
+
+    function getAllYears(startYear) {
+        const currentYear = new Date().getFullYear();
+        const years = [];
+
+        for (let year = startYear; year <= currentYear; year++) {
+            years.push(year);
+        }
+
+        return years;
+    }
+    const years = getAllYears(2020);
+    console.log(year)
     useEffect(() => {
-        const fetchStudents = async () => {
+        const fetchApplications = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/students');
-                setStudents(response.data);
+                const response = await axios.get(`http://localhost:5000/api/students/${currentSchoolCode}`, {
+                    params: { year }
+                });
+                setAllStudents(response.data);
+                console.log(response.data)
             } catch (error) {
-                console.error('Failed to fetch students:', error);
+                console.error('Error fetching applications:', error);
             }
         };
 
-        fetchStudents();
-    }, []);
 
-    const handleSearch = (event) => {
+        fetchApplications();
+    }, [currentSchoolCode, year]);
+
+
+
+    const handleClassSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+    const handleSectionSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+    const handleShiftSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+    const handleNameSearch = (event) => {
         setSearchTerm(event.target.value);
     };
 
@@ -259,11 +301,91 @@ const AllStudent = () => {
     };
 
     return (
-        <div>
-            <h2>Student List</h2>
-            <div>
-                <label>Search by Class Roll:</label>
-                <input type="text" value={searchTerm} onChange={handleSearch} />
+        <div className="text-white">
+            <h1 className="text-3xl font-bold text-lime-300 mb-8 mt-10">
+                Available Students In {' '}
+                <span className="bg-black">
+                    <select className="bg-black px-2" value={year} onChange={(e) => setYear(e.target.value)}>
+                        {years.map((year, index) => (
+                            <option key={index} value={year}>
+                                {year}
+                            </option>
+                        ))}
+                    </select>
+                </span>
+            </h1>
+            <div className="flex items-center justify-center mb-5 text-black">
+                <select
+                    id="classList"
+                    value={classSearchQuery}
+                    onChange={handleClassSearch}
+                    className="bg-yellow-100 px-3 py-1 rounded-lg mr-3"
+                >
+                    <option value="" disabled>Select a class</option>
+                    {allClasses.map((classItem, index) => (
+                        <option key={index} value={classItem}>{classItem}</option>
+                    ))}
+                </select>
+                <select
+                    id="sectionList"
+                    value={sectionSearchQuery}
+                    onChange={handleSectionSearch}
+                    className="bg-yellow-100 px-3 py-1 rounded-lg mr-3"
+                >
+                    <option value="" disabled>Select a Section</option>
+                    {allClasses.map((classItem, index) => (
+                        <option key={index} value={classItem}>{classItem}</option>
+                    ))}
+                </select>
+                <select
+                    id="classList"
+                    value={shiftSearchQuery}
+                    onChange={handleShiftSearch}
+                    className="bg-yellow-100 px-3 py-1 rounded-lg mr-3"
+                >
+                    <option value="" disabled>Select a Shift</option>
+                    {allClasses.map((classItem, index) => (
+                        <option key={index} value={classItem}>{classItem}</option>
+                    ))}
+                </select>
+                <input
+                    type="text"
+                    className="bg-yellow-100 px-3 py-1 rounded-lg"
+                    placeholder="Search by name"
+                    value={nameSearchQuery}
+                    onChange={handleNameSearch}
+                />
+            </div>
+
+            <div data-aos="flip-up" data-aos-duration="2000" className="overflow-x-auto mb-20 w-11/12 mx-auto mt-12">
+                <table className="table w-full text-black">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Student Name</th>
+                            <th>Class Roll</th>
+                            <th>Attendance</th>
+                            <th>Payment</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+
+                    {allStudents.length !== 0 &&
+                        allStudents.map((student, index) => (
+                            <EachStaff
+                                name={student?.name}
+                                image={student?.image}
+                                designation={student?.designation}
+                                phone={student?.phone}
+                                bloodGroup={student?.bloodGroup}
+                                key={index}
+                                // handleToDelete={() => handleDeleteStaff(staff._id)}
+                                // handleUpdateStaff={handleUpdateStaff}
+                                handleOpenModal={() => handleOpenModal(student)}
+                            />
+                        ))}
+                </table>
             </div>
             {renderStudentGroups()}
             <Modal isOpen={isModalOpen} onRequestClose={handleCloseModal}>

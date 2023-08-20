@@ -2,10 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/UserContext';
-import BtnSpinner from '../Shared/Spinners/BtnSpinner';
-import { AiOutlineDownload } from 'react-icons/ai';
 
-const AdmissionProcess = () => {
+const AdminAdmissionProcess = () => {
     const [applications, setApplications] = useState([]);
     const [allClasses, setAllClasses] = useState([]);
     const [searchClasses, setSearchClasses] = useState([]);
@@ -74,63 +72,6 @@ const AdmissionProcess = () => {
     const years = getAllYears(2020);
     console.log(searchClasses)
 
-    //create a function to download or print admit card
-    const handleToGenerateCard = () => {
-        const admitCardData = {
-            address: "Kamalapur Kushtia",
-            applicationId: "20237202242559481",
-            averageMark: "92.33",
-            className: "Class 1",
-            date: "2023",
-            designation: "Student",
-            district: "Khulna",
-            division: "Kushtia",
-            email: "sm@gmail.com",
-            extraInfo: "No ",
-            fatherName: "Abu sayed",
-            gender: "Bkash",
-            image: "https://i.ibb.co/ZNJFwH9/zubayer-pic.jpg",
-            motherName: "Lota Khatun",
-            name: "Suaib Sayed",
-            number: "",
-            phone: "+904358543",
-            previousClass: "Class 1",
-            schoolCode: "3333",
-            schoolName: "Kamalapur High School"
-            // ... other data
-        };
-
-        // Create an HTML string for the admit card
-        const admitCardHtml = `
-        <div class="admit-card">
-            <h2>Admit Card</h2>
-            <div class="admit-card-content">
-                <img src="${admitCardData.image}" alt="Student Image" class="student-image">
-                <div class="student-info">
-                <p><strong>Application ID:</strong> ${admitCardData.applicationId}</p>
-                    <p><strong>Name:</strong> ${admitCardData.name}</p>
-                    <p><strong>Gender:</strong> ${admitCardData.gender}</p>
-                    <p><strong>Class:</strong> ${admitCardData.className}</p>
-                    <p><strong>School Name:</strong> ${admitCardData.schoolName}</p>
-                    <p><strong>District:</strong> ${admitCardData.district}</p>
-                    <p><strong>Division:</strong> ${admitCardData.division}</p>
-                    <p><strong>Address:</strong> ${admitCardData.address}</p>
-                    <!-- Add other data here -->
-                </div>
-            </div>
-        </div>
-        `;
-
-        // Create a new window and populate it with the HTML content
-        const newWindow = window.open('', '_blank');
-        newWindow.document.write(admitCardHtml);
-        newWindow.document.close();
-
-        // Print the content
-        newWindow.print();
-    }
-
-
     return (
         <div className="pt-8">
             <h1 className="text-3xl font-bold text-lime-300 mb-8">
@@ -176,8 +117,7 @@ const AdmissionProcess = () => {
                                         <th className="border p-2">Application ID</th>
                                         <th className="border p-2">Name</th>
                                         <th className="border p-2">Average Mark</th>
-                                        <th className="border p-2">District</th>
-                                        <th className="border p-2">Status</th>
+                                        <th className="border p-2">Details</th>
                                     </tr>
                                 </thead>
                                 <tbody className=" text-base">
@@ -189,21 +129,13 @@ const AdmissionProcess = () => {
                                                 <td className="border p-2">{application.applicationId}</td>
                                                 <td className="border p-2">{application.name}</td>
                                                 <td className="border p-2">{application.averageMark}</td>
-                                                <td className="border p-2">{application.district}</td>
-                                                <td className="border p-2 flex justify-center">{
-                                                    application?.accept ?
-                                                        <button>Accepted</button> :
-
-                                                        application?.admitCard ?
-                                                            <AiOutlineDownload className="w-8 h-8 flex justify-center" onClick={handleToGenerateCard}></AiOutlineDownload>
-                                                            :
-                                                            <BtnSpinner className="w-10 h-10" title="Processing" ></BtnSpinner>
-
-
-                                                }
-
+                                                <td className="border p-2">
+                                                    <Link to={`details/${application.applicationId}`}>
+                                                        <button className="bg-green-500 text-white py-1 px-3 rounded">
+                                                            Details
+                                                        </button>
+                                                    </Link>
                                                 </td>
-
                                             </tr>
                                         ))}
                                 </tbody>
@@ -215,4 +147,4 @@ const AdmissionProcess = () => {
     );
 };
 
-export default AdmissionProcess;
+export default AdminAdmissionProcess;

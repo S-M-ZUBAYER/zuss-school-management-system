@@ -55,6 +55,7 @@ import AddClassInfo from "../Pages/AdminPage/AdminDashboard/Admission/AddClassIn
 import Apply from "../Pages/AdmissionPage/Apply";
 import AdmissionProcess from "../Pages/IntroductionPage/AdmissionProcess";
 import ApplicationDetails from "../Pages/IntroductionPage/ApplicationDetails";
+import AdminAdmissionProcess from "../Pages/AdminPage/AdminAdmissionProcess";
 
 export const router = createBrowserRouter([
     {
@@ -134,10 +135,6 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/intro/admissionProcess',
                 element: <AdmissionProcess></AdmissionProcess>
-            },
-            {
-                path: '/:name/intro/admissionProcess/details/:applicationId',
-                element: <ApplicationDetails></ApplicationDetails>
             }
 
         ]
@@ -310,12 +307,20 @@ export const router = createBrowserRouter([
                 element: <AddStudent></AddStudent>
             },
             {
+                path: '/:name/admin/admissionProcess',
+                element: <AdminAdmissionProcess></AdminAdmissionProcess>
+            },
+            {
                 path: '/:name/admin/addStaff',
                 element: <AddStaff></AddStaff>
             },
             {
                 path: '/:name/admin/admission',
                 element: <AdmissionInfo></AdmissionInfo>
+            },
+            {
+                path: '/:name/admin/admissionProcess/details/:applicationId',
+                element: <ApplicationDetails></ApplicationDetails>
             },
             {
                 path: '/:name/admin/class',

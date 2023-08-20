@@ -1,24 +1,30 @@
 import axios from 'axios';
 import React from 'react';
+import { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/UserContext';
 
 
 const ApplicationDetails = () => {
     const [application, setApplication] = useState({});
     const [showModal, setShowModal] = useState(false);
     const [className, setClassName] = useState('');
+    const [allClasses, setAllClasses] = useState('');
     const [section, setSection] = useState('');
     const [shift, setShift] = useState('');
+    const [classInfo, setClassInfo] = useState([]);
+
+    const { currentSchoolCode } = useContext(AuthContext)
 
     const handleAcceptClick = () => {
         setShowModal(true);
     };
 
-    const handleModalAccept = () => {
-        // Perform your accept logic here
-        // You can access className, section, and shift values here
-
+    const handleModalAccept = (application) => {
+        console.log(application)
         setShowModal(false);
     };
 
@@ -27,9 +33,96 @@ const ApplicationDetails = () => {
     };
 
 
+
+
+
+    let navigate = useNavigate();
+    const routeChange = () => {
+        let path = `/:schoolName/admin/admissionProcess`;
+        navigate(path);
+    }
+
     const path = window.location.pathname;
     const segments = path.split("/");
     const applicationId = segments[segments.length - 1];
+
+    const handleToReject = async (id) => {
+
+        const confirmed = window.confirm('Are you sure you want to reject and delete this application?');
+
+        if (confirmed) {
+            try {
+                await axios.delete(`http://localhost:5000/api/application/${id}`);
+                toast.error("Application reject and delete successfully");
+                routeChange();
+            } catch (error) {
+                console.error('Error rejecting application:', error);
+                toast.error("Failed to reject and delete this application");
+
+            }
+        }
+    };
+
+    const handleToGenerateCard = async (id, admitCard) => {
+        console.log(id, admitCard)
+        const confirmed = window.confirm('Are you sure you want to select to generate admit card?');
+
+        if (confirmed) {
+            // Send a PUT request to update the admitCard field
+            axios.put(`http://localhost:5000/api/application/admitCard/${id}`, {
+                admitCard: true, // Set to true since we want to generate the admit card
+            })
+                .then(response => {
+                    console.log('Admit card generated:', response.data);
+                    toast.success("Generate the admit card successfully")
+                    routeChange();
+                    // setAdmitCard(true); // Update the local state to true
+                })
+                .catch(error => {
+                    console.error('Error generating admit card:', error);
+                    toast.error("Failed to generate admit card successfully")
+                });
+        }
+    }
+
+    useEffect(() => {
+        // Fetch class information based on schoolCode
+        const fetchClassInfo = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/${currentSchoolCode}`);
+                setAllClasses(response.data);
+            } catch (error) {
+                console.error('Error fetching class information:', error);
+            }
+        };
+
+        fetchClassInfo();
+    }, [currentSchoolCode]);
+
+
+    const fetchClassInfo = async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+            const classInfoData = response.data?.classInfo;
+            setClassInfo(classInfoData)
+            if (classInfoData) {
+                const classNames = classInfoData.map((element) => element?.name);
+                setAllClasses(classNames);
+            }
+        } catch (error) {
+            console.error('Error fetching classInfo:', error);
+        }
+    };
+
+    console.log(classInfo)
+
+    const selectedClass = classInfo?.find(item => item.name === className);
+    const selectedSection = selectedClass?.sections.find(sectionItem => sectionItem.name === section);
+    const shifts = selectedSection?.shifts || [];
+
+    console.log(shifts, "shift");
+
+
 
     useEffect(() => {
         const fetchApplicationDetails = async () => {
@@ -49,46 +142,7 @@ const ApplicationDetails = () => {
 
 
     return (
-
-        // <div className="flex justify-center items-center min-h-scree">
-        //     <div className="bg-white p-8 shadow-md rounded-md">
-        //         <div className="flex justify-between mb-4">
-        //             <div>
-        //                 <h2 className="text-2xl font-semibold">{application.name}</h2>
-        //                 <p>{application.designation}</p>
-        //             </div>
-        //             <img src="/path/to/your/image.jpg" alt="User" className="w-16 h-16 rounded-full" />
-        //         </div>
-        //         <div className="grid grid-cols-2 gap-6">
-        //             <div>
-        //                 <h3 className="text-lg font-semibold">Personal Information</h3>
-        //                 <p>School: {application.schoolName}</p>
-        //                 <p>Email: {application.email}</p>
-        //                 <p>Phone: {application.phone}</p>
-        //                 {/* ...other personal info */}
-        //             </div>
-        //             <div>
-        //                 <h3 className="text-lg font-semibold">Academic Information</h3>
-        //                 <p>Previous Class: {application.previousClass}</p>
-        //                 <p>Average Mark: {application.averageMark}</p>
-        //                 <p>Class: {application.className}</p>
-        //                 {/* ...other academic info */}
-        //             </div>
-
-        //         </div>
-        //         <div className="flex justify-between mx-5 mt-12">
-        //             <button className="bg-red-300 px-2 py-1">Reject</button>
-        //             <button className="bg-yellow-300 px-2 py-1">Waiting</button>
-        //             <button className="bg-green-300 px-2 py-1">Accept</button>
-        //         </div>
-        //     </div>
-
-
-
-        // </div>
         <div>
-
-
             <div className="flex justify-center p-8 text-white">
                 <div className="mr-8">
                     <img src={application?.image} alt="Application Image" className="w-72 h-auto" />
@@ -154,40 +208,73 @@ const ApplicationDetails = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex justify-center mt-8">
-                    <button className="px-4 py-2 mr-2 bg-red-500 text-white rounded">Reject</button>
-                    <button className="px-4 py-2 mr-2 bg-yellow-500 text-white rounded">Waiting</button>
+                <div className="flex justify-center mt-8 mb-12">
+                    <button onClick={() => handleToReject(application._id)} className="px-4 py-2 mr-2 bg-red-500 text-white rounded">Reject</button>
+                    <button onClick={() => handleToGenerateCard(application._id, application?.admitCard)} className="px-4 py-2 mr-2 bg-yellow-500 text-white rounded">Generate Admit Card</button>
                     <button onClick={handleAcceptClick} className="px-4 py-2 bg-green-500 text-white rounded">Accept</button>
                 </div>
             </div>
             {showModal && (
                 <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded shadow">
+                    <div className="bg-white w-2/5 h-2/6 p-6 rounded shadow">
                         <h2 className="text-lg font-semibold mb-4">Accept Application</h2>
-                        <input
-                            type="text"
-                            placeholder="Class Name"
-                            value={className}
-                            onChange={(e) => setClassName(e.target.value)}
-                            className="w-full mb-2 px-2 py-1 border rounded"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Section"
-                            value={section}
-                            onChange={(e) => setSection(e.target.value)}
-                            className="w-full mb-2 px-2 py-1 border rounded"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Shift"
-                            value={shift}
-                            onChange={(e) => setShift(e.target.value)}
-                            className="w-full mb-2 px-2 py-1 border rounded"
-                        />
-                        <div className="flex justify-end">
-                            <button className="px-3 py-1 mr-2 bg-green-500 text-white rounded" onClick={handleModalAccept}>Accept</button>
-                            <button className="px-3 py-1 bg-red-500 text-white rounded" onClick={handleModalCancel}>Cancel</button>
+                        <div className="flex justify-between items-center mb-3">
+                            <label htmlFor="about" className="block font-semibold text-gray-300">
+                                ClassName:
+                            </label>
+                            <select
+                                id="className"
+                                value={className}
+                                onChange={(e) => setClassName(e.target.value)}
+                                className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                <option value="">Please Select ClassName</option>
+                                {allClasses && allClasses.map((classItem, index) => (
+                                    <option key={index} value={classItem}>
+                                        {classItem}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="flex justify-between items-center mb-3">
+                            <label htmlFor="about" className="block font-semibold text-gray-300">
+                                Section:
+                            </label>
+                            <select
+                                id="className"
+                                value={section}
+                                onChange={(e) => setSection(e.target.value)}
+                                className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                <option value="">Please Select Section</option>
+                                {className && (classInfo?.find(item => item.name === className).sections).map((sectionItem, index) => (
+                                    <option key={index} value={sectionItem?.name}>
+                                        {sectionItem?.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="flex justify-between items-center mb-3">
+                            <label htmlFor="about" className="block font-semibold text-gray-300">
+                                Shift:
+                            </label>
+                            <select
+                                id="className"
+                                value={shift}
+                                onChange={(e) => setShift(e.target.value)}
+                                className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                <option value="">Please Select Shift</option>
+                                {shifts.map((shiftItem, index) => (
+                                    <option key={index} value={shiftItem}>
+                                        {shiftItem}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="flex justify-end mt-12">
+                            <button className="px-3 py-1 mr-2 bg-red-500 text-white rounded" onClick={() => handleModalCancel(application)}>Cancel</button>
+                            <button className="px-3 py-1  bg-green-500 text-white rounded" onClick={handleModalAccept}>Accept</button>
                         </div>
                     </div>
                 </div>
