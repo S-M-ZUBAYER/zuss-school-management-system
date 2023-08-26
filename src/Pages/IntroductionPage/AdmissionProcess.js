@@ -20,7 +20,7 @@ const AdmissionProcess = () => {
     useEffect(() => {
         const fetchApplications = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/application/${currentSchoolCode}`, {
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/application/${currentSchoolCode}`, {
                     params: { date }
                 });
                 setApplications(response.data);
@@ -31,7 +31,7 @@ const AdmissionProcess = () => {
 
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
                 if (classInfoData) {
                     const classNames = classInfoData?.map((element) => element?.name);
@@ -72,54 +72,60 @@ const AdmissionProcess = () => {
     }
 
     const years = getAllYears(2020);
-    console.log(searchClasses)
 
     //create a function to download or print admit card
-    const handleToGenerateCard = () => {
-        const admitCardData = {
-            address: "Kamalapur Kushtia",
-            applicationId: "20237202242559481",
-            averageMark: "92.33",
-            className: "Class 1",
-            date: "2023",
-            designation: "Student",
-            district: "Khulna",
-            division: "Kushtia",
-            email: "sm@gmail.com",
-            extraInfo: "No ",
-            fatherName: "Abu sayed",
-            gender: "Bkash",
-            image: "https://i.ibb.co/ZNJFwH9/zubayer-pic.jpg",
-            motherName: "Lota Khatun",
-            name: "Suaib Sayed",
-            number: "",
-            phone: "+904358543",
-            previousClass: "Class 1",
-            schoolCode: "3333",
-            schoolName: "Kamalapur High School"
-            // ... other data
-        };
+    const handleToGenerateCard = (application) => {
+        // const admitCardData = {
+        //     address: "Kamalapur Kushtia",
+        //     applicationId: "20237202242559481",
+        //     averageMark: "92.33",
+        //     className: "Class 1",
+        //     date: "2023",
+        //     designation: "Student",
+        //     district: "Khulna",
+        //     division: "Kushtia",
+        //     email: "sm@gmail.com",
+        //     extraInfo: "No ",
+        //     fatherName: "Abu sayed",
+        //     gender: "",
+        //     image: "https://i.ibb.co/ZNJFwH9/zubayer-pic.jpg",
+        //     motherName: "Lota Khatun",
+        //     name: "Suaib Sayed",
+        //     number: "",
+        //     phone: "+904358543",
+        //     previousClass: "Class 1",
+        //     schoolCode: "3333",
+        //     schoolName: "Kamalapur High School"
+        //     // ... other data
+        // };
 
         // Create an HTML string for the admit card
         const admitCardHtml = `
         <div class="admit-card">
-            <h2>Admit Card</h2>
-            <div class="admit-card-content">
-                <img src="${admitCardData.image}" alt="Student Image" class="student-image">
+            <h2 class="flex justify-center mb-4">Admit Card</h2>
+            <div class="admit-card-content flex">
+                <div class="student-image-container">
+                    <img src="${application.image}" alt="Student Image" class="student-image-small h-24 w-32">
+                </div>
                 <div class="student-info">
-                <p><strong>Application ID:</strong> ${admitCardData.applicationId}</p>
-                    <p><strong>Name:</strong> ${admitCardData.name}</p>
-                    <p><strong>Gender:</strong> ${admitCardData.gender}</p>
-                    <p><strong>Class:</strong> ${admitCardData.className}</p>
-                    <p><strong>School Name:</strong> ${admitCardData.schoolName}</p>
-                    <p><strong>District:</strong> ${admitCardData.district}</p>
-                    <p><strong>Division:</strong> ${admitCardData.division}</p>
-                    <p><strong>Address:</strong> ${admitCardData.address}</p>
+                    <p><strong>Application ID:</strong> ${application.applicationId}</p>
+                    <p><strong>Name:</strong> ${application.name}</p>
+                    <p><strong>Gender:</strong> ${application.gender}</p>
+                    <p><strong>Father Name:</strong> ${application.fatherName}</p>
+                    <p><strong>Mother Name:</strong> ${application.motherName}</p>
+                    <p><strong>Email:</strong> ${application.email}</p>
+                    <p><strong>Guardian Phone:</strong> ${application.phone}</p>
+                    <p><strong>Class Name:</strong> ${application.className}</p>
+                    <p><strong>School Name:</strong> ${application.schoolName}</p>
+                    <p><strong>District:</strong> ${application.district}</p>
+                    <p><strong>Division:</strong> ${application.division}</p>
+                    <p><strong>Address:</strong> ${application.address}</p>
                     <!-- Add other data here -->
                 </div>
             </div>
         </div>
-        `;
+    `;
+
 
         // Create a new window and populate it with the HTML content
         const newWindow = window.open('', '_blank');
@@ -195,7 +201,7 @@ const AdmissionProcess = () => {
                                                         <button>Accepted</button> :
 
                                                         application?.admitCard ?
-                                                            <AiOutlineDownload className="w-8 h-8 flex justify-center" onClick={handleToGenerateCard}></AiOutlineDownload>
+                                                            <AiOutlineDownload className="w-8 h-8 flex justify-center" onClick={() => handleToGenerateCard(application)}></AiOutlineDownload>
                                                             :
                                                             <BtnSpinner className="w-10 h-10" title="Processing" ></BtnSpinner>
 

@@ -14,6 +14,8 @@ const AddStaff = () => {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [image, setImage] = useState(null);
+    const [district, setDistrict] = useState('');
+    const [division, setDivision] = useState('');
     const [address, setAddress] = useState('');
     const [bloodGroup, setBloodGroup] = useState('');
     const [about, setAbout] = useState('');
@@ -57,6 +59,8 @@ const AddStaff = () => {
                 email,
                 image,
                 bloodGroup,
+                district,
+                division,
                 address,
                 about,
             });
@@ -65,9 +69,12 @@ const AddStaff = () => {
 
             // Clear form fields
             setName('');
+            setTeacherId("");
             setDesignation('');
             setPhone('');
             setEmail('');
+            setDistrict("");
+            setDivision("");
             setAddress('');
             setAbout('');
             setBloodGroup("")
@@ -183,6 +190,35 @@ const AddStaff = () => {
                         className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
+
+                <div className="flex justify-between items-center">
+                    <label htmlFor="email" className="block font-semibold text-gray-300">
+                        District:
+                    </label>
+                    <input
+                        type="text"
+                        id="district"
+                        placeholder='Please Enter District'
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+
+                <div className="flex justify-between items-center">
+                    <label htmlFor="email" className="block font-semibold text-gray-300">
+                        Division:
+                    </label>
+                    <input
+                        type="text"
+                        id="division"
+                        placeholder='Please Enter Division'
+                        value={division}
+                        onChange={(e) => setDivision(e.target.value)}
+                        className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+
                 <div className="flex justify-between items-center">
                     <label htmlFor="address" className="block font-semibold text-gray-300">
                         Address :

@@ -130,56 +130,42 @@
 
 // export default StudentAttendance;
 
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/UserContext';
 
-const StudentAttendance = () => {
-    const [students, setStudents] = useState([
-        {
-            name: "John Doe",
-            class: "10A",
-            rollNo: "123",
-            SchoolName: "Kamalapur schoo",
-            Code: "2222",
-            email: "johndoe@example.com",
-            phone: "555-555-5555",
-            image: "https://ibb.co/Wnx2kNz",
-            attendance: []
-        },
-        {
-            name: "John Doe",
-            class: "10A",
-            rollNo: "1234",
-            SchoolName: "Kamalapur schoo",
-            Code: "2222",
-            email: "johndoe@example.com",
-            phone: "555-555-5555",
-            image: "https://ibb.co/Wnx2kNz",
-            attendance: []
-        },
-        {
-            name: "John Doe",
-            class: "10A",
-            rollNo: "1234",
-            SchoolName: "Kamalapur schoo",
-            Code: ":2222",
-            email: "johndoe@example.com",
-            phone: "555-555-5555",
-            image: "https://ibb.co/Wnx2kNz",
-            attendance: []
-        }
-    ]);
+const StaffAttendance = () => {
+    const [staffs, setStaffs] = useState([]);
+    const { currentSchoolCode } = useContext(AuthContext);
 
-    const startTime = new Date(); // Replace with your desired start time
-    startTime.setHours(12, 0, 0); // Set the desired start time (hour, minute, second);
-    // console.log(startTime)
+    useEffect(() => {
+        const fetchStaffs = async () => {
+            try {
+                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}`);
+                if (response.ok) {
+                    const staffsData = await response.json();
+                    setStaffs(staffsData);
+                } else {
+                    throw new Error('Failed to fetch staffs');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Handle error case
+            }
+        };
 
-    const endTime = new Date(); // Replace with your desired end time
-    endTime.setHours(14, 0, 0); // Set the desired end time (hour, minute, second)
-    // console.log(endTime)
-    const handleEntryTimeClick = (student) => {
+        fetchStaffs();
+    }, [currentSchoolCode]);
+
+    const startTime = new Date();
+    startTime.setHours(12, 0, 0);
+
+    const endTime = new Date();
+    endTime.setHours(14, 0, 0);
+
+    const handleEntryTimeClick = (staff) => {
         const currentTime = new Date();
-        if (currentTime <= startTime && currentTime <= endTime) {
+        if (currentTime >= startTime && currentTime <= endTime) {
             const attendance = {
                 date: new Date().toISOString().split('T')[0],
                 isEntryPresent: true,
@@ -189,20 +175,16 @@ const StudentAttendance = () => {
                 isEmergency: false,
                 emergencyText: ''
             };
-            student.attendance.push(attendance);
-            setStudents([...students]);
-            console.log(attendance)
+            staff.attendance.push(attendance);
+            setStaffs([...staff]);
+        } else {
+            toast.error("Please enter on time");
         }
-        toast.error("please entry on time")
-
     };
 
-    const handleExitTimeClick = (student) => {
+    const handleExitTimeClick = (staff) => {
         const currentTime = new Date();
-        console.log(endTime, currentTime)
-        // if (currentTime >= endTime && currentTime <= endTime + 3600000) { // 3600000 milliseconds = 1 hour
-        if (currentTime >= endTime && currentTime >= startTime) { // 3600000 milliseconds = 1 hour
-
+        if (currentTime >= endTime) {
             const attendance = {
                 date: new Date().toISOString().split('T')[0],
                 isEntryPresent: true,
@@ -212,14 +194,14 @@ const StudentAttendance = () => {
                 isEmergency: false,
                 emergencyText: ''
             };
-            student.attendance.push(attendance);
-            setStudents([...students]);
-            console.log(attendance)
+            staff.attendance.push(attendance);
+            setStaffs([...staffs]);
+        } else {
+            toast.error("Please exit on time");
         }
-        toast.error("please exit on time")
     };
 
-    const handleEmergencyClick = (student) => {
+    const handleEmergencyClick = (staff) => {
         const emergencyText = prompt('Enter emergency text:');
         if (emergencyText) {
             const attendance = {
@@ -229,49 +211,47 @@ const StudentAttendance = () => {
                 isEmergency: true,
                 emergencyText: emergencyText
             };
-            student.attendance.push(attendance);
-            setStudents([...students]);
-            console.log(attendance)
+            staff.attendance.push(attendance);
+            setStaffs([...staffs]);
         }
     };
 
-    console.log(students)
-
     return (
         <div className="text-white">
-            <h1 className="text-2xl font-bold mt-5 mb-10">Student Attendance</h1>
+            <h1 className="text-2xl font-bold mt-5 mb-10">Teachers Attendance</h1>
 
             <table className="min-w-full">
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Roll No</th>
-                        <th>Class</th>
+                        <th>Designation</th>
+                        <th>Phone</th>
                         <th>Entry</th>
                         <th>Exit</th>
                         <th>Emergency</th>
                     </tr>
                 </thead>
-                <tbody className="">
-
-                    {students.map((student) => (
-                        <tr className="border-2" key={student.rollNo}>
-                            <td className="border-2">{student.name}</td>
-                            <td className="border-2">{student.rollNo}</td>
-                            <td className="border-2">{student.class}</td>
-                            <td><button className=" bg-amber-300 rounded-tl-lg rounded-br-lg px-2 py-1 " onClick={() => handleEntryTimeClick(student)}>Entry Time</button></td>
-                            <td><button className="bg-amber-300 rounded-tl-lg rounded-br-lg px-2 py-1 " onClick={() => handleExitTimeClick(student)}>Exit Time</button></td>
-                            <td> <button className="bg-red-400 rounded-tl-lg rounded-br-lg px-2 py-1 " onClick={() => handleEmergencyClick(student)}>Emergency</button></td>
+                <tbody>
+                    {staffs.map((staff) => (
+                        <tr className="border" key={staff.teacherId}>
+                            <td className="border" >{staff.name}</td>
+                            <td className="border" >{staff.designation}</td>
+                            <td className="border" >{staff.phone}</td>
+                            <td className="border" >
+                                <button className="bg-amber-300 rounded-tl-lg rounded-br-lg px-2 py-1" onClick={() => handleEntryTimeClick(staff)}>Entry Time</button>
+                            </td>
+                            <td className="border" >
+                                <button className="bg-amber-300 rounded-tl-lg rounded-br-lg px-2 py-1" onClick={() => handleExitTimeClick(staff)}>Exit Time</button>
+                            </td>
+                            <td className="border" >
+                                <button className="bg-red-400 rounded-tl-lg rounded-br-lg px-2 py-1" onClick={() => handleEmergencyClick(staff)}>Emergency</button>
+                            </td>
                         </tr>
                     ))}
-
                 </tbody>
             </table>
         </div>
-
     );
 };
 
-export default StudentAttendance;
-
-
+export default StaffAttendance;

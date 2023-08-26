@@ -34,7 +34,7 @@ const EventComponent = ({ calendarData }) => {
     };
 
     const handleUpdateCalendar = () => {
-        fetch(`http://localhost:5000/api/calendar/`, {
+        fetch(`https://zuss-school-management-system-server-site.vercel.app/api/calendar/`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

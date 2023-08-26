@@ -9,7 +9,7 @@ import Review from '../Review';
 const Home = () => {
     const { currentSchoolCode } = useContext(AuthContext);
     const [currentShool, setCurrentSchool] = useState(null)
-    fetch(`http://localhost:5000/api/schools/school/${currentSchoolCode}`)
+    fetch(`https://zuss-school-management-system-server-site.vercel.app/api/schools/school/${currentSchoolCode}`)
         .then(response => response.json())
         .then(data => {
             // Process the data or do something with it

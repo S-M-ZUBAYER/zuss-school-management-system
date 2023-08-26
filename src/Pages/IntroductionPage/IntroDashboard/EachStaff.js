@@ -4,8 +4,8 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import img from "../../../Assets/Images/School.jpg"
 
-const EachStaff = ({ name, image, designation, email, phone, bloodGroup, key, handleToDelete, handleMakeAdmin, handleOpenModal }) => {
-    console.log(image)
+const EachStaff = ({ name, image, designation, teacherId, phone, bloodGroup, key, handleToDelete, handleMakeAdmin, handleOpenModal }) => {
+
 
     return (
         <tbody className="border-2" key={key}>
@@ -24,7 +24,7 @@ const EachStaff = ({ name, image, designation, email, phone, bloodGroup, key, ha
 
             <td>{name}</td>
             <td>{designation}</td>
-            <td>{email}</td>
+            <td>{teacherId}</td>
             <td>{phone}</td>
             <td>{bloodGroup}</td>
             <td onClick={handleOpenModal} ><FaEdit></FaEdit></td>

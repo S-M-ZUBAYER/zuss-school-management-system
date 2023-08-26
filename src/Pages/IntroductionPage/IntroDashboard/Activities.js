@@ -9,7 +9,7 @@ const Activities = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/schoolEvents/?schoolCode=${currentSchoolCode}`);
+                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/schoolEvents/?schoolCode=${currentSchoolCode}`);
                 if (response.ok) {
                     const eventsData = await response.json();
                     setEvents(eventsData);

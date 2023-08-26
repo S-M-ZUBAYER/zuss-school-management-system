@@ -12,7 +12,7 @@ const Apply = () => {
         const fetchData = async () => {
             try {
                 // Make a GET request to fetch admission data
-                const response = await axios.get('http://localhost:5000/api/admissionInfo', {
+                const response = await axios.get('https://zuss-school-management-system-server-site.vercel.app/api/admissionInfo', {
                     params: {
                         schoolCode: currentSchoolCode, // Replace with the school code you want to fetch data for
                     },
@@ -56,7 +56,7 @@ const Apply = () => {
 
     const fetchClassInfo = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+            const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
             const classInfoData = response.data?.classInfo;
             if (classInfoData) {
                 const classNames = classInfoData?.map((element) => element?.name);
@@ -90,7 +90,7 @@ const Apply = () => {
 
         try {
             // Make POST request to backend
-            const response = await axios.post('http://localhost:5000/api/application', {
+            const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/application', {
                 applicationId,
                 date,
                 name,
@@ -280,8 +280,8 @@ const Apply = () => {
                         <label htmlFor="paymentMethod">Gender:</label>
                         <select className=" w-10/12 px-3 text-black py-2 rounded-lg" id="paymentMethod" value={gender} onChange={(e) => setGender(e.target.value)}>
                             <option value="">Select Your Gender</option>
-                            <option value="Bkash">Male</option>
-                            <option value="Nagad">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                             <option value="others">Others</option>
                         </select>
                     </div>

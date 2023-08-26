@@ -1,11 +1,10 @@
-
-
-
 import React, { useContext, useEffect, useState } from 'react';
-import EachStaff from '../../../IntroductionPage/IntroDashboard/EachStaff';
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import img from "../../../../Assets/Images/School.jpg"
 import { AuthContext } from '../../../../context/UserContext';
 
 const AllStaffInfo = () => {
@@ -15,12 +14,11 @@ const AllStaffInfo = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const { currentSchoolCode } = useContext(AuthContext);
-    console.log(currentSchoolCode)
 
     useEffect(() => {
         const fetchNotices = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/staffs/${currentSchoolCode}`);
+                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);
@@ -42,15 +40,15 @@ const AllStaffInfo = () => {
     };
 
     const handleCloseModal = () => {
-        setSelectedStaff("");
+        setSelectedStaff(null);
         setIsModalOpen(false);
     };
 
     const { register, handleSubmit } = useForm();
 
-    const handleUpdateStaff = async (formData) => {
+    const handleUpdateStaff = async (id, formData) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/staffs/${selectedStaff.id}`, {
+            const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,12 +61,11 @@ const AllStaffInfo = () => {
                 setStaffs((prevStaffs) =>
                     prevStaffs.map((staff) => (staff.id !== updatedStaff._id ? updatedStaff : staff))
                 );
+                toast.success('Staff Updated Successfully');
+                handleCloseModal();
             } else {
                 console.error('Failed to update staff');
             }
-
-            handleCloseModal();
-
         } catch (error) {
             console.error('Failed to update staff:', error);
         }
@@ -79,13 +76,13 @@ const AllStaffInfo = () => {
             const confirmed = window.confirm('Are you sure you want to delete this staff?');
 
             if (confirmed) {
-                const response = await fetch(`http://localhost:5000/api/staffs/${staffId}`, {
+                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${staffId}`, {
                     method: 'DELETE',
                 });
 
                 if (response.ok) {
                     setStaffs((prevStaffs) => prevStaffs.filter((staff) => staff._id !== staffId));
-                    toast.success("Staff Deleted Successfully")
+                    toast.success('Staff Deleted Successfully');
                 } else {
                     toast.error('Failed to delete staff');
                 }
@@ -94,8 +91,6 @@ const AllStaffInfo = () => {
             toast.error('Failed to delete staff:', error);
         }
     };
-
-
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
@@ -145,21 +140,26 @@ const AllStaffInfo = () => {
                         </tr>
                     </thead>
 
-                    {filteredStaffs.length !== 0 &&
-                        filteredStaffs.map((staff, index) => (
-                            <EachStaff
-                                name={staff.name}
-                                image={staff?.image}
-                                designation={staff.designation}
-                                email={staff.email}
-                                phone={staff.phone}
-                                bloodGroup={staff.bloodGroup}
-                                key={index}
-                                handleToDelete={() => handleDeleteStaff(staff._id)}
-                                handleUpdateStaff={handleUpdateStaff}
-                                handleOpenModal={() => handleOpenModal(staff)}
-                            />
+                    <tbody>
+                        {filteredStaffs.map((staff, index) => (
+                            <tr key={staff._id}>
+                                <td>
+                                    <div className="avatar">
+                                        <div className="mask mask-squircle w-9 h-9">
+                                            {staff.image ? <img src={staff.image} alt="img" /> : <img src={img} alt="img" />}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{staff.name}</td>
+                                <td>{staff.designation}</td>
+                                <td>{staff.email}</td>
+                                <td>{staff.phone}</td>
+                                <td>{staff.bloodGroup}</td>
+                                <td onClick={() => handleOpenModal(staff)}><FaEdit /></td>
+                                <td onClick={() => handleDeleteStaff(staff._id)}><MdDelete /></td>
+                            </tr>
                         ))}
+                    </tbody>
                 </table>
             </div>
 
@@ -167,7 +167,7 @@ const AllStaffInfo = () => {
                 {selectedStaff && (
                     <div>
                         <h2 className="text-center font-bold text-2xl text-green-500">Edit Staff Information</h2>
-                        <form onSubmit={handleSubmit(handleUpdateStaff)}>
+                        <form onSubmit={handleSubmit(() => handleUpdateStaff(selectedStaff._id))}>
                             <div>
                                 <label className="mr-2" htmlFor="">Staff Name</label>
                                 <input
@@ -240,6 +240,3 @@ const AllStaffInfo = () => {
 };
 
 export default AllStaffInfo;
-
-
-

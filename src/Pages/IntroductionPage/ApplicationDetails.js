@@ -12,19 +12,20 @@ const ApplicationDetails = () => {
     const [application, setApplication] = useState({});
     const [showModal, setShowModal] = useState(false);
     const [className, setClassName] = useState('');
-    const [allClasses, setAllClasses] = useState('');
-    const [section, setSection] = useState('');
-    const [shift, setShift] = useState('');
+    const [sectionName, setSectionName] = useState('');
+    const [shiftName, setShiftName] = useState('');
+    const [allClasses, setAllClasses] = useState([]);
+    const [sections, setSections] = useState([]);
+    const [shifts, setShifts] = useState('');
     const [classInfo, setClassInfo] = useState([]);
 
-    const { currentSchoolCode } = useContext(AuthContext)
+    const { currentSchoolCode } = useContext(AuthContext);
 
-    const handleAcceptClick = () => {
+    const handleAcceptClick = (application) => {
         setShowModal(true);
     };
 
     const handleModalAccept = (application) => {
-        console.log(application)
         setShowModal(false);
     };
 
@@ -52,7 +53,7 @@ const ApplicationDetails = () => {
 
         if (confirmed) {
             try {
-                await axios.delete(`http://localhost:5000/api/application/${id}`);
+                await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/application/${id}`);
                 toast.error("Application reject and delete successfully");
                 routeChange();
             } catch (error) {
@@ -64,16 +65,14 @@ const ApplicationDetails = () => {
     };
 
     const handleToGenerateCard = async (id, admitCard) => {
-        console.log(id, admitCard)
         const confirmed = window.confirm('Are you sure you want to select to generate admit card?');
 
         if (confirmed) {
             // Send a PUT request to update the admitCard field
-            axios.put(`http://localhost:5000/api/application/admitCard/${id}`, {
+            axios.put(`https://zuss-school-management-system-server-site.vercel.app/api/application/admitCard/${id}`, {
                 admitCard: true, // Set to true since we want to generate the admit card
             })
                 .then(response => {
-                    console.log('Admit card generated:', response.data);
                     toast.success("Generate the admit card successfully")
                     routeChange();
                     // setAdmitCard(true); // Update the local state to true
@@ -85,16 +84,40 @@ const ApplicationDetails = () => {
         }
     }
 
+
+
     useEffect(() => {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
+            //     try {
+            //         const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
+            //         // setAllClasses(((response.data)?.classInfo)?.map(everyClass => everyClass?.name));
+            //         // setSection(((response?.data)?.classInfo || []).filter(everyClass => everyClass?.name === className));
+            //         // setShift((section || [])[0]?.sections(everySection => everySection?.name === sectionName));
+
+            //         console.log(response.data)
+            //     } catch (error) {
+            //         console.error('Error fetching class information:', error);
+            //     }
+            // };
             try {
-                const response = await axios.get(`http://localhost:5000/api/${currentSchoolCode}`);
-                setAllClasses(response.data);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
+                const classInfoData = response.data?.classInfo;
+                setClassInfo(classInfoData)
+                if (classInfoData) {
+                    const classNames = classInfoData.map((element) => element?.name);
+                    setAllClasses(classNames);
+                    console.log(classInfo, classNames)
+                }
+                if (className) {
+                    const classNames = classInfoData.map((element) => element?.name);
+                    console.log(classInfo, classNames)
+                }
             } catch (error) {
-                console.error('Error fetching class information:', error);
+                console.error('Error fetching classInfo:', error);
             }
         };
+
 
         fetchClassInfo();
     }, [currentSchoolCode]);
@@ -102,7 +125,7 @@ const ApplicationDetails = () => {
 
     const fetchClassInfo = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+            const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
             const classInfoData = response.data?.classInfo;
             setClassInfo(classInfoData)
             if (classInfoData) {
@@ -114,20 +137,18 @@ const ApplicationDetails = () => {
         }
     };
 
-    console.log(classInfo)
+    // const selectedClass = classInfo?.find(item => item.name === className);
+    // const selectedSection = selectedClass?.sections.find(sectionItem => sectionItem.name === section);
+    // const shifts = selectedSection?.shifts || [];
 
-    const selectedClass = classInfo?.find(item => item.name === className);
-    const selectedSection = selectedClass?.sections.find(sectionItem => sectionItem.name === section);
-    const shifts = selectedSection?.shifts || [];
 
-    console.log(shifts, "shift");
 
 
 
     useEffect(() => {
         const fetchApplicationDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/application/details/${applicationId}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/application/details/${applicationId}`);
                 setApplication(response.data);
             } catch (error) {
                 console.error('Error fetching application details:', error);
@@ -137,7 +158,7 @@ const ApplicationDetails = () => {
         fetchApplicationDetails();
     }, [applicationId]);
 
-    console.log(application)
+
 
 
 
@@ -211,7 +232,7 @@ const ApplicationDetails = () => {
                 <div className="flex justify-center mt-8 mb-12">
                     <button onClick={() => handleToReject(application._id)} className="px-4 py-2 mr-2 bg-red-500 text-white rounded">Reject</button>
                     <button onClick={() => handleToGenerateCard(application._id, application?.admitCard)} className="px-4 py-2 mr-2 bg-yellow-500 text-white rounded">Generate Admit Card</button>
-                    <button onClick={handleAcceptClick} className="px-4 py-2 bg-green-500 text-white rounded">Accept</button>
+                    <button onClick={() => handleAcceptClick(application)} className="px-4 py-2 bg-green-500 text-white rounded">Accept</button>
                 </div>
             </div>
             {showModal && (
@@ -242,16 +263,16 @@ const ApplicationDetails = () => {
                             </label>
                             <select
                                 id="className"
-                                value={section}
-                                onChange={(e) => setSection(e.target.value)}
+                                value={sectionName}
+                                onChange={(e) => setSectionName(e.target.value)}
                                 className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="">Please Select Section</option>
-                                {className && (classInfo?.find(item => item.name === className).sections).map((sectionItem, index) => (
+                                {className && (sections?.map((sectionItem, index) => (
                                     <option key={index} value={sectionItem?.name}>
                                         {sectionItem?.name}
                                     </option>
-                                ))}
+                                )))}
                             </select>
                         </div>
                         <div className="flex justify-between items-center mb-3">
@@ -260,16 +281,16 @@ const ApplicationDetails = () => {
                             </label>
                             <select
                                 id="className"
-                                value={shift}
-                                onChange={(e) => setShift(e.target.value)}
+                                value={shiftName}
+                                onChange={(e) => setShiftName(e.target.value)}
                                 className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="">Please Select Shift</option>
-                                {shifts.map((shiftItem, index) => (
+                                {/* {shifts.map((shiftItem, index) => (
                                     <option key={index} value={shiftItem}>
                                         {shiftItem}
                                     </option>
-                                ))}
+                                ))} */}
                             </select>
                         </div>
                         <div className="flex justify-end mt-12">
