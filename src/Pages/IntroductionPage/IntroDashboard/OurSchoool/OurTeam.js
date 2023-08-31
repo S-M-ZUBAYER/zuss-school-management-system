@@ -7,12 +7,12 @@ import { useEffect } from 'react';
 const OurTeam = ({ schoolCode }) => {
 
     const [staffs, setStaffs] = useState([]);
-    console.log(schoolCode)
+
 
     useEffect(() => {
         const fetchStaffs = async () => {
             try {
-                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${schoolCode}`);
+                const response = await fetch(`http://localhost:5000/api/staffs/${schoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);
@@ -27,8 +27,7 @@ const OurTeam = ({ schoolCode }) => {
 
         fetchStaffs();
     }, []); // Empty dependency array ensures the effect runs only once
-    console.log(staffs)
-    console.log(schoolCode, staffs)
+
 
     return (
         <section className="pt-32 pb-12  dark:bg-gray-800 dark:text-gray-100">

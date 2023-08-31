@@ -18,7 +18,7 @@ const AllStaffInfo = () => {
     useEffect(() => {
         const fetchNotices = async () => {
             try {
-                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}`);
+                const response = await fetch(`http://localhost:5000/api/staffs/${currentSchoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);
@@ -48,7 +48,7 @@ const AllStaffInfo = () => {
 
     const handleUpdateStaff = async (id, formData) => {
         try {
-            const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${id}`, {
+            const response = await fetch(`http://localhost:5000/api/staffs/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const AllStaffInfo = () => {
             const confirmed = window.confirm('Are you sure you want to delete this staff?');
 
             if (confirmed) {
-                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${staffId}`, {
+                const response = await fetch(`http://localhost:5000/api/staffs/${staffId}`, {
                     method: 'DELETE',
                 });
 

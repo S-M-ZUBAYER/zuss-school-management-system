@@ -1,149 +1,10 @@
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import Modal from 'react-modal';
-
-// const AllStudent = () => {
-//     const [students, setStudents] = useState([]);
-//     const [searchTerm, setSearchTerm] = useState('');
-//     const [selectedStudent, setSelectedStudent] = useState(null);
-//     const [isModalOpen, setIsModalOpen] = useState(false);
-//   
-//     useEffect(() => {
-//         const fetchStudents = async () => {
-//             try {
-//                 const response = await axios.get('https://zuss-school-management-system-server-site.vercel.app/api/students');
-//                 setStudents(response.data);
-//             } catch (error) {
-//                 console.error('Failed to fetch students:', error);
-//             }
-//         };
-
-//         fetchStudents();
-//     }, []);
-
-//     const handleSearch = (event) => {
-//         setSearchTerm(event.target.value);
-//     };
-
-//     const handleDelete = async (id) => {
-//         try {
-//             const confirmed = window.confirm('Are you sure you want to delete this student?');
-//             if (confirmed) {
-//                 await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/students/${id}`);
-//                 setStudents((prevStudents) => prevStudents.filter((student) => student._id !== id));
-//                 alert('Student deleted successfully!');
-//             }
-//         } catch (error) {
-//             console.error('Failed to delete student:', error);
-//         }
-//     };
-
-//     const handleOpenModal = (student) => {
-//         setSelectedStudent(student);
-//         setIsModalOpen(true);
-//     };
-
-//     const handleCloseModal = () => {
-//         setSelectedStudent(null);
-//         setIsModalOpen(false);
-//     };
-
-//     const handleUpdateStudent = async (formData) => {
-//         try {
-//             await axios.put(`https://zuss-school-management-system-server-site.vercel.app/api/students/${selectedStudent._id}`, formData);
-//             setStudents((prevStudents) =>
-//                 prevStudents.map((student) => (student._id === selectedStudent._id ? { ...student, ...formData } : student))
-//             );
-//             alert('Student updated successfully!');
-//             handleCloseModal();
-//         } catch (error) {
-//             console.error('Failed to update student:', error);
-//         }
-//     };
-
-//     return (
-//         <div>
-//             <input type="text" value={searchTerm} onChange={handleSearch} placeholder="Search by Class Roll" />
-
-//             <table>
-//                 <thead>
-//                     <tr>
-//                         <th>Name</th>
-//                         <th>School Name</th>
-//                         <th>Class Roll</th>
-//                         <th>Edit</th>
-//                         <th>Delete</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     {students
-//                         .filter((student) => student.classRoll.includes(searchTerm))
-//                         .map((student) => (
-//                             <tr key={student._id}>
-//                                 <td>{student.name}</td>
-//                                 <td>{student.schoolName}</td>
-//                                 <td>{student.classRoll}</td>
-//                                 <td>
-//                                     <button onClick={() => handleOpenModal(student)}>Edit</button>
-//                                 </td>
-//                                 <td>
-//                                     <button onClick={() => handleDelete(student._id)}>Delete</button>
-//                                 </td>
-//                             </tr>
-//                         ))}
-//                 </tbody>
-//             </table>
-
-//             <Modal className="w-3/6 mx-auto" isOpen={isModalOpen} onRequestClose={handleCloseModal}>
-//                 {selectedStudent && (
-//                     <div>
-//                         <h2>Edit Student Information</h2>
-//                         <form onSubmit={handleUpdateStudent}>
-//                             <div>
-//                                 <label>Name:</label>
-//                                 <input type="text" defaultValue={selectedStudent.name} />
-//                             </div>
-//                             <div>
-//                                 <label>School Name:</label>
-//                                 <input type="text" defaultValue={selectedStudent.schoolName} />
-//                             </div>
-//                             <div>
-//                                 <label>Class Roll:</label>
-//                                 <input type="text" defaultValue={selectedStudent.classRoll} disabled />
-//                             </div>
-//                             <div>
-//                                 <label>Designation:</label>
-//                                 <input type="text" defaultValue={selectedStudent.designation} />
-//                             </div>
-//                             <div>
-//                                 <label>Phone:</label>
-//                                 <input type="text" defaultValue={selectedStudent.phone} />
-//                             </div>
-//                             <div>
-//                                 <label>Address:</label>
-//                                 <input type="text" defaultValue={selectedStudent.address} />
-//                             </div>
-//                             <div>
-//                                 <button type="submit">Update</button>
-//                                 <button onClick={handleCloseModal}>Cancel</button>
-//                             </div>
-//                         </form>
-//                     </div>
-//                 )}
-//             </Modal>
-//         </div>
-//     );
-// };
-
-// export default AllStudent;
-
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context/UserContext';
 import EachStaff from '../../IntroductionPage/IntroDashboard/EachStaff';
+import StudentInfoTable from './StudentInfoTable';
 
 const AllStudent = () => {
     const [students, setStudents] = useState([]);
@@ -155,12 +16,23 @@ const AllStudent = () => {
     const [sectionSearchQuery, setSectionSearchQuery] = useState([]);
     const [shiftSearchQuery, setShiftSearchQuery] = useState([]);
     const [nameSearchQuery, setNameSearchQuery] = useState([]);
-    const [year, setYear] = useState(new Date().getFullYear());
+    const [date, setDate] = useState(new Date().getFullYear());
+    const [className, setClassName] = useState('');
+    const [classNameElement, setClassNameElement] = useState({});
+    const [sectionElement, setSectionElement] = useState({});
+    const [shiftElement, setShiftElement] = useState({});
+    const [sectionName, setSectionName] = useState('');
+    const [shiftName, setShiftName] = useState('');
+    const [allClasses, setAllClasses] = useState([]);
+    const [sections, setSections] = useState([]);
+    const [shifts, setShifts] = useState([]);
+    const [classInfo, setClassInfo] = useState([]);
+    const [name, setName] = useState("");
 
 
     const { currentSchoolCode } = useContext(AuthContext);
 
-    const [allClasses, setAllclasses] = useState([]);
+    console.log(allClasses, students)
 
 
     function getAllYears(startYear) {
@@ -178,17 +50,22 @@ const AllStudent = () => {
     useEffect(() => {
         const fetchApplications = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/students/${currentSchoolCode}`, {
+                const response = await axios.get(`http://localhost:5000/api/students/${currentSchoolCode}`, {
+                    query: { date } // Send date as a query parameter
                 });
                 setAllStudents(response.data);
+                console.log(response?.data, "allstudetn");
             } catch (error) {
                 console.error('Error fetching applications:', error);
             }
         };
 
-
         fetchApplications();
-    }, [currentSchoolCode, year]);
+    }, [currentSchoolCode, date]);
+
+
+
+
 
 
 
@@ -202,14 +79,14 @@ const AllStudent = () => {
         setSearchTerm(event.target.value);
     };
     const handleNameSearch = (event) => {
-        setSearchTerm(event.target.value);
+        setName(event.target.value);
     };
 
     const handleDelete = async (id) => {
         try {
             const confirmed = window.confirm('Are you sure you want to delete this student?');
             if (confirmed) {
-                await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/students/${id}`);
+                await axios.delete(`http://localhost:5000/api/students/${id}`);
                 setStudents((prevStudents) => prevStudents.filter((student) => student._id !== id));
                 alert('Student deleted successfully!');
             }
@@ -230,7 +107,7 @@ const AllStudent = () => {
 
     const handleUpdateStudent = async (formData) => {
         try {
-            await axios.put(`https://zuss-school-management-system-server-site.vercel.app/api/students/${selectedStudent._id}`, formData);
+            await axios.put(`http://localhost:5000/api/students/${selectedStudent._id}`, formData);
             setStudents((prevStudents) =>
                 prevStudents.map((student) => (student._id === selectedStudent._id ? { ...student, ...formData } : student))
             );
@@ -298,12 +175,59 @@ const AllStudent = () => {
         });
     };
 
+    useEffect(() => {
+        // Fetch class information based on schoolCode
+        const fetchClassInfo = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+                const classInfoData = response.data?.classInfo;
+                console.log(classInfoData)
+                setClassInfo(classInfoData)
+                if (classInfoData) {
+                    const classNames = classInfoData.map((element) => element?.name);
+                    // setClassInfo(classInfoData?.classInfo)
+                    setAllClasses(classNames);
+                    setClassNameElement(classInfoData.filter(everyClass => everyClass?.name === className));
+
+                }
+
+            } catch (error) {
+                console.error('Error fetching classInfo:', error);
+            }
+        };
+
+
+        fetchClassInfo();
+    }, [currentSchoolCode]);
+
+
+    const handleToSelectClassName = (e) => {
+        classInfo?.map(info => {
+            if (info.name === className) {
+                setSections(info.sections);
+                setSectionElement(info);
+            }
+        })
+
+
+    }
+
+    const handleToShiftName = (e) => {
+        className && sectionName && (sectionElement?.sections)?.map(info => {
+            if (info.name === sectionName) {
+                setShifts(info.shifts);
+                setShiftElement(info);
+            }
+        })
+
+    }
+
     return (
         <div className="text-white">
             <h1 className="text-3xl font-bold text-lime-300 mb-8 mt-10">
                 Available Students In {' '}
                 <span className="bg-black">
-                    <select className="bg-black px-2" value={year} onChange={(e) => setYear(e.target.value)}>
+                    <select className="bg-black px-2" value={date} onChange={(e) => setDate(e.target.value)}>
                         {years.map((year, index) => (
                             <option key={index} value={year}>
                                 {year}
@@ -314,9 +238,9 @@ const AllStudent = () => {
             </h1>
             <div className="flex items-center justify-center mb-5 text-black">
                 <select
-                    id="classList"
-                    value={classSearchQuery}
-                    onChange={handleClassSearch}
+                    id="className"
+                    value={className}
+                    onChange={(e) => setClassName(e.target.value)}
                     className="bg-yellow-100 px-3 py-1 rounded-lg mr-3"
                 >
                     <option value="" disabled>Select a class</option>
@@ -326,44 +250,48 @@ const AllStudent = () => {
                 </select>
                 <select
                     id="sectionList"
-                    value={sectionSearchQuery}
-                    onChange={handleSectionSearch}
+                    value={sectionName}
+                    onChange={(e) => setSectionName(e.target.value)}
+                    onClick={handleToSelectClassName}
                     className="bg-yellow-100 px-3 py-1 rounded-lg mr-3"
                 >
-                    <option value="" disabled>Select a Section</option>
-                    {allClasses.map((classItem, index) => (
-                        <option key={index} value={classItem}>{classItem}</option>
-                    ))}
+                    <option value="">Please Select Section</option>
+                    {className && (sections?.map((sectionItem, index) => (
+                        <option key={index} value={sectionItem?.name}>
+                            {sectionItem?.name}
+                        </option>
+                    )))}
                 </select>
                 <select
-                    id="classList"
-                    value={shiftSearchQuery}
-                    onChange={handleShiftSearch}
+                    id="shift"
+                    onChange={(e) => setShiftName(e.target.value)}
+                    onClick={handleToShiftName}
                     className="bg-yellow-100 px-3 py-1 rounded-lg mr-3"
                 >
-                    <option value="" disabled>Select a Shift</option>
-                    {allClasses.map((classItem, index) => (
-                        <option key={index} value={classItem}>{classItem}</option>
+                    <option value="">Please Select Shift</option>
+                    {className && sectionName && shifts.map((shiftItem, index) => (
+                        <option key={index} value={shiftItem}>
+                            {shiftItem}
+                        </option>
                     ))}
                 </select>
                 <input
                     type="text"
                     className="bg-yellow-100 px-3 py-1 rounded-lg"
                     placeholder="Search by name"
-                    value={nameSearchQuery}
+                    value={name}
                     onChange={handleNameSearch}
                 />
             </div>
 
-            <div data-aos="flip-up" data-aos-duration="2000" className="overflow-x-auto mb-20 w-11/12 mx-auto mt-12">
+            {/* <div data-aos="flip-up" data-aos-duration="2000" className="overflow-x-auto mb-20 w-11/12 mx-auto mt-12">
                 <table className="table w-full text-black">
                     <thead>
                         <tr>
                             <th>Image</th>
                             <th>Student Name</th>
+                            <th>Student Id</th>
                             <th>Class Roll</th>
-                            <th>Attendance</th>
-                            <th>Payment</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -384,12 +312,12 @@ const AllStudent = () => {
                             />
                         ))}
                 </table>
-            </div>
+            </div> */}
             {renderStudentGroups()}
-            <Modal isOpen={isModalOpen} onRequestClose={handleCloseModal}>
+            <Modal className="w-8/12 h-8/12 rounded-lg p-5  bg-white text-black mx-auto mt-24" isOpen={isModalOpen} onRequestClose={handleCloseModal}>
                 {selectedStudent && (
                     <div>
-                        <h2>Edit Student Information</h2>
+                        <h2 className=" text-emerald-500 font-semibold text-2xl text-center">Edit Student Information</h2>
                         <form onSubmit={handleUpdateStudent}>
                             <div>
                                 <label>Name:</label>
@@ -415,14 +343,23 @@ const AllStudent = () => {
                                 <label>Address:</label>
                                 <input type="text" defaultValue={selectedStudent.address} />
                             </div>
-                            <div>
-                                <button type="submit">Update</button>
-                                <button onClick={handleCloseModal}>Cancel</button>
+                            <div className="text-end">
+                                <button className="bg-green-500 mr-5 px-3 py-1" type="submit">Update</button>
+                                <button className=" bg-yellow-300 px-3 py-1" onClick={handleCloseModal}>Cancel</button>
                             </div>
                         </form>
                     </div>
                 )}
             </Modal>
+            <StudentInfoTable
+                allStudents={allStudents}
+                classInfoData={classInfo}
+                handleOpenModal={handleOpenModal}
+                className={className}
+                sectionName={sectionName}
+                shiftName={shiftName}
+                name={name}
+            ></StudentInfoTable>
         </div>
     );
 };

@@ -1,12 +1,47 @@
 import React from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/UserContext";
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 
 const SalaryStatus = () => {
     const { user, teachersList } = useContext(AuthContext);
-    console.log(teachersList, user?.email)
+    const [staffSalary, setStaffSalary] = useState({});
+    const [staffInfo, setStaffInfo] = useState({});
 
 
+    useEffect(() => {
+        const fetchStaffSalary = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/staffSalary/staff/${user?.email}`);
+                const staffSalary = response.data; // Assuming the API response provides the salary data
+                setStaffSalary(staffSalary);
+                // Do something with the staffSalary, such as updating state
+            } catch (error) {
+                console.error('Error fetching staff salary:', error);
+            }
+        };
+
+        fetchStaffSalary();
+    }, [user?.email]);
+
+    useEffect(() => {
+        const fetchStaffInfo = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/schoolUser/${user?.email}`);
+                const staffSalary = response.data; // Assuming the API response provides the salary data
+                setStaffInfo(staffSalary);
+                // Do something with the staffSalary, such as updating state
+            } catch (error) {
+                console.error('Error fetching staff salary:', error);
+            }
+        };
+
+        fetchStaffInfo();
+    }, [user?.email]);
+
+    console.log(staffInfo)
 
     const filteredTeachers = teachersList.filter((teacher) =>
         teacher.email.toLowerCase().includes(user?.email.toLowerCase())
@@ -14,9 +49,9 @@ const SalaryStatus = () => {
 
     return (
         <div className="flex flex-col items-center text-white">
-            <h2 className="text-2xl font-bold mb-4">Teacher Salary Status</h2>
+            <h2 className="text-2xl font-bold mb-4">Staff Salary Status</h2>
 
-            <table className="border-collapse border border-gray-800">
+            {/* <table className="border-collapse border border-gray-800">
                 <thead>
                     <tr className="bg-gray-100 text-black">
                         <th className="border px-4 py-2">Teacher Name</th>
@@ -45,7 +80,30 @@ const SalaryStatus = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> */}
+
+            <div className="flex items-center justify-center p-8 space-x-8">
+                <div className="max-w-1/3 text-left text-lg">
+                    <img src={staffInfo.image} alt={staffInfo.name} className="w-32 h-auto rounded-lg" />
+                    <h2 className="text-xl font-bold mt-4">{staffInfo.name}</h2>
+                    <p><span className=" text-yellow-500 font-bold">School Name:</span> {staffInfo.schoolName}</p>
+                    <p><span className=" text-yellow-500 font-bold">Email:</span> {staffInfo.email}</p>
+                </div>
+                <div className="max-w-1/3 text-left text-lg">
+                    <h2 className="text-xl font-bold mb-4">Staff Salary Details</h2>
+                    <p><span className=" text-yellow-500 font-bold">Name:</span> {staffSalary.name}</p>
+                    <p><span className=" text-yellow-500 font-bold">Staff Email:</span> {staffSalary.staffEmail}</p>
+                    <p><span className=" text-yellow-500 font-bold">Staff ID:</span> {staffSalary.staffId}</p>
+                    <p><span className=" text-yellow-500 font-bold">Designation:</span> {staffSalary.designation}</p>
+                    <p><span className=" text-yellow-500 font-bold">Basic Salary:</span> {staffSalary.basicSalary}</p>
+                    <p><span className=" text-yellow-500 font-bold">Rent:</span> {staffSalary.rent}</p>
+                    <p><span className=" text-yellow-500 font-bold">Medical Allowance:</span> {staffSalary.medicalAllowance}</p>
+                    <p><span className=" text-yellow-500 font-bold">Others:</span> {staffSalary.others}</p>
+                    <p><span className=" text-yellow-500 font-bold">Total Salary:</span> {staffSalary.totalSalary}</p>
+                </div>
+
+
+            </div>
         </div>
     );
 };

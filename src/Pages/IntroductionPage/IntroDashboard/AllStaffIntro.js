@@ -16,7 +16,7 @@ const AllStaffIntro = () => {
     useEffect(() => {
         const fetchStaffs = async () => {
             try {
-                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}`);
+                const response = await fetch(`http://localhost:5000/api/staffs/${currentSchoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);

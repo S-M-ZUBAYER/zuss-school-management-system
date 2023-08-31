@@ -27,7 +27,7 @@ const LogIn = () => {
         console.log(email, password)
         signIn(email, password)
             .then(result => {
-                axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/schoolUser/${email}`)
+                axios.get(`http://localhost:5000/api/schoolUser/${email}`)
                     .then(response => {
                         setUserData(response.data); // Store the fetched data in state
                         setSchoolName((response?.data).schoolName)

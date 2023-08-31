@@ -41,7 +41,7 @@ function AddSalary() {
     useEffect(() => {
         const fetchStaffs = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}`);
+                const response = await axios.get(`http://localhost:5000/api/staffs/${currentSchoolCode}`);
                 setStaffs(response.data);
             } catch (error) {
                 console.error('Error fetching staffs:', error);

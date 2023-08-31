@@ -32,7 +32,7 @@ const Calender = () => {
     useEffect(() => {
         const fetchCalendarData = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/calendar/${currentSchoolCode}`);
+                const response = await axios.get(`http://localhost:5000/api/calendar/${currentSchoolCode}`);
                 setCalendarData(response.data);
                 console.log(response.data)
                 setLoading(false);
