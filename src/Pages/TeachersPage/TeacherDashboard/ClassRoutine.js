@@ -1,11 +1,34 @@
 import React, { useContext, useState, useRef } from 'react';
-import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import html2canvas from 'html2canvas';
 import { saveAs } from 'file-saver';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { AuthContext } from '../../../context/UserContext';
 
 const ClassRoutine = () => {
 
-    const { schoolName } = useContext(AuthContext);
+    const { schoolName, currentSchoolCode } = useContext(AuthContext);
+
+    const year = 2023;
+    const schoolCode = currentSchoolCode;
+    const [classRoutines, setClassRoutines] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/classRoutine', {
+                    params: { year: 2023, schoolCode: currentSchoolCode },
+                });
+
+                setClassRoutines(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error('Error fetching class routines:', error);
+            }
+        };
+
+        fetchData();
+    }, [year, schoolCode]);
 
     function handleCloneClick() {
         const node = document.getElementById("original-div")
@@ -87,6 +110,9 @@ const ClassRoutine = () => {
 
                 </div>
             </div>
+
+
+
         </div >
     );
 };

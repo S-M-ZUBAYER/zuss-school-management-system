@@ -56,6 +56,7 @@ import Apply from "../Pages/AdmissionPage/Apply";
 import AdmissionProcess from "../Pages/IntroductionPage/AdmissionProcess";
 import ApplicationDetails from "../Pages/IntroductionPage/ApplicationDetails";
 import AdminAdmissionProcess from "../Pages/AdminPage/AdminAdmissionProcess";
+import GenerateClassRoutine from "../Pages/AdminPage/GenerateClassRoutine";
 
 export const router = createBrowserRouter([
     {
@@ -135,6 +136,11 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/intro/admissionProcess',
                 element: <AdmissionProcess></AdmissionProcess>
+            },
+
+            {
+                path: '/:name/intro/classRoutine',
+                element: <ClassRoutine></ClassRoutine>
             }
 
         ]
@@ -325,6 +331,10 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/admin/class',
                 element: <AddClassInfo></AddClassInfo>
+            },
+            {
+                path: '/:name/admin/classRoutine',
+                element: <GenerateClassRoutine></GenerateClassRoutine>
             }
 
         ]
