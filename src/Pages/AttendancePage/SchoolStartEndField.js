@@ -26,7 +26,8 @@ const SchoolStartEndField = () => {
 
     return (
         <form className="text-white" onSubmit={handleSubmit}>
-            <h1 className="text-2xl font-bold mt-5 text-sky-400 mb-10">Set Time</h1>
+            <h1 className="text-2xl font-bold mt-5 text-sky-400 mb-2">Set Start&End Time </h1>
+            <p className="mb-10">Please set start and end time for teacher entry and exit time in your school to get the proper attendance.</p>
             <div className="mb-2" >
                 <label htmlFor="start-time">School Start Time:</label>
                 <input

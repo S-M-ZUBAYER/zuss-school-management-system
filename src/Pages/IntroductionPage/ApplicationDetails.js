@@ -34,7 +34,7 @@ const ApplicationDetails = () => {
     const handleModalAccept = async () => {
         try {
             // Make POST request to backend
-            const response = await axios.post('http://localhost:5000/api/students', {
+            const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/students', {
                 name: application?.name,
                 studentId: application?.applicationId,
                 year: application?.date,
@@ -57,7 +57,7 @@ const ApplicationDetails = () => {
             });
 
             if (response) {
-                axios.put(`http://localhost:5000/api/application/${application?.applicationId}`, { accept: true })
+                axios.put(`https://zuss-school-management-system-server-site.vercel.app/api/application/${application?.applicationId}`, { accept: true })
                     .then(response => {
                         console.log('Updated application:', response.data);
                         // Handle success or update your UI
@@ -100,7 +100,7 @@ const ApplicationDetails = () => {
 
         if (confirmed) {
             try {
-                await axios.delete(`http://localhost:5000/api/application/${id}`);
+                await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/application/${id}`);
                 toast.error("Application reject and delete successfully");
                 routeChange();
             } catch (error) {
@@ -116,7 +116,7 @@ const ApplicationDetails = () => {
 
         if (confirmed) {
             // Send a PUT request to update the admitCard field
-            axios.put(`http://localhost:5000/api/application/admitCard/${id}`, {
+            axios.put(`https://zuss-school-management-system-server-site.vercel.app/api/application/admitCard/${id}`, {
                 admitCard: true, // Set to true since we want to generate the admit card
             })
                 .then(response => {
@@ -137,7 +137,7 @@ const ApplicationDetails = () => {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
                 setClassInfo(classInfoData)
                 if (classInfoData) {
@@ -185,7 +185,7 @@ const ApplicationDetails = () => {
     useEffect(() => {
         const fetchApplicationDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/application/details/${applicationId}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/application/details/${applicationId}`);
                 setApplication(response.data);
             } catch (error) {
                 console.error('Error fetching application details:', error);

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
+import { AuthContext } from '../../context/UserContext';
 
 const Students = () => {
 
@@ -28,8 +28,12 @@ const Students = () => {
                             // isAdmin && 
                             <>
 
+                                <li><Link to={`/${schoolName}/student/payment`}>My Payment</Link></li>
+                                <li><Link to={`/${schoolName}/student/allStudent`}>All Student</Link></li>
+                                <li><Link to={`/${schoolName}/student/result`}>All Student Result</Link></li>
+                                <li><Link to={`/${schoolName}/student/admissionStudent`}>Admission Student</Link></li>
+                                <li><Link to={`/${schoolName}/student/showRoutine`}>Class Routine</Link></li>
                                 <li><Link to={`/${schoolName}/student/calender`}>Academic Calender</Link></li>
-                                <li><Link to={`/${schoolName}/student/payment`}>Payment</Link></li>
                                 <li><Link to={`/${schoolName}/student/leave`}>Leave Application</Link></li>
                             </>
                         }

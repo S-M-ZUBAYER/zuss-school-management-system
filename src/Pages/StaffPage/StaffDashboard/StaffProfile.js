@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import Modal from 'react-modal';
+import { AuthContext } from '../../../context/UserContext';
 
 const StaffProfile = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -15,14 +16,26 @@ const StaffProfile = () => {
     // const [imagePublicId, setImagePublicId] = useState('');
     const [userProfileData, setUserProfileData] = useState({})
 
+    const { currentSchoolCode, user } = useContext(AuthContext);
 
     useEffect(() => {
-        const stdProfile = JSON.parse(localStorage.getItem('staffProfile'));
-        if (stdProfile) {
-            setUserProfileData(stdProfile);
-            console.log(userProfileData?.userImage)
-        }
-    }, []);
+        fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}/${user?.email}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // Handle the staff data received from the API
+                console.log('Staff Data:', data[0]);
+                setUserProfileData(data[0])
+            })
+            .catch((error) => {
+                // Handle errors
+                console.error('Fetch Error:', error);
+            });
+    }, [user?.email, currentSchoolCode]);
 
 
     function openModal() {
@@ -102,7 +115,7 @@ const StaffProfile = () => {
             <FaEdit className="edit-icon text-white ml-auto text-2xl mt-5 mr-5" onClick={openModal} />
 
             <div className="class=" text-white pt-12 pb-5>
-                <img class="h-40 w-40 rounded-full border-8 border-x-fuchsia-500 border-yellow-300 mx-auto aos-init aos-animate" src={userProfileData ? userProfileData?.userImage : "https://i.ibb.co/Pwm3jKS/tom.jpg"}
+                <img class="h-40 w-40 rounded-full border-8 border-x-fuchsia-500 border-yellow-300 mx-auto aos-init aos-animate" src={userProfileData ? userProfileData?.image : "https://i.ibb.co/Pwm3jKS/tom.jpg"}
                     alt="" ></img>
             </div>
             <div data-aos="fade-up" id='userName' class="aos-init aos-animate">

@@ -56,17 +56,17 @@ const AllResultSheet = () => {
 
     return (
         <div>
-            <h1>Student Result List</h1>
+            <h1 className="text-green-400 font-bold text-3xl mt-3 mb-10">Student Result List</h1>
             <table className="min-w-full divide-y divide-gray-200">
-                <thead>
+                <thead className="border-separate bg-white font-semibold">
                     <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Roll No.</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Average Number</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grade</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Class</th>
+                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Roll No.</th>
+                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Email</th>
+                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Average Number</th>
+                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Grade</th>
+                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Details</th>
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">

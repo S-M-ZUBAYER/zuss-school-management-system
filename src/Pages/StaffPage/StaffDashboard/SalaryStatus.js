@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const SalaryStatus = () => {
-    const { user, teachersList } = useContext(AuthContext);
+    const { user, teachersList, currentSchoolCode } = useContext(AuthContext);
     const [staffSalary, setStaffSalary] = useState({});
     const [staffInfo, setStaffInfo] = useState({});
 
@@ -14,7 +14,7 @@ const SalaryStatus = () => {
     useEffect(() => {
         const fetchStaffSalary = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/staffSalary/staff/${user?.email}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/staffSalary/staff/${user?.email}`);
                 const staffSalary = response.data; // Assuming the API response provides the salary data
                 setStaffSalary(staffSalary);
                 // Do something with the staffSalary, such as updating state
@@ -23,13 +23,15 @@ const SalaryStatus = () => {
             }
         };
 
+
+
         fetchStaffSalary();
     }, [user?.email]);
 
     useEffect(() => {
         const fetchStaffInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/schoolUser/${user?.email}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/schoolUser/${user?.email}`);
                 const staffSalary = response.data; // Assuming the API response provides the salary data
                 setStaffInfo(staffSalary);
                 // Do something with the staffSalary, such as updating state
@@ -49,7 +51,7 @@ const SalaryStatus = () => {
 
     return (
         <div className="flex flex-col items-center text-white">
-            <h2 className="text-2xl font-bold mb-4">Staff Salary Status</h2>
+            <h2 className="text-2xl font-bold mb-4">My Salary Status</h2>
 
             {/* <table className="border-collapse border border-gray-800">
                 <thead>
@@ -90,7 +92,7 @@ const SalaryStatus = () => {
                     <p><span className=" text-yellow-500 font-bold">Email:</span> {staffInfo.email}</p>
                 </div>
                 <div className="max-w-1/3 text-left text-lg">
-                    <h2 className="text-xl font-bold mb-4">Staff Salary Details</h2>
+                    <h2 className="text-xl font-bold mb-4">My Salary Details</h2>
                     <p><span className=" text-yellow-500 font-bold">Name:</span> {staffSalary.name}</p>
                     <p><span className=" text-yellow-500 font-bold">Staff Email:</span> {staffSalary.staffEmail}</p>
                     <p><span className=" text-yellow-500 font-bold">Staff ID:</span> {staffSalary.staffId}</p>

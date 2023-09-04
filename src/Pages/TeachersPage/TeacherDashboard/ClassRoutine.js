@@ -13,10 +13,11 @@ const ClassRoutine = () => {
     const schoolCode = currentSchoolCode;
     const [classRoutines, setClassRoutines] = useState([]);
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/classRoutine', {
+                const response = await axios.get('https://zuss-school-management-system-server-site.vercel.app/api/classRoutine', {
                     params: { year: 2023, schoolCode: currentSchoolCode },
                 });
 
@@ -105,6 +106,7 @@ const ClassRoutine = () => {
                         </div>
                         <button id='AddBtn' className="bg-emerald-400 w-6 h-6 rounded-full text-xl font-bold flex justify-center items-center" onClick={handleCloneClick}>+</button>
                     </div>
+
 
 
 

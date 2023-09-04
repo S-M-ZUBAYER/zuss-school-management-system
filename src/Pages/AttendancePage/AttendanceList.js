@@ -141,7 +141,7 @@ const StaffAttendance = () => {
     useEffect(() => {
         const fetchStaffs = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/staffs/${currentSchoolCode}`);
+                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);
@@ -218,9 +218,9 @@ const StaffAttendance = () => {
 
     return (
         <div className="text-white">
-            <h1 className="text-2xl font-bold mt-5 mb-10">Teachers Attendance</h1>
+            <h1 className="text-2xl font-bold mt-5 mb-10">All Staffs Attendance</h1>
 
-            <table className="min-w-full">
+            <table className=" min-w-full">
                 <thead>
                     <tr>
                         <th>Name</th>

@@ -40,9 +40,11 @@ const GenerateClassRoutine = () => {
             schoolName,
             schoolCode: currentSchoolCode,
             className: className, // Assuming you want to store the class name
+            sectionName: sectionName,
+            shiftName: shiftName,
             routine: routine, // Assuming you want to store the class routine
         };
-        const response = await axios.post('http://localhost:5000/api/classRoutine/add', savedRoutine);
+        const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/classRoutine/add', savedRoutine);
         if (response.status === 201) {
             toast.success("class routine added successfully")
         }

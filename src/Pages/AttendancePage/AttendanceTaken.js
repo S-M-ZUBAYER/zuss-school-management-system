@@ -9,7 +9,7 @@ const AttendanceTaken = () => {
         <div>
             {/* {
                 start && */}
-            <SchoolStartEndField></SchoolStartEndField>
+            {/* <SchoolStartEndField></SchoolStartEndField> */}
             {/* } */}
             <StudentAttendance></StudentAttendance>
         </div>

@@ -19,7 +19,6 @@ import SchoolIntro from "../Pages/IntroductionPage/IntroDashboard/SchoolIntro";
 import Notice from "../Pages/IntroductionPage/IntroDashboard/Notice";
 import Activities from "../Pages/IntroductionPage/IntroDashboard/Activities";
 import SalaryStatus from "../Pages/StaffPage/StaffDashboard/SalaryStatus";
-import StdInformation from "../Pages/TeachersPage/TeacherDashboard/StdInformation";
 import ClassRoutine from "../Pages/TeachersPage/TeacherDashboard/ClassRoutine";
 import Calender from "../Pages/TeachersPage/TeacherDashboard/Calender";
 import PaymentCollection from "../Pages/TeachersPage/TeacherDashboard/PaymentCollection";
@@ -57,6 +56,9 @@ import AdmissionProcess from "../Pages/IntroductionPage/AdmissionProcess";
 import ApplicationDetails from "../Pages/IntroductionPage/ApplicationDetails";
 import AdminAdmissionProcess from "../Pages/AdminPage/AdminAdmissionProcess";
 import GenerateClassRoutine from "../Pages/AdminPage/GenerateClassRoutine";
+import SchoolStartEndField from "../Pages/AttendancePage/SchoolStartEndField";
+import ShowAllStudents from "../Pages/StudentsPage/ShowAllStudents";
+import StaffProfile from "../Pages/StaffPage/StaffDashboard/StaffProfile";
 
 export const router = createBrowserRouter([
     {
@@ -156,12 +158,16 @@ export const router = createBrowserRouter([
                 element: <TeacherDashboard></TeacherDashboard>
             },
             {
-                path: '/:name/teacher/information',
-                element: <StdInformation></StdInformation>
+                path: '/:name/teacher/TeacherProfile',
+                element: <StaffProfile></StaffProfile>
             },
             {
                 path: '/:name/teacher/routine',
                 element: <ClassRoutine></ClassRoutine>
+            },
+            {
+                path: '/:name/teacher/salaryStatus',
+                element: <SalaryStatus></SalaryStatus>
             },
             {
                 path: '/:name/teacher/calender',
@@ -170,26 +176,6 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/teacher/leave',
                 element: <TcrLeaveApplication></TcrLeaveApplication>
-            },
-            {
-                path: '/:name/teacher/payment',
-                element: <PaymentCollection></PaymentCollection>
-            },
-            {
-                path: '/:name/teacher/result',
-                element: <AddResultCalculation></AddResultCalculation>
-            },
-            {
-                path: '/:name/teacher/transfer',
-                element: <TransferCertificate></TransferCertificate>
-            },
-            {
-                path: '/:name/teacher/character',
-                element: <CharacterCertificate></CharacterCertificate>
-            },
-            {
-                path: '/:name/teacher/completion',
-                element: <CourseCompletionCertificate></CourseCompletionCertificate>
             },
             {
                 path: '/:name/teacher/attendance',
@@ -224,7 +210,23 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/student/calender',
                 element: <Calender></Calender>
-            }
+            },
+            {
+                path: '/:name/student/result',
+                element: <AllResultSheet></AllResultSheet>
+            },
+            {
+                path: '/:name/student/admissionStudent',
+                element: <AdmissionProcess></AdmissionProcess>
+            },
+            {
+                path: '/:name/student/showRoutine',
+                element: <ClassRoutine></ClassRoutine>
+            },
+            {
+                path: '/:name/student/allStudent',
+                element: <ShowAllStudents></ShowAllStudents>
+            },
 
         ]
 
@@ -321,6 +323,10 @@ export const router = createBrowserRouter([
                 element: <AddStaff></AddStaff>
             },
             {
+                path: '/:name/admin/atnTime',
+                element: <SchoolStartEndField></SchoolStartEndField>
+            },
+            {
                 path: '/:name/admin/admission',
                 element: <AdmissionInfo></AdmissionInfo>
             },
@@ -335,7 +341,27 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/admin/classRoutine',
                 element: <GenerateClassRoutine></GenerateClassRoutine>
-            }
+            },
+            {
+                path: '/:name/admin/transfer',
+                element: <TransferCertificate></TransferCertificate>
+            },
+            {
+                path: '/:name/admin/character',
+                element: <CharacterCertificate></CharacterCertificate>
+            },
+            {
+                path: '/:name/admin/completion',
+                element: <CourseCompletionCertificate></CourseCompletionCertificate>
+            },
+            {
+                path: '/:name/admin/payment',
+                element: <PaymentCollection></PaymentCollection>
+            },
+            {
+                path: '/:name/admin/result&Calculation',
+                element: <AddResultCalculation></AddResultCalculation>
+            },
 
         ]
 

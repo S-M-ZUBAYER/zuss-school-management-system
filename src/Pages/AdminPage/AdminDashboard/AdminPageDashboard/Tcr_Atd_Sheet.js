@@ -108,7 +108,7 @@ const Tcr_Atd_Sheet = () => {
 
     return (
         <div className="container w-11/12 mx-auto ">
-            <h1 className="text-3xl font-bold text-white text-center my-4">Student Attendance List</h1>
+            <h1 className="text-3xl font-bold text-white text-center my-4">Staff Attendance List</h1>
             <div className=" ">
                 {/* Replace this with code that maps over your student data */}
                 {

@@ -31,21 +31,19 @@ const Teachers = () => {
                             // isAdmin && 
                             <>
 
-                                <li><Link to={`/${schoolName}/teacher/information`}>Student Information</Link></li>
+                                <li><Link to={`/${schoolName}/teacher/TeacherProfile`}>My Profile</Link></li>
+                                <li><Link to={`/${schoolName}/teacher/salaryStatus`}>My Salary Status</Link></li>
                                 <li><Link to={`/${schoolName}/teacher/routine`}>Class Routine</Link></li>
                                 <li><Link to={`/${schoolName}/teacher/calender`}>Calender</Link></li>
                             </>
                         }
 
                         <li><Link to={`/${schoolName}/teacher/leave`}>Leave Application</Link></li>
-                        <li><Link to={`/${schoolName}/teacher/payment`}>Payment Collection</Link></li>
                         <li><Link to={`/${schoolName}/teacher/attendance`}>Attendance</Link></li>
-
-                        <li><Link to={`/${schoolName}/teacher/result`}>Add Result & Calculation</Link></li>
                         <li>
 
 
-                            <div>
+                            {/* <div>
                                 <button className="relative flex  items-center justify-between" onClick={toggleMenu}>
                                     <>Certificate Generate</>
                                     <MdOutlineArrowDropDown className="font-bold text-3xl"></MdOutlineArrowDropDown>
@@ -87,7 +85,7 @@ const Teachers = () => {
                                         </div>
                                     </div>
                                 )}
-                            </div>
+                            </div> */}
                         </li>
                     </ul>
 

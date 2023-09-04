@@ -26,8 +26,8 @@ const Staff = () => {
                         {
                             // isAdmin && 
                             <>
-                                <li><Link to={`/${schoolName}/staff/calender`}>Academic Calender</Link></li>
                                 <li><Link to={`/${schoolName}/staff/salary`}>Salary Status</Link></li>
+                                <li><Link to={`/${schoolName}/staff/calender`}>Academic Calender</Link></li>
                                 <li><Link to={`/${schoolName}/staff/leave`}>leave application</Link></li>
                             </>
                         }

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { useContext } from 'react';
-import { AuthContext } from '../../../context/UserContext';
-import EachStaff from '../../IntroductionPage/IntroDashboard/EachStaff';
-import StudentInfoTable from './StudentInfoTable';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/UserContext';
+import ShowStudentInfoTable from './ShowStudentInfoTable';
 
-const AllStudent = () => {
+const ShowAllStudents = () => {
     const [students, setStudents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedStudent, setSelectedStudent] = useState(null);
@@ -396,7 +395,7 @@ const AllStudent = () => {
                     </div>
                 )}
             </Modal>
-            <StudentInfoTable
+            <ShowStudentInfoTable
                 allStudents={allStudents}
                 classInfoData={classInfo}
                 handleOpenModal={handleOpenModal}
@@ -405,9 +404,9 @@ const AllStudent = () => {
                 sectionName={sectionName}
                 shiftName={shiftName}
                 name={name}
-            ></StudentInfoTable>
+            ></ShowStudentInfoTable>
         </div>
     );
 };
 
-export default AllStudent;
+export default ShowAllStudents;

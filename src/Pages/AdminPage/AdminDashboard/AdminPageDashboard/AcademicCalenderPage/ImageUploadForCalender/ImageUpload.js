@@ -21,7 +21,7 @@ const ImageUpload = ({ setCalenderImg }) => {
 
     return (
         <div className="container mx-auto">
-            <h1 className="text-2xl font-bold">Image Upload Example</h1>
+            <h1 className="text-2xl font-bold text-green-400">Upload Image For Calender</h1>
             <button
                 className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
                 onClick={handleOpenModal}

@@ -121,14 +121,14 @@ const Calendar = ({ calendarImg }) => {
     const calendarData = { calendarImg, year, startMonth, endMonth, events }
 
     return (
-        <div>
-            <h2>Calendar</h2>
+        <div className="text-white mt-10">
+            <h2 className="text-2xl font-bold text-green-400">Generate Calendar</h2>
 
             <div className="my-4">
                 <label htmlFor="year">Year:</label>
                 <select
                     id="year"
-                    className="ml-2 p-1 border border-gray-300 rounded"
+                    className="ml-2 p-1 border border-gray-300 text-black rounded"
                     value={year}
                     onChange={(e) => setYear(parseInt(e.target.value))}
                 >
@@ -143,7 +143,7 @@ const Calendar = ({ calendarImg }) => {
                 <label htmlFor="startMonth">Start Month:</label>
                 <select
                     id="startMonth"
-                    className="ml-2 p-1 border border-gray-300 rounded"
+                    className="ml-2 p-1 border text-black border-gray-300 rounded"
                     value={startMonth}
                     onChange={(e) => setStartMonth(parseInt(e.target.value))}
                 >
@@ -158,7 +158,7 @@ const Calendar = ({ calendarImg }) => {
                 <label htmlFor="endMonth">End Month:</label>
                 <select
                     id="endMonth"
-                    className="ml-2 p-1 border border-gray-300 rounded"
+                    className="ml-2 p-1 border text-black border-gray-300 rounded"
                     value={endMonth}
                     onChange={(e) => setEndMonth(parseInt(e.target.value))}
                 >
