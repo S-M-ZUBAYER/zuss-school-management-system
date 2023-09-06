@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/UserContext';
 import axios from 'axios';
@@ -19,9 +19,42 @@ const GenerateClassRoutine = () => {
     });
     const [subject, setSubject] = useState('');
     const [time, setTime] = useState('');
+    const [classNameElement, setClassNameElement] = useState({});
+    const [sectionElement, setSectionElement] = useState({});
+    const [shiftElement, setShiftElement] = useState({});
+    const [allClasses, setAllClasses] = useState([]);
+    const [sections, setSections] = useState([]);
+    const [shifts, setShifts] = useState([]);
+    const [classInfo, setClassInfo] = useState([]);
 
     const { schoolName, currentSchoolCode } = useContext(AuthContext);
     console.log(schoolName, currentSchoolCode)
+
+    useEffect(() => {
+        // Fetch class information based on schoolCode
+        const fetchClassInfo = async () => {
+            try {
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
+                const classInfoData = response.data?.classInfo;
+                setClassInfo(classInfoData)
+                if (classInfoData) {
+                    const classNames = classInfoData.map((element) => element?.name);
+                    // setClassInfo(classInfoData?.classInfo)
+                    setAllClasses(classNames);
+                    setClassNameElement(classInfoData.filter(everyClass => everyClass?.name === className));
+                    if (className) {
+                        console.log(classNameElement)
+                    }
+                }
+
+            } catch (error) {
+                console.error('Error fetching classInfo:', error);
+            }
+        };
+
+
+        fetchClassInfo();
+    }, [currentSchoolCode]);
 
 
     const handleAddSubject = (day) => {
@@ -84,46 +117,93 @@ const GenerateClassRoutine = () => {
         });
     };
 
+    const handleToSelectClassName = (e) => {
+        classInfo?.map(info => {
+            if (info.name === className) {
+                setSections(info.sections);
+                setSectionElement(info);
+            }
+        })
+
+
+    }
+
+    const handleToShiftName = (e) => {
+        className && sectionName && (sectionElement?.sections)?.map(info => {
+            if (info.name === sectionName) {
+                setShifts(info.shifts);
+                setShiftElement(info);
+            }
+        })
+
+    }
 
     return (
         <div className="text-white mt-5">
             <h1 className="text-green-400 font-bold text-3xl">{schoolName}</h1>
             <h1 className="text-yellow-400 font-semibold text-2xl mb-10">Generate Class Routine</h1>
 
-            <div className=" my-2">
-                <label className="text-lg mr-3" htmlFor="className">Class Name:</label>
-                <input
-                    type="text"
+            <div className="flex justify-center items-center mb-3">
+                <label htmlFor="about" className="block font-semibold text-lg mr-2 text-white">
+                    ClassName:
+                </label>
+                <select
                     id="className"
-                    className="text-black"
                     value={className}
                     onChange={(e) => setClassName(e.target.value)}
-                />
+                    className="w-1/3 border border-gray-300 text-black rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    <option value="">Please Select ClassName</option>
+                    {allClasses && allClasses.map((classItem, index) => (
+                        <option key={index} value={classItem}>
+                            {classItem}
+                        </option>
+                    ))}
+                </select>
             </div>
-            <div className=" my-2">
-                <label className="text-lg mr-3" htmlFor="sectionName">Section Name:</label>
-                <input
-                    type="text"
-                    id="sectionName"
-                    className="text-black"
+            <div className="flex justify-center items-center mb-3">
+                <label htmlFor="about" className="block font-semibold text-lg mr-9 text-white">
+                    Section:
+                </label>
+                <select
+                    id="className"
                     value={sectionName}
                     onChange={(e) => setSectionName(e.target.value)}
-                />
+                    onClick={handleToSelectClassName}
+                    className="w-1/3 border border-gray-300 text-black rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    <option value="">Please Select Section</option>
+                    {className && (sections?.map((sectionItem, index) => (
+                        <option key={index} value={sectionItem?.name}>
+                            {sectionItem?.name}
+                        </option>
+                    )))}
+                </select>
             </div>
-            <div className=" my-2 mb-10">
-                <label className="text-lg mr-3" htmlFor="shiftName">Shift Name:</label>
-                <input
-                    type="text"
-                    id="shiftName"
-                    className="text-black"
+            <div className="flex justify-center items-center mb-10">
+                <label htmlFor="about" className="block font-semibold text-lg mr-14 text-white">
+                    Shift:
+                </label>
+                <select
+                    id="className"
                     value={shiftName}
                     onChange={(e) => setShiftName(e.target.value)}
-                />
+                    onClick={handleToShiftName}
+                    className="w-1/3 border border-gray-300 text-black rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    <option value="">Please Select Shift</option>
+                    {className && sectionName && shifts.map((shiftItem, index) => (
+                        <option key={index} value={shiftItem}>
+                            {shiftItem}
+                        </option>
+                    ))}
+                </select>
             </div>
+
 
 
             {Object.entries(routine).map(([day, subjects]) => (
-                <div key={day}>
+                <div key={day} className="mb-4">
                     <h3 className="font-semibold text-lg text-lime-400">{day}</h3>
                     {subjects.map((subject, index) => (
                         <div key={index}>
@@ -134,18 +214,18 @@ const GenerateClassRoutine = () => {
                         <input
                             type="text"
                             placeholder="Subject Name"
-                            className="text-black"
+                            className="text-black py-2 pl-2"
                             value={subject}
                             onChange={(e) => setSubject(e.target.value)}
                         />
                         <input
                             type="text"
                             placeholder="Time"
-                            className="text-black"
+                            className="text-black py-2 pl-2"
                             value={time}
                             onChange={(e) => setTime(e.target.value)}
                         />
-                        <button className="bg-blue-400 px-2 py-1 rounded-lg ml-5" onClick={() => handleAddSubject(day)}>Add Subject</button>
+                        <button className="bg-blue-400 px-4 py-2 font-semibold rounded-lg ml-5" onClick={() => handleAddSubject(day)}>Add Subject</button>
                     </div>
                 </div>
             ))}

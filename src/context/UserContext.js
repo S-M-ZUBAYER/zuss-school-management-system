@@ -30,24 +30,9 @@ const UserContext = ({ children }) => {
 
 
 
-    const [className, setClassName] = useState('Class1');
-    const [purpose, setPurpose] = useState('');
-    const [amount, setAmount] = useState('');
     const [isPaid, setIsPaid] = useState();
-    const [payments, setPayments] = useState({
-        Class1: [],
-        Class2: [],
-        Class3: [],
-        Class4: [],
-        Class5: [],
-        Class6: [],
-        Class7: [],
-        Class8: [],
-        Class9: [],
-        Class10: [],
-        Class11: [],
-        Class12: [],
-    });
+
+
 
 
 
@@ -95,7 +80,7 @@ const UserContext = ({ children }) => {
     }, [])
 
 
-    const authInfo = { user, schools, setSchools, schoolName, currentSchoolCode, setCurrentSchoolCode, events, setEvents, loading, setLoading, createUser, signIn, logOut, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, teachersList, setTeachersList, isPaid, setIsPaid, setSchoolName, year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName, uploadedImage, setUploadedImage }
+    const authInfo = { user, schools, setSchools, schoolName, currentSchoolCode, setCurrentSchoolCode, events, setEvents, loading, setLoading, createUser, signIn, logOut, teachersList, setTeachersList, isPaid, setIsPaid, setSchoolName, year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName, uploadedImage, setUploadedImage }
 
     return (
         <AuthContext.Provider value={authInfo}>

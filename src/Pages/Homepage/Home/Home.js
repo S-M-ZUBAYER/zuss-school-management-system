@@ -1,29 +1,35 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import About from './About';
 import Banner from './Banner';
 import NewsTicker from './NewsSticker';
 import { AuthContext } from '../../../context/UserContext';
 import ShortOverView from '../ShortOverView';
 import Review from '../Review';
+import AutoImageSlider from './AutoImageSlider';
 
 const Home = () => {
     const { currentSchoolCode } = useContext(AuthContext);
     const [currentShool, setCurrentSchool] = useState(null)
-    fetch(`https://zuss-school-management-system-server-site.vercel.app/api/schools/school/${currentSchoolCode}`)
-        .then(response => response.json())
-        .then(data => {
-            // Process the data or do something with it
-            setCurrentSchool(data)
-        })
-        .catch(error => {
-            console.error('Error fetching school information:', error);
-        });
+    useEffect(() => {
+        // Fetch school information when the component mounts
+        fetch(`https://zuss-school-management-system-server-site.vercel.app/api/schools/school/${currentSchoolCode}`)
+            .then(response => response.json())
+            .then(data => {
+                // Process the data or do something with it
+                setCurrentSchool(data);
+            })
+            .catch(error => {
+                console.error('Error fetching school information:', error);
+            });
+    }, [currentSchoolCode]); // Empty dependency array ensures this effect runs only once
+
     return (
         <div className=''>
             <Banner
                 currentShool={currentShool}
             ></Banner>
             <NewsTicker newsItems={['Breaking news!', 'Latest headlines', 'News update', 'skfjlsakdjflakdsf', 'kdsjflajs flasjfsadkfda', 'sdjfasdfjlasfjls']} />
+            {/* <AutoImageSlider></AutoImageSlider> */}
             <About
                 currentShool={currentShool}
             ></About>

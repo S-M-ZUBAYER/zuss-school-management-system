@@ -15,7 +15,13 @@ const AddStaff = () => {
     const [classRoll, setClassRoll] = useState('');
     const [gender, setGender] = useState('');
     const [section, setSection] = useState([]);
-    const [shift, setShift] = useState('');
+    const [sections, setSections] = useState([]);
+    const [shift, setShift] = useState([]);
+    const [shifts, setShifts] = useState([]);
+    const [sectionName, setSectionName] = useState([]);
+    const [shiftName, setShiftName] = useState('');
+    const [sectionElement, setSectionElement] = useState({});
+    const [shiftElement, setShiftElement] = useState({});
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [fatherName, setFatherName] = useState('');
@@ -158,7 +164,7 @@ const AddStaff = () => {
 
     const selectedClass = classInfo?.find(item => item.name === className);
     const selectedSection = selectedClass?.sections.find(sectionItem => sectionItem.name === section);
-    const shifts = selectedSection?.shifts || [];
+    // const shifts = selectedSection?.shifts || [];
 
     console.log(shifts, "shift");
 
@@ -168,6 +174,29 @@ const AddStaff = () => {
         const id = `${currentDate.getFullYear()}${currentDate.getMonth()}${currentDate.getDate()}${currentDate.getHours()}${currentDate.getMinutes()}${currentDate.getSeconds()}${randomNumbers}`;
         setStudentId(id);
     };
+
+
+    const handleToSelectClassName = (e) => {
+        classInfo?.map(info => {
+            if (info.name === className) {
+                setSections(info.sections);
+                setSectionElement(info);
+            }
+        })
+
+
+    }
+
+    const handleToShiftName = (e) => {
+        className && sectionName && (sectionElement?.sections)?.map(info => {
+            if (info.name === sectionName) {
+                setShifts(info.shifts);
+                setShiftElement(info);
+            }
+        })
+
+    }
+
     // console.log((className && section && classInfo?.find(item => item.name === className).sections).find(sectionItem => sectionItem.name === section).shifts, "shift")
 
     return (
@@ -245,16 +274,17 @@ const AddStaff = () => {
                     </label>
                     <select
                         id="className"
-                        value={section}
-                        onChange={(e) => setSection(e.target.value)}
+                        value={sectionName}
+                        onChange={(e) => setSectionName(e.target.value)}
+                        onClick={handleToSelectClassName}
                         className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="">Please Select Section</option>
-                        {className && (classInfo?.find(item => item.name === className).sections).map((sectionItem, index) => (
+                        {className && (sections?.map((sectionItem, index) => (
                             <option key={index} value={sectionItem?.name}>
                                 {sectionItem?.name}
                             </option>
-                        ))}
+                        )))}
                     </select>
                 </div>
                 <div className="flex justify-between items-center">
@@ -263,12 +293,13 @@ const AddStaff = () => {
                     </label>
                     <select
                         id="className"
-                        value={shift}
-                        onChange={(e) => setShift(e.target.value)}
+                        value={shiftName}
+                        onChange={(e) => setShiftName(e.target.value)}
+                        onClick={handleToShiftName}
                         className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="">Please Select Shift</option>
-                        {shifts.map((shiftItem, index) => (
+                        {className && sectionName && shifts.map((shiftItem, index) => (
                             <option key={index} value={shiftItem}>
                                 {shiftItem}
                             </option>

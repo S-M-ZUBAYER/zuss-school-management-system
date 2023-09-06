@@ -23,6 +23,7 @@ const AllStudent = () => {
     const [shifts, setShifts] = useState([]);
     const [classInfo, setClassInfo] = useState([]);
     const [name, setName] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
 
 
     const { currentSchoolCode } = useContext(AuthContext);
@@ -39,7 +40,6 @@ const AllStudent = () => {
         return years;
     }
     const years = getAllYears(2020);
-
 
 
     useEffect(() => {
@@ -406,6 +406,8 @@ const AllStudent = () => {
                 shiftName={shiftName}
                 name={name}
             ></StudentInfoTable>
+
+
         </div>
     );
 };
