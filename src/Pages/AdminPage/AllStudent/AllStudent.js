@@ -46,7 +46,7 @@ const AllStudent = () => {
         const fetchStudents = async () => {
             console.log(currentSchoolCode, year)
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/students/${currentSchoolCode}`, {
+                const response = await axios.get(`http://localhost:5000/api/students/${currentSchoolCode}`, {
                     params: { year } // Send date as a query parameter
                 });
                 console.log(response?.data, "allstudents");
@@ -68,7 +68,7 @@ const AllStudent = () => {
         try {
             const confirmed = window.confirm('Are you sure you want to delete this student?');
             if (confirmed) {
-                await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/students/${id}`);
+                await axios.delete(`http://localhost:5000/api/students/${id}`);
                 setStudents((prevStudents) => prevStudents.filter((student) => student._id !== id));
                 alert('Student deleted successfully!');
             }
@@ -92,7 +92,7 @@ const AllStudent = () => {
             const confirmed = window.confirm('Are you sure you want to delete this student?');
             if (confirmed) {
                 // Send a DELETE request to the backend
-                await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/students/${id}`);
+                await axios.delete(`http://localhost:5000/api/students/${id}`);
 
                 // Remove the student from the current list on the frontend
                 setStudents((prevStudents) => prevStudents.filter((student) => student._id !== id));
@@ -128,7 +128,7 @@ const AllStudent = () => {
 
         try {
             // Send the update request to the server
-            await axios.put(`https://zuss-school-management-system-server-site.vercel.app/api/students/update/${selectedStudent._id}`, formData);
+            await axios.put(`http://localhost:5000/api/students/update/${selectedStudent._id}`, formData);
 
             // Update the student in the frontend students array
             setStudents((prevStudents) =>
@@ -219,7 +219,7 @@ const AllStudent = () => {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
+                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
 
                 setClassInfo(classInfoData)

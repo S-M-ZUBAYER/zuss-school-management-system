@@ -25,7 +25,7 @@ function AddSalary() {
     useEffect(() => {
         const fetchStaffSalary = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/staffSalary/${currentSchoolCode}`);
+                const response = await axios.get(`http://localhost:5000/api/staffSalary/${currentSchoolCode}`);
                 const staffSalaryData = response.data; // Assuming the API response provides the salary data
                 setStaffSalaryList(staffSalaryData);
                 // Do something with the staffSalaryData, such as updating state
@@ -41,7 +41,7 @@ function AddSalary() {
     useEffect(() => {
         const fetchStaffs = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}`);
+                const response = await axios.get(`http://localhost:5000/api/staffs/${currentSchoolCode}`);
                 setStaffs(response.data);
             } catch (error) {
                 console.error('Error fetching staffs:', error);
@@ -81,7 +81,7 @@ function AddSalary() {
 
 
         try {
-            const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/staffSalary', newStaff);
+            const response = await axios.post('http://localhost:5000/api/staffSalary', newStaff);
             const totalSalary = newStaff.basicSalary + newStaff.rent + newStaff.medicalAllowance + newStaff.others;
             newStaff.totalSalary = totalSalary;
 
@@ -118,7 +118,7 @@ function AddSalary() {
     };
     const handleToDelete = async (id) => {
         try {
-            await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/staffSalary/delete/${id}`);
+            await axios.delete(`http://localhost:5000/api/staffSalary/delete/${id}`);
             const updatedList = staffSalaryList.filter(staff => staff._id !== id);
             setStaffSalaryList(updatedList);
             toast.success("Salary status deleted successfully");

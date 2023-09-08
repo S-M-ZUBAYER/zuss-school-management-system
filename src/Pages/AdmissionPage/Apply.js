@@ -12,7 +12,7 @@ const Apply = () => {
         const fetchData = async () => {
             try {
                 // Make a GET request to fetch admission data
-                const response = await axios.get('https://zuss-school-management-system-server-site.vercel.app/api/admissionInfo', {
+                const response = await axios.get('http://localhost:5000/api/admissionInfo', {
                     params: {
                         schoolCode: currentSchoolCode, // Replace with the school code you want to fetch data for
                     },
@@ -56,7 +56,7 @@ const Apply = () => {
 
     const fetchClassInfo = async () => {
         try {
-            const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
+            const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
             const classInfoData = response.data?.classInfo;
             if (classInfoData) {
                 const classNames = classInfoData?.map((element) => element?.name);
@@ -90,7 +90,7 @@ const Apply = () => {
 
         try {
             // Make POST request to backend
-            const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/application', {
+            const response = await axios.post('http://localhost:5000/api/application', {
                 applicationId,
                 date,
                 name,

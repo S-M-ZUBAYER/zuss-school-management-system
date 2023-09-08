@@ -59,6 +59,7 @@ import GenerateClassRoutine from "../Pages/AdminPage/GenerateClassRoutine";
 import SchoolStartEndField from "../Pages/AttendancePage/SchoolStartEndField";
 import ShowAllStudents from "../Pages/StudentsPage/ShowAllStudents";
 import StaffProfile from "../Pages/StaffPage/StaffDashboard/StaffProfile";
+import StudentsDetailsPage from "../Pages/AdminPage/AllStudent/StudentsDetailsPage";
 
 export const router = createBrowserRouter([
     {
@@ -285,6 +286,10 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/admin/student',
                 element: <AllStudent></AllStudent>
+            },
+            {
+                path: '/:name/admin/student/details/:studentId',
+                element: <StudentsDetailsPage></StudentsDetailsPage>
             },
             {
                 path: '/:name/admin/idCard',

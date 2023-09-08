@@ -27,7 +27,7 @@ const MainAdmin = () => {
         const fetchSchools = async () => {
             try {
                 // Send a GET request to retrieve all schools
-                const response = await axios.get('https://zuss-school-management-system-server-site.vercel.app/api/schools');
+                const response = await axios.get('http://localhost:5000/api/schools');
                 setSchools(response.data);
             } catch (error) {
                 console.error(error);
@@ -58,7 +58,7 @@ const MainAdmin = () => {
 
         try {
             // Send the newSchool object to the API endpoint
-            const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/schools', newSchool);
+            const response = await axios.post('http://localhost:5000/api/schools', newSchool);
             console.log(response.data); // Handle the response data as needed
             toast.success("New school added successfully")
             // Update the schools state with the newSchool added
@@ -152,7 +152,7 @@ const MainAdmin = () => {
                 return;
             }
             // Send a DELETE request to remove the school
-            await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/schools/${schoolId}`);
+            await axios.delete(`http://localhost:5000/api/schools/${schoolId}`);
             toast.success(` ${schoolName} site and information deleted successfully`)
             // fetchSchools(); // Fetch the updated schools after deletion
             const updatedSchools = [...schools];
@@ -168,7 +168,7 @@ const MainAdmin = () => {
     // const handleDelete = async (schoolId) => {
     //     try {
     //       // Send a DELETE request to remove the school
-    //       await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/schools/${schoolId}`);
+    //       await axios.delete(`http://localhost:5000/api/schools/${schoolId}`);
     //       fetchSchools(); // Fetch the updated schools after deletion
     //     } catch (error) {
     //       console.error(error);
@@ -196,7 +196,7 @@ const MainAdmin = () => {
         // console.log(schools, schoolId, editingSchool)
 
         try {
-            await axios.put(`https://zuss-school-management-system-server-site.vercel.app/api/schools/${schoolId}`, editingSchool);
+            await axios.put(`http://localhost:5000/api/schools/${schoolId}`, editingSchool);
             toast.success(`${schoolName} information update successfully`)
             const restSchools = schools.filter((school) => school?._id !== schoolId)
             //   fetchSchools();

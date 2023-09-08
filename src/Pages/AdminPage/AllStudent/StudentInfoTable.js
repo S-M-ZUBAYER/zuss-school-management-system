@@ -5,6 +5,8 @@ import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { AuthContext } from '../../../context/UserContext';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 const StudentInfoTable = ({
@@ -25,6 +27,8 @@ const StudentInfoTable = ({
         {
             schoolCode: currentSchoolCode,
             schoolName,
+            date: getCurrentDate(),
+            year: currentYear,
             attendance: []
         })
 
@@ -60,18 +64,30 @@ const StudentInfoTable = ({
         }
     };
 
-    const handleToUpload = () => {
+    const handleToUpload = async () => {
         try {
             const confirmed = window.confirm('Are you sure you want to upload these student attendance status?');
             if (confirmed) {
-
-                toast.success("Sent the sms to all absence students")
-
+                console.log(currentAttendance);
+                const response = await axios.post('http://localhost:5000/api/stdAttendances', currentAttendance);
+                const absentStd = (currentAttendance.attendance).filter(std => std.present === false);
+                console.log(absentStd);
+                toast.success("Sent the sms to all absence students");
+                setCurrentAttendance({
+                    schoolCode: currentSchoolCode,
+                    schoolName,
+                    attendance: []
+                });
             }
         } catch (error) {
-            console.error('Failed to delete student:', error);
+            console.error('Failed to upload student attendances:', error);
+
+            // Extract and display the error message
+            const errorMessage = error.message || 'An error occurred while uploading student attendances.';
+            toast.error(errorMessage);
         }
     };
+
 
 
     const classNames = classInfoData.map((classInfo) => classInfo.name);
@@ -114,7 +130,8 @@ const StudentInfoTable = ({
                 return {
                     schoolCode: currentSchoolCode,
                     schoolName,
-                    attendance: [{ id: student.studentId, present: true }]
+                    year: currentYear,
+                    attendance: [{ id: student.studentId, date: getCurrentDate(), present: true }]
                 };
             } else {
                 // Map over the previous attendance and update the relevant record
@@ -122,7 +139,8 @@ const StudentInfoTable = ({
                 const updatedAttendance = prevAttendance.attendance.map((record) => {
 
                     if (record.id === student.studentId) {
-                        return record;
+
+                        return { id: student.studentId, date: getCurrentDate(), present: true };
                     }
                     else {
 
@@ -133,7 +151,8 @@ const StudentInfoTable = ({
                 return {
                     schoolCode: currentSchoolCode,
                     schoolName,
-                    attendance: [...updatedAttendance, { id: student.studentId, present: true }]
+                    year: currentYear,
+                    attendance: [...updatedAttendance, { id: student.studentId, date: getCurrentDate(), present: true }]
                     // attendance: updatedAttendance
                 };
             }
@@ -154,13 +173,16 @@ const StudentInfoTable = ({
                 return {
                     schoolCode: currentSchoolCode,
                     schoolName,
-                    attendance: [{ id: student.studentId, present: false }]
+                    year: currentYear,
+                    phone: student?.phone,
+                    attendance: [{ id: student.studentId, date: getCurrentDate(), present: false, phone: student?.phone }]
                 };
             } else {
                 // Map over the previous attendance and update the relevant record
                 const updatedAttendance = prevAttendance.attendance.map((record) => {
                     if (record.id === student.studentId) {
-                        return { id: student.studentId, present: false };
+
+                        return { id: student.studentId, date: getCurrentDate(), present: false, phone: student?.phone };
                     }
                     else {
 
@@ -171,7 +193,9 @@ const StudentInfoTable = ({
                 return {
                     schoolCode: currentSchoolCode,
                     schoolName,
-                    attendance: [...updatedAttendance, { id: student.studentId, present: false }]
+                    year: currentYear,
+                    phone: student?.phone,
+                    attendance: [...updatedAttendance, { id: student.studentId, date: getCurrentDate(), present: false, phone: student?.phone, }]
                     // attendance: updatedAttendance
                 };
             }
@@ -233,7 +257,12 @@ const StudentInfoTable = ({
                                                 A
                                             </button>
                                         </td>
-                                        <td>Details</td>
+                                        <td>
+                                            <Link to={`details/${student?.studentId}`}>
+                                                <button className="bg-green-400 px-3 py-1 rounded">Details</button>
+                                            </Link>
+
+                                        </td>
                                         <td className="cursor-pointer" onClick={() => handleOpenModal(student)}>
                                             <FaEdit />
                                         </td>
@@ -251,6 +280,35 @@ const StudentInfoTable = ({
                 <button onClick={handleToCancel} className="bg-yellow-400 mr-5 px-5 py-2 font-semibold text-lg rounded">Cancel</button>
                 <button onClick={handleToUpload} className="bg-green-400 px-5 py-2 font-semibold text-lg rounded">Upload</button>
             </div>
+            {(currentAttendance?.attendance).length > 0 && (
+                <div>
+                    <h2 className="text-2xl font-semibold mt-8 text-green-400 underline">Today Student Attendance List</h2>
+
+                    <div className="bg-gradient-to-br from-yellow-800 via-blue-800 to-green-800 border border-gray-300 rounded-lg p-4 m-4 mx-20 shadow-md ">
+                        <h3 className="text-xl font-bold mb-4 text-amber-300">{currentAttendance.schoolName}</h3>
+                        <div className="flex items-center justify-evenly mb-3">
+                            <p><span className="font-semibold">Date:</span> {currentAttendance.date}</p>
+                            <p><span className="font-semibold">Year:</span> {currentAttendance.year}</p>
+                        </div>
+
+
+                        {/* Display purposes and amounts */}
+                        <div className="mt-4">
+                            <h4 className="text-lg underline font-semibold mb-2 text-lime-500">List Of Attendance</h4>
+                            <ul className="mb-10">
+                                {currentAttendance.attendance.map((std, stdIndex) => (
+                                    <li key={stdIndex} className="border py-1 mx-10 ">
+                                        <span className="font-semibold text-green-400">Student Id: </span> {std.id}
+                                        <span className="font-semibold text-green-400 ml-10">status: </span> {std.present === true ? <span className="text-green-400">Present</span> : <span className="text-red-400">Absent</span>}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            )}
         </div>
     );
 };

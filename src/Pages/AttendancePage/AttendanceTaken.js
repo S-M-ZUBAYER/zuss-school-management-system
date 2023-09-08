@@ -3,7 +3,7 @@ import SchoolStartEndField from './SchoolStartEndField';
 import StudentAttendance from './AttendanceList';
 
 const AttendanceTaken = () => {
-    const [start, setStart] = useState(false);
+
 
     return (
         <div>

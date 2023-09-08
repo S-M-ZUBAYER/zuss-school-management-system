@@ -19,7 +19,7 @@ const StaffProfile = () => {
     const { currentSchoolCode, user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}/${user?.email}`)
+        fetch(`http://localhost:5000/api/staffs/${currentSchoolCode}/${user?.email}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
