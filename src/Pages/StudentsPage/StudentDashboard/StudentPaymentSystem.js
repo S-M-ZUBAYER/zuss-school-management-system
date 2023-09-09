@@ -99,20 +99,12 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context/UserContext';
+import axios from 'axios';
 
-// const paymentsData = [
-//     { name: 'January Fees', section: "science", Roll: "12", StudentId: "3785995353", className: "class 10", amount: 500, paid: true },
-//     { name: 'February Fees', section: "arts", Roll: "12", StudentId: "3785995353", className: "class 10", amount: 600, paid: false },
-//     { name: 'Others Fees', section: "science", Roll: "12", StudentId: "3785995353", className: "class 10", amount: 400, paid: true },
-//     { name: 'Sports Fees', section: "arts", Roll: "12", StudentId: "3785995353", className: "class 10", amount: 300, paid: false },
-//     { name: 'picnic Fees', section: "arts", Roll: "12", StudentId: "3785995353", className: "class 10", amount: 500, paid: false },
-//     { name: 'Lab Fees', section: "arts", Roll: "12", StudentId: "3785995353", className: "class 10", amount: 50, paid: false },
-//     { name: 'Tour Fees', section: "arts", Roll: "12", StudentId: "3785995353", className: "class 10", amount: 900, paid: false },
-//     // Add more payment data as needed
-// ];
+
 
 const paymentsData = {
     name: "S M Zubayer", ClassRoll: "12", ClassName: "Class 12", Section: "Science",
@@ -126,11 +118,17 @@ const paymentsData = {
     // Add more payment data as needed]
 };
 
+
+
 function StudentPaymentSystem() {
-    const { schoolName, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments } = useContext(AuthContext);
+    const { schoolName, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments, currentSchoolCode, user } = useContext(AuthContext);
     console.log({ schoolName, className, setClassName, purpose, setPurpose, amount, setAmount, payments, setPayments })
     const [selectedPayments, setSelectedPayments] = useState([]);
-
+    const [allPayment, setAllPayment] = useState([]);
+    const [stdPayment, setStdPayment] = useState({});
+    const [student, setStudent] = useState({});
+    console.log(allPayment)
+    console.log(student, "student")
     const handlePaymentSelect = (payment) => {
         if (selectedPayments.includes(payment)) {
             setSelectedPayments(selectedPayments.filter((p) => p !== payment));
@@ -147,6 +145,59 @@ function StudentPaymentSystem() {
 
         setSelectedPayments([]);
     };
+
+    // useEffect(() => {
+    //     // Fetch student details
+
+
+    //     // Fetch student attendance
+    //     console.log(currentSchoolCode, studentId)
+    //     axios
+    //         .get(`https://zuss-school-management-system-server-site.vercel.app/api/stdAttendances/${currentSchoolCode}?studentId=${studentId}`)
+    //         .then((response) => {
+    //             setStudentAttendance(response.data);
+    //             console.log(StudentAttendance);
+    //             setAttendanceList(response.data?.map(atd => atd.attendance));
+    //             setStdList(response.data?.map(atd => atd.attendance)
+    //                 .flatMap(innerArray => innerArray) // Flatten the array of arrays into a single array of objects
+    //                 .filter(object => object.id === studentId))
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    // }, []);
+
+    useEffect(() => {
+        const fetchPayment = async () => {
+            try {
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/stdPayment/${currentSchoolCode}?year=${new Date().getFullYear()}`);
+                console.log(response.data);
+                setAllPayment(response.data)
+
+
+            } catch (error) {
+                console.error('Error fetching payment information:', error);
+            }
+        };
+
+        const fetchStudents = async () => {
+            try {
+                // Construct the URL with the schoolCode and optional query parameters
+                const url = `https://zuss-school-management-system-server-site.vercel.app/api/students/students/student/${currentSchoolCode}?${user?.email ? `email=${user?.email}&` : ''}${new Date().getFullYear() ? `year=${new Date().getFullYear()}` : ''}`;
+
+                // Make the GET request
+                const response = await axios.get(url);
+
+                // Set the fetched students in the state
+                setStudent(response.data);
+            } catch (error) {
+                console.error('Error fetching students:', error);
+            }
+        };
+
+
+        fetchPayment();
+    }, [])
 
     const calculateTotalSelectedAmount = () => {
         let totalAmount = 0;

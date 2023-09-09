@@ -12,7 +12,7 @@ function OurSchool() {
     useEffect(() => {
         const fetchSchoolData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/schools/school/${currentSchoolCode}`);
+                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/schools/school/${currentSchoolCode}`);
                 if (response.ok) {
                     const schoolData = await response.json();
                     setCurrentSchool(schoolData);

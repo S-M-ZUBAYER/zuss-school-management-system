@@ -325,7 +325,7 @@ function AddResultCalculation() {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
                 setClassInfo(classInfoData)
                 if (classInfoData) {
@@ -343,7 +343,21 @@ function AddResultCalculation() {
             }
         };
 
+        const fetchTermSub = async () => {
+            try {
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/termSubject/${currentSchoolCode}?year=${new Date().getFullYear()}`);
+                console.log(response.data);
+                setAllTerm(response.data)
 
+
+            } catch (error) {
+                console.error('Error fetching classInfo:', error);
+            }
+        };
+
+
+
+        fetchTermSub();
         fetchClassInfo();
     }, [currentSchoolCode]);
 
@@ -417,22 +431,9 @@ function AddResultCalculation() {
     };
     console.log(allSubjects)
 
-    const handleAddPayment = (e) => {
+    const handleAddTermSubCancel = (e) => {
         e.preventDefault();
 
-        // Create the final payment object
-        const termInfo = {
-            schoolName,
-            schoolCode: currentSchoolCode,
-            className,
-            sectionName,
-            shiftName,
-            term,
-            allSubjects
-        };
-
-        setAllTerm([...allTerm, termInfo])
-        console.log(allSubjects);
         setClassName('');
         setSectionName("");
         setShiftName("");
@@ -441,7 +442,42 @@ function AddResultCalculation() {
         setSubject('')
 
     };
-    console.log(allTerm)
+    const handleAddTermSub = async (e) => {
+        e.preventDefault();
+        const termInfo = {
+            schoolName,
+            schoolCode: currentSchoolCode,
+            className,
+            sectionName,
+            shiftName,
+            year: new Date().getFullYear(),
+            term,
+            allSubjects
+        };
+        try {
+            const confirmed = window.confirm('Are you sure you want to upload these Term information?');
+            if (confirmed) {
+
+                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/termSubject', termInfo);
+
+                toast.success("Upload these Term information successfully");
+                setAllTerm([...allTerm, termInfo])
+                setClassName('');
+                setSectionName("");
+                setShiftName("");
+                setAllSubjects([]);
+                setTerm("");
+                setSubject('')
+            }
+        } catch (error) {
+            console.error('Failed to upload Term Information:', error);
+
+            // Extract and display the error message
+            const errorMessage = error.message || 'An error occurred while uploading Term Information.';
+            toast.error(errorMessage);
+        }
+    };
+
     return (
         <div className="text-white">
             <h1 className="text-orange-300 text-3xl font-bold my-5">Add Term&Subject Name</h1>
@@ -507,21 +543,22 @@ function AddResultCalculation() {
 
                 <div className='my-2'>
                     <label className="text-lg font-semibold">
-                        Exam Term Name:
-                        <input type="text" className="text-black py-2 rounded ml-7 w-1/3 pl-1" name="term" value={term} onChange={handleInputChange} />
+                        Term Name:
+                        <input type="text" className="text-black py-2 rounded ml-4 w-1/3 pl-1" name="term" value={term} onChange={handleInputChange} />
                     </label>
                 </div>
-                <div className='my-2 relative'>
+                <div className='my-3 relative'>
                     <label className="text-lg font-semibold">
                         Subject Name:
-                        <input type="text" className="text-black py-2 rounded ml-7 w-1/3 pl-1" name="subject" value={subject} onChange={handleInputChange} />
+                        <input type="text" className="text-black py-2 rounded ml-4 w-1/3 pl-1" name="subject" value={subject} onChange={handleInputChange} />
                         <button onClick={handleSubmit} className="ml-20 absolute right-50 bg-green-400 px-6 rounded py-1">add</button>
                     </label>
 
                 </div>
-                <button type="submit" onClick={handleAddPayment} className="bg-lime-200 py-1 px-5 text-black rounded-md mt-5 text-lg font-semibold">Add Payment</button>
+                <button type="submit" onClick={handleAddTermSubCancel} className="bg-yellow-400 py-1 px-5 mr-4 text-black rounded-md mt-5 text-lg font-semibold">Cancel</button>
+                <button type="submit" onClick={handleAddTermSub} className="bg-lime-200 py-1 px-5 text-black rounded-md mt-5 text-lg font-semibold">Add Term Info</button>
             </form>
-            <div className="mb-10">
+            {/* <div className="mb-10">
                 {
                     allSubjects.map(sub => {
                         return <div className="text-lg">
@@ -529,6 +566,16 @@ function AddResultCalculation() {
                         </div>
                     })
                 }
+            </div> */}
+            <div className="mt-4">
+                <h4 className="text-lg underline font-semibold mb-2 text-lime-500">Exam Term: {term}</h4>
+                <ul>
+                    {allSubjects.map((sub, subIndex) => (
+                        <li key={subIndex}>
+                            <span className="font-semibold text-green-400">Subject: </span> {sub}
+                        </li>
+                    ))}
+                </ul>
             </div>
 
             {allTerm.length > 0 && (

@@ -35,7 +35,7 @@ function PaymentCollection() {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
                 setClassInfo(classInfoData)
                 if (classInfoData) {
@@ -53,6 +53,21 @@ function PaymentCollection() {
             }
         };
 
+        const fetchPayment = async () => {
+            try {
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/stdPayment/${currentSchoolCode}?year=${new Date().getFullYear()}`);
+                console.log(response.data);
+                setAllPayment(response.data)
+
+
+            } catch (error) {
+                console.error('Error fetching payment information:', error);
+            }
+        };
+
+
+
+        fetchPayment();
 
         fetchClassInfo();
     }, [currentSchoolCode]);
@@ -132,20 +147,42 @@ function PaymentCollection() {
             className,
             sectionName,
             shiftName,
+            year: new Date().getFullYear(),
             allFees,
             totalAmount: allFees.reduce((total, fee) => total + parseFloat(fee.amount), 0),
         };
 
-        setAllPayment([...allPayment, paymentObject])
-        console.log(allPayment);
-        setClassName('');
-        setSectionName("");
-        setShiftName("");
-        setAllFees([]);
-        setPurpose("");
-        setAmount('')
+
+        handleToUpload(paymentObject)
 
     };
+
+    const handleToUpload = async (paymentObject) => {
+        try {
+            const confirmed = window.confirm('Are you sure you want to upload these student attendance status?');
+            if (confirmed) {
+                console.log(paymentObject);
+                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/stdPayment', paymentObject);
+
+                toast.success("Upload the payment status successfully");
+                setAllPayment([...allPayment, paymentObject])
+                console.log(allPayment);
+                setClassName('');
+                setSectionName("");
+                setShiftName("");
+                setAllFees([]);
+                setPurpose("");
+                setAmount('')
+            }
+        } catch (error) {
+            console.error('Failed to upload student attendances:', error);
+
+            // Extract and display the error message
+            const errorMessage = error.message || 'An error occurred while uploading student attendances.';
+            toast.error(errorMessage);
+        }
+    };
+
     console.log(allPayment)
     return (
         <div className="text-white">

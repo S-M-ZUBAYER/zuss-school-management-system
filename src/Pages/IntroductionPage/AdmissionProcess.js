@@ -20,7 +20,7 @@ const AdmissionProcess = () => {
     useEffect(() => {
         const fetchApplications = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/application/${currentSchoolCode}`, {
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/application/${currentSchoolCode}`, {
                     params: { date }
                 });
                 setApplications(response.data);
@@ -31,7 +31,7 @@ const AdmissionProcess = () => {
 
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
                 if (classInfoData) {
                     const classNames = classInfoData?.map((element) => element?.name);

@@ -69,7 +69,7 @@ const StudentInfoTable = ({
             const confirmed = window.confirm('Are you sure you want to upload these student attendance status?');
             if (confirmed) {
                 console.log(currentAttendance);
-                const response = await axios.post('http://localhost:5000/api/stdAttendances', currentAttendance);
+                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/stdAttendances', currentAttendance);
                 const absentStd = (currentAttendance.attendance).filter(std => std.present === false);
                 console.log(absentStd);
                 toast.success("Sent the sms to all absence students");
@@ -284,7 +284,7 @@ const StudentInfoTable = ({
                 <div>
                     <h2 className="text-2xl font-semibold mt-8 text-green-400 underline">Today Student Attendance List</h2>
 
-                    <div className="bg-gradient-to-br from-yellow-800 via-blue-800 to-green-800 border border-gray-300 rounded-lg p-4 m-4 mx-20 shadow-md ">
+                    <div className="bg-gradient-to-br from-yellow-600 via-blue-800 to-green-800 border border-gray-300 rounded-lg p-4 m-4 mx-20 shadow-md ">
                         <h3 className="text-xl font-bold mb-4 text-amber-300">{currentAttendance.schoolName}</h3>
                         <div className="flex items-center justify-evenly mb-3">
                             <p><span className="font-semibold">Date:</span> {currentAttendance.date}</p>
