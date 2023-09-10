@@ -35,7 +35,7 @@ function PaymentCollection() {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
+                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
                 setClassInfo(classInfoData)
                 if (classInfoData) {
@@ -55,7 +55,7 @@ function PaymentCollection() {
 
         const fetchPayment = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/stdPayment/${currentSchoolCode}?year=${new Date().getFullYear()}`);
+                const response = await axios.get(`http://localhost:5000/api/stdPayment/${currentSchoolCode}?year=${new Date().getFullYear()}`);
                 console.log(response.data);
                 setAllPayment(response.data)
 
@@ -162,7 +162,7 @@ function PaymentCollection() {
             const confirmed = window.confirm('Are you sure you want to upload these student attendance status?');
             if (confirmed) {
                 console.log(paymentObject);
-                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/stdPayment', paymentObject);
+                const response = await axios.post('http://localhost:5000/api/stdPayment', paymentObject);
 
                 toast.success("Upload the payment status successfully");
                 setAllPayment([...allPayment, paymentObject])

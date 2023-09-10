@@ -69,7 +69,7 @@ const StudentInfoTable = ({
             const confirmed = window.confirm('Are you sure you want to upload these student attendance status?');
             if (confirmed) {
                 console.log(currentAttendance);
-                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/stdAttendances', currentAttendance);
+                const response = await axios.post('http://localhost:5000/api/stdAttendances', currentAttendance);
                 const absentStd = (currentAttendance.attendance).filter(std => std.present === false);
                 console.log(absentStd);
                 toast.success("Sent the sms to all absence students");

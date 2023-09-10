@@ -325,7 +325,7 @@ function AddResultCalculation() {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
+                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
                 setClassInfo(classInfoData)
                 if (classInfoData) {
@@ -345,7 +345,7 @@ function AddResultCalculation() {
 
         const fetchTermSub = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/termSubject/${currentSchoolCode}?year=${new Date().getFullYear()}`);
+                const response = await axios.get(`http://localhost:5000/api/termSubject/${currentSchoolCode}?year=${new Date().getFullYear()}`);
                 console.log(response.data);
                 setAllTerm(response.data)
 
@@ -458,7 +458,7 @@ function AddResultCalculation() {
             const confirmed = window.confirm('Are you sure you want to upload these Term information?');
             if (confirmed) {
 
-                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/termSubject', termInfo);
+                const response = await axios.post('http://localhost:5000/api/termSubject', termInfo);
 
                 toast.success("Upload these Term information successfully");
                 setAllTerm([...allTerm, termInfo])

@@ -14,7 +14,7 @@ const SalaryStatus = () => {
     useEffect(() => {
         const fetchStaffSalary = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/staffSalary/staff/${user?.email}`);
+                const response = await axios.get(`http://localhost:5000/api/staffSalary/staff/${user?.email}`);
                 const staffSalary = response.data; // Assuming the API response provides the salary data
                 setStaffSalary(staffSalary);
                 // Do something with the staffSalary, such as updating state
@@ -31,7 +31,7 @@ const SalaryStatus = () => {
     useEffect(() => {
         const fetchStaffInfo = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/schoolUser/${user?.email}`);
+                const response = await axios.get(`http://localhost:5000/api/schoolUser/${user?.email}`);
                 const staffSalary = response.data; // Assuming the API response provides the salary data
                 setStaffInfo(staffSalary);
                 // Do something with the staffSalary, such as updating state

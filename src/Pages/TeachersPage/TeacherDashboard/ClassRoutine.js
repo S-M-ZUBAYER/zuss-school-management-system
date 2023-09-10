@@ -17,7 +17,7 @@ const ClassRoutine = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://zuss-school-management-system-server-site.vercel.app/api/classRoutine', {
+                const response = await axios.get('http://localhost:5000/api/classRoutine', {
                     params: { year, schoolCode: currentSchoolCode },
                 });
 

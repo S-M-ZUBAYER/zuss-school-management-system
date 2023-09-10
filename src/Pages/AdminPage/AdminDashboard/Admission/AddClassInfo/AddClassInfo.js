@@ -63,7 +63,7 @@ const AddClassInfo = () => {
         // Function to fetch classInfo based on schoolCode
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
+                const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
                 setClassNames((response.data)?.classInfo); // Assuming the response contains classInfo data
             } catch (error) {
                 console.error('Error fetching classInfo:', error);
@@ -78,7 +78,7 @@ const AddClassInfo = () => {
     const handleToAdd = async () => {
         try {
             // Make POST request to backend
-            const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/classes', {
+            const response = await axios.post('http://localhost:5000/api/classes', {
                 schoolName: schoolName,
                 schoolCode: currentSchoolCode,
                 classInfo: classNames

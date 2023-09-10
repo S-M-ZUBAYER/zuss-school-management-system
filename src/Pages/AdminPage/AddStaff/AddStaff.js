@@ -49,7 +49,7 @@ const AddStaff = () => {
 
         try {
             // Make POST request to backend
-            const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/staffs', {
+            const response = await axios.post('http://localhost:5000/api/staffs', {
                 teacherId,
                 name,
                 schoolName,

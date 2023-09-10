@@ -13,7 +13,7 @@ const Admission = () => {
         const fetchData = async () => {
             try {
                 // Make a GET request to fetch admission data
-                const response = await axios.get('https://zuss-school-management-system-server-site.vercel.app/api/admissionInfo', {
+                const response = await axios.get('http://localhost:5000/api/admissionInfo', {
                     params: {
                         schoolCode: currentSchoolCode, // Replace with the school code you want to fetch data for
                     },

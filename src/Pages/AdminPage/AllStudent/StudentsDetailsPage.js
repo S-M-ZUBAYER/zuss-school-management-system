@@ -29,7 +29,7 @@ const StudentsDetailsPage = () => {
     useEffect(() => {
         // Fetch student details
         axios
-            .get(`https://zuss-school-management-system-server-site.vercel.app/api/students/details/${studentId}?schoolCode=${currentSchoolCode}`)
+            .get(`http://localhost:5000/api/students/details/${studentId}?schoolCode=${currentSchoolCode}`)
             .then((response) => {
                 setStudent(response.data[0]);
 
@@ -41,7 +41,7 @@ const StudentsDetailsPage = () => {
         // Fetch student attendance
         console.log(currentSchoolCode, studentId)
         axios
-            .get(`https://zuss-school-management-system-server-site.vercel.app/api/stdAttendances/${currentSchoolCode}?studentId=${studentId}`)
+            .get(`http://localhost:5000/api/stdAttendances/${currentSchoolCode}?studentId=${studentId}`)
             .then((response) => {
                 setStudentAttendance(response.data);
                 console.log(StudentAttendance);
