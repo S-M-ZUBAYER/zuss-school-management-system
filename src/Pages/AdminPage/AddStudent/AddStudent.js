@@ -14,9 +14,9 @@ const AddStaff = () => {
     const [className, setClassName] = useState('');
     const [classRoll, setClassRoll] = useState('');
     const [gender, setGender] = useState('');
-    const [section, setSection] = useState([]);
+    const [section, setSection] = useState("");
     const [sections, setSections] = useState([]);
-    const [shift, setShift] = useState([]);
+    const [shift, setShift] = useState("");
     const [shifts, setShifts] = useState([]);
     const [sectionName, setSectionName] = useState([]);
     const [shiftName, setShiftName] = useState('');
@@ -40,7 +40,7 @@ const AddStaff = () => {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/${currentSchoolCode}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/${currentSchoolCode}`);
                 setAllClasses(response.data);
             } catch (error) {
                 console.error('Error fetching class information:', error);
@@ -53,7 +53,7 @@ const AddStaff = () => {
 
     const fetchClassInfo = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/classes/${currentSchoolCode}`);
+            const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
             const classInfoData = response.data?.classInfo;
             setClassInfo(classInfoData)
             if (classInfoData) {
@@ -65,7 +65,7 @@ const AddStaff = () => {
         }
     };
 
-    console.log(classInfo)
+
 
 
     useEffect(() => {
@@ -78,7 +78,7 @@ const AddStaff = () => {
             handleFileUpload([file]);
         }
     };
-    console.log(className)
+
 
 
     const handleFileUpload = useCallback(async (acceptedFiles) => {
@@ -99,7 +99,6 @@ const AddStaff = () => {
     }, []);
 
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -108,30 +107,30 @@ const AddStaff = () => {
             toast.error('Please fill in all fields');
             return;
         }
-
+        const studentInfo = {
+            studentId,
+            name,
+            year: new Date().getFullYear(),
+            image,
+            schoolName,
+            schoolCode: currentSchoolCode,
+            designation,
+            className,
+            section,
+            shift,
+            gender,
+            classRoll,
+            fatherName,
+            motherName,
+            phone,
+            email,
+            division,
+            district,
+            address
+        }
         try {
             // Make POST request to backend
-            const response = await axios.post('http://localhost:5000/api/students', {
-                name,
-                studentId,
-                year: new Date().getFullYear(),
-                image,
-                schoolName,
-                schoolCode: currentSchoolCode,
-                className,
-                section,
-                shift,
-                gender,
-                classRoll,
-                fatherName,
-                motherName,
-                designation,
-                phone,
-                email,
-                division,
-                district,
-                address
-            });
+            const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/students/add', studentInfo);
 
             // Clear form fields
             setName('');
@@ -151,14 +150,21 @@ const AddStaff = () => {
             setFatherName("");
             setMotherName("");
             setAddress("");
-            setDivision("")
-            setDistrict("")
+            setDivision("");
+            setDistrict("");
 
-            // Show success toast
-            toast.success('Staff information added successfully');
+            // Check the response status code for success
+            if (response.status === 201) {
+                // Show success toast
+                toast.success('Staff information added successfully');
+            } else {
+                // Handle other response status codes (if needed)
+                toast.error('Failed to add student information');
+            }
         } catch (error) {
             // Show error toast if request fails
-            toast.error('Failed to add staff information');
+            console.error('Error:', error);
+            toast.error('Failed to add student information');
         }
     };
 
@@ -166,7 +172,7 @@ const AddStaff = () => {
     const selectedSection = selectedClass?.sections.find(sectionItem => sectionItem.name === section);
     // const shifts = selectedSection?.shifts || [];
 
-    console.log(shifts, "shift");
+
 
     const handleToGenerateId = () => {
         const currentDate = new Date();
@@ -196,7 +202,7 @@ const AddStaff = () => {
         })
 
     }
-
+    console.log(section, shift)
     // console.log((className && section && classInfo?.find(item => item.name === className).sections).find(sectionItem => sectionItem.name === section).shifts, "shift")
 
     return (
@@ -422,18 +428,7 @@ const AddStaff = () => {
                     ></textarea>
                 </div>
 
-                {/* <div className="flex justify-between items-center mb-8">
-                    <label htmlFor="address" className="block font-semibold text-gray-300">
-                        Extra Information:
-                    </label>
-                    <textarea
-                        id="extraInfo"
-                        value={extraInfo}
-                        placeholder='Please Enter Your Full Address'
-                        onChange={(e) => setExtraInfo(e.target.value)}
-                        className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    ></textarea>
-                </div> */}
+
 
 
                 <button

@@ -12,7 +12,7 @@ const NewsTicker = () => {
     useEffect(() => {
         const fetchNotices = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/notices/?schoolCode=${currentSchoolCode}`);
+                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/notices/?schoolCode=${currentSchoolCode}`);
                 if (response.ok) {
                     const noticesData = await response.json();
                     setNewsItems(noticesData);

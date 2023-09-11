@@ -22,7 +22,7 @@ const AddNotice = () => {
             date: new Date().toLocaleDateString(),
             time: new Date().toLocaleTimeString()
         };
-        fetch('http://localhost:5000/api/notices/', {
+        fetch('https://zuss-school-management-system-server-site.vercel.app/api/notices/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

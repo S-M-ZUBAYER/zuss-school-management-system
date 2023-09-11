@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context/UserContext';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function StudentPaymentSystem() {
     const { currentSchoolCode, user } = useContext(AuthContext);
@@ -9,6 +10,14 @@ function StudentPaymentSystem() {
     const [student, setStudent] = useState({});
     const [stdPayment, setStdPayment] = useState(null); // Initialize to null instead of {}
     const [allPayment, setAllPayment] = useState([]); // Initialize as an empty array
+
+
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const [paymentData, setPaymentData] = useState({
+        selectedPaymentMethod: '', // To store the selected payment method (bKash, Nagad, Upai)
+        phoneNumber: '',
+        transactionId: '',
+    });
 
     const handlePaymentSelect = (payment) => {
         if (selectedPayments.includes(payment)) {
@@ -18,25 +27,59 @@ function StudentPaymentSystem() {
         }
     };
 
-    const handlePayment = () => {
-        const selectedPaidPayments = stdPayment.allFees.map((payment) => ({
-            ...payment,
-            paid: selectedPayments.includes(payment.purpose),
-        }));
+    const handlePayment = async () => {
+        const confirmed = window.confirm('Are you sure you want to make this payment?');
 
-        const selectedUnpaidPayments = stdPayment.allFees.map((payment) => ({
-            ...payment,
-            paid: !selectedPayments.includes(payment.purpose),
-        }));
+        if (confirmed) {
+            const selectedPaidPayments = stdPayment.allFees.map((payment) => ({
+                ...payment,
+                paid: selectedPayments.includes(payment.purpose),
+            }));
 
-        console.log('Selected Paid Payments:', selectedPaidPayments);
-        console.log('Selected Unpaid Payments:', selectedUnpaidPayments);
+            const selectedUnpaidPayments = stdPayment.allFees.map((payment) => ({
+                ...payment,
+                paid: !selectedPayments.includes(payment.purpose),
+            }));
+
+            const StudentPaymentStatus = {
+
+                teacherStatus: true,
+                studentId: student?.studentId,
+                Name: student?.name,
+                ClassName: student?.className,
+                SectionName: student?.section,
+                Shift: student?.shift,
+                ClassRoll: student?.classRoll,
+                paymentMethod: paymentMethod,
+                agentNumber: agentNumber,
+                transactionId: transactionId,
+                PaidAmount: calculateTotalSelectedAmount(),
+                unpaidAmount: calculateUnpaidAmount(),
+                status: selectedPaidPayments
+
+            }
+
+            try {
+                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/payFees', StudentPaymentStatus);
+                console.log('Data stored successfully:', response.data);
+                toast.success("Payment process completed successfully")
+            } catch (error) {
+                console.error('Error storing data:', error);
+                toast.error("Payment process failed")
+
+            }
+            setShowPaymentModal(false);
+            setShowModal(true);
+            setTransactionId("");
+            setAgentNumber("");
+            closeModal();
+        }
     };
 
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const url = `http://localhost:5000/api/students/student/${currentSchoolCode}?email=mukul@gmail.com&year=${new Date().getFullYear()}`;
+                const url = `https://zuss-school-management-system-server-site.vercel.app/api/students/student/${currentSchoolCode}?email=mukul@gmail.com&year=${new Date().getFullYear()}`;
                 const response = await axios.get(url);
                 if (response.data.length > 0) {
                     setStudent(response.data[0]);
@@ -53,7 +96,7 @@ function StudentPaymentSystem() {
     useEffect(() => {
         const fetchPayment = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/stdPayment/${currentSchoolCode}?year=${new Date().getFullYear()}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/stdPayment/${currentSchoolCode}?year=${new Date().getFullYear()}`);
                 setAllPayment(response.data);
             } catch (error) {
                 console.error('Error fetching payment information:', error);
@@ -104,9 +147,23 @@ function StudentPaymentSystem() {
     };
 
 
+    const [showModal, setShowModal] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState(''); // Selected payment method
+    const [agentNumber, setAgentNumber] = useState('');
+    const [transactionId, setTransactionId] = useState('');
+
+    const openModal = () => {
+        setShowModal(true);
+    }
+
+    const closeModal = () => {
+        setShowModal(false);
+    }
+
+
     return (
-        <div className="text-white ">
-            <h2 className="text-3xl font-semibold text-green-400 mt-5 mb-12">Payment System</h2>
+        <div className="text-white mb-20">
+            <h2 className="text-3xl font-semibold text-green-400 mt-5 mb-12">Payment System For Student</h2>
             <div className="flex justify-around text-lg font-semibold mb-8">
                 <p>Name: {student?.name}</p>
                 <p>Class Name: {student?.className}</p>
@@ -120,7 +177,7 @@ function StudentPaymentSystem() {
                     <table className="w-full border-collapse border">
                         <thead>
                             <tr>
-                                <th className="border p-2"></th>
+                                <th className="border p-2">Check</th>
                                 <th className="border p-2">Name</th>
                                 <th className="border p-2">Amount</th>
                                 <th className="border p-2">Paid/Unpaid</th>
@@ -153,7 +210,68 @@ function StudentPaymentSystem() {
                 <div className="flex mt-12 ml-14 pb-8 text-lg font-semibold items-center">
                     <p className="mr-5">Selected Amount: <span className="text-green-400">{calculateTotalSelectedAmount()}</span></p>
                     <p>Unpaid Amount: <span className="text-yellow-400">{calculateUnpaidAmount()}</span></p>
-                    <button className="bg-green-400 px-2 py-1 ml-5 rounded-lg" onClick={handlePayment}>Pay Now</button>
+                    <button
+                        onClick={openModal}
+                        className="bg-green-400 px-2 py-1 ml-5 rounded-lg"
+                    >
+                        Pay Now
+                    </button>
+
+                    {showModal && (
+                        <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+                            <div className="bg-white p-4 rounded-lg">
+                                <h2 className="text-2xl font-semibold mb-4">Payment Modal</h2>
+
+                                {/* Payment Method Dropdown */}
+                                <div className="mb-2">
+                                    <label className="block mb-1">Payment Method</label>
+                                    <select
+                                        value={paymentMethod}
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                        className="w-full p-2 border rounded-lg"
+                                    >
+                                        <option className="text-black" value="">Select Payment Method</option>
+                                        <option className="text-black" value="Upay">Upay</option>
+                                        <option className="text-black" value="Bkash">Bkash</option>
+                                        <option className="text-black" value="Nagad">Nagad</option>
+                                    </select>
+                                </div>
+
+                                {/* Agent Number Input */}
+                                <input
+                                    type="text"
+                                    placeholder="Agent Number"
+                                    value={agentNumber}
+                                    onChange={(e) => setAgentNumber(e.target.value)}
+                                    className="w-full mb-2 p-2 border rounded-lg text-black"
+                                />
+
+                                {/* Transaction ID Input */}
+                                <input
+                                    type="text"
+                                    placeholder="Transaction ID"
+                                    value={transactionId}
+                                    onChange={(e) => setTransactionId(e.target.value)}
+                                    className="w-full mb-4 p-2 border rounded-lg text-black"
+                                />
+
+                                <div className="flex justify-end">
+                                    <button
+                                        onClick={handlePayment}
+                                        className="bg-green-400 text-white px-4 py-2 rounded-lg mr-2"
+                                    >
+                                        Pay Now
+                                    </button>
+                                    <button
+                                        onClick={closeModal}
+                                        className="bg-red-400 text-white px-4 py-2 rounded-lg"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
