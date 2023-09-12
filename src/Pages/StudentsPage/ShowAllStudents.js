@@ -43,13 +43,13 @@ const ShowAllStudents = () => {
 
     useEffect(() => {
         const fetchStudents = async () => {
-            console.log(currentSchoolCode, year)
+
             try {
                 const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/students/${currentSchoolCode}`, {
                     params: { year } // Send date as a query parameter
                 });
-                console.log(response?.data, "allstudents");
-                setAllStudents(response.data, "allldskfjjds");
+
+                setAllStudents(response.data);
             } catch (error) {
                 console.error('Error fetching applications:', error);
             }

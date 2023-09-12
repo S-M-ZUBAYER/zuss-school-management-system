@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import img from "../../../Assets/Images/School.jpg"
 import { AuthContext } from '../../../context/UserContext';
 import { toast } from 'react-hot-toast';
+import { useEffect } from 'react';
 // import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const Navbar = () => {
@@ -11,7 +12,32 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen)
 
-    const { schoolName, user } = useContext(AuthContext);
+    const { schoolName, user, currentSchoolCode, setSchoolName } = useContext(AuthContext);
+
+
+    useEffect(() => {
+        const fetchSchoolName = async () => {
+
+
+            try {
+                const response = await fetch(` http://localhost:5000/api/schools/school/${currentSchoolCode}`);
+                if (response.ok) {
+                    const schoolData = await response.json();
+
+
+                    setSchoolName(schoolData?.name);
+
+                } else {
+                    throw new Error('Failed to fetch staffs');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Handle error case
+            }
+        };
+
+        fetchSchoolName();
+    }, [currentSchoolCode]);
 
     const handleToLogOut = () => {
         // Removing the item with key "username" from local storage

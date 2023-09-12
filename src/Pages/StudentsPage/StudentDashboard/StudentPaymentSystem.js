@@ -10,6 +10,7 @@ function StudentPaymentSystem() {
     const [student, setStudent] = useState({});
     const [stdPayment, setStdPayment] = useState(null); // Initialize to null instead of {}
     const [allPayment, setAllPayment] = useState([]); // Initialize as an empty array
+    const [payFeeStatus, setPayFeeStatus] = useState({}); // Initialize as an empty array
 
 
     const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -26,7 +27,7 @@ function StudentPaymentSystem() {
             setSelectedPayments((prevSelected) => [...prevSelected, payment]);
         }
     };
-
+    console.log(payFeeStatus)
     const handlePayment = async () => {
         const confirmed = window.confirm('Are you sure you want to make this payment?');
 
@@ -45,6 +46,7 @@ function StudentPaymentSystem() {
 
                 teacherStatus: true,
                 studentId: student?.studentId,
+                schoolCode: currentSchoolCode,
                 Name: student?.name,
                 ClassName: student?.className,
                 SectionName: student?.section,
@@ -60,7 +62,7 @@ function StudentPaymentSystem() {
             }
 
             try {
-                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/payFees', StudentPaymentStatus);
+                const response = await axios.post('http://localhost:5000/api/payFees', StudentPaymentStatus);
                 console.log('Data stored successfully:', response.data);
                 toast.success("Payment process completed successfully")
             } catch (error) {
@@ -76,6 +78,22 @@ function StudentPaymentSystem() {
         }
     };
 
+    useEffect(() => {
+        const fetchCurrentFeesStatus = async () => {
+            try {
+                const url = `https://zuss-school-management-system-server-site.vercel.app/api/students/student/${currentSchoolCode}?email=mukul@gmail.com&year=${new Date().getFullYear()}`;
+                const response = await axios.get(url);
+                if (response.data.length > 0) {
+                    setStudent(response.data[0]);
+                }
+            } catch (error) {
+                console.error('Error fetching students:', error);
+            }
+        };
+
+        fetchCurrentFeesStatus();
+
+    }, [currentSchoolCode, user?.email]); // Removed 'allPayment' from the dependency array
     useEffect(() => {
         const fetchStudents = async () => {
             try {
@@ -106,6 +124,29 @@ function StudentPaymentSystem() {
         fetchPayment();
 
     }, [currentSchoolCode, user?.email]); // Removed 'allPayment' from the dependency array
+
+
+    // Function to handle the GET request
+    const fetchPaymentStatus = async () => {
+        try {
+            // Make a GET request to your backend route with query parameters
+            const response = await axios.get(
+                `http://localhost:5000/api/payFees/payStatus/${currentSchoolCode}?studentId=${student?.studentId}`
+            );
+
+            // Update the paymentStatus state with the response data
+            // setPayFeeStatus(response.data[0]);
+            setPayFeeStatus(response.data[0]);
+        } catch (error) {
+            console.error('Error fetching payment status:', error);
+        }
+    };
+
+    useEffect(() => {
+        // Fetch payment status when the component mounts
+        fetchPaymentStatus();
+    }, [currentSchoolCode, student?.studentId]);
+
 
     useEffect(() => {
         // Use a separate effect for setting 'stdPayment' based on 'student' and 'allPayment'
@@ -159,52 +200,117 @@ function StudentPaymentSystem() {
     const closeModal = () => {
         setShowModal(false);
     }
-
+    console.log(stdPayment, "std", payFeeStatus, 'status')
 
     return (
         <div className="text-white mb-20">
             <h2 className="text-3xl font-semibold text-green-400 mt-5 mb-12">Payment System For Student</h2>
-            <div className="flex justify-around text-lg font-semibold mb-8">
-                <p>Name: {student?.name}</p>
-                <p>Class Name: {student?.className}</p>
-                <p>Section: {student?.section ? student?.section : ""}</p>
-                <p>Shift: {student?.shift ? student?.shift : ""}</p>
-                <p>Class Roll: {student?.classRoll}</p>
-            </div>
 
-            {stdPayment && (
-                <div className="w-11/12 mx-auto">
-                    <table className="w-full border-collapse border">
-                        <thead>
-                            <tr>
-                                <th className="border p-2">Check</th>
-                                <th className="border p-2">Name</th>
-                                <th className="border p-2">Amount</th>
-                                <th className="border p-2">Paid/Unpaid</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {(stdPayment?.allFees).map((payment) => (
-                                <tr key={payment.purpose} className={payment.paid ? 'bg-green-500' : 'bg-yellow-500'}>
-                                    <td className="border p-2">
-                                        <input
-                                            type={payment.paid ? 'hidden' : 'checkbox'}
-                                            checked={selectedPayments.includes(payment.purpose)}
-                                            onChange={() => handlePaymentSelect(payment.purpose)}
-                                            className="w-6 h-6 rounded-lg"
-                                        />
-                                    </td>
-                                    <td className="border p-2">{payment.purpose}</td>
-                                    <td className="border p-2">{payment.amount}</td>
-                                    <td className="border p-2">
-                                        {payment.paid ? 'Paid' : <button onClick={() => handlePaymentSelect(payment.purpose)}>Unpaid</button>}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+            {
+                Object.keys(payFeeStatus).length !== 0 ?
+                    <>
+                        <div className="flex justify-around text-lg font-semibold mb-8">
+                            <p>Name: {payFeeStatus?.Name}</p>
+                            <p>Class Name: {payFeeStatus?.ClassName}</p>
+                            <p>Section: {payFeeStatus?.SectionName ? payFeeStatus?.SectionName : ""}</p>
+                            <p>Shift: {payFeeStatus?.ShiftName ? payFeeStatus?.ShiftName : ""}</p>
+                            <p>Class Roll: {payFeeStatus?.ClassRoll}</p>
+                        </div>
+
+                        {payFeeStatus && (
+                            <div className="w-11/12 mx-auto">
+                                <table className="w-full border-collapse border">
+                                    <thead>
+                                        <tr>
+                                            <th className="border p-2">Check</th>
+                                            <th className="border p-2">Name</th>
+                                            <th className="border p-2">Amount</th>
+                                            <th className="border p-2">Paid/Unpaid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {payFeeStatus?.status && (payFeeStatus?.status).map((payment) => (
+                                            <tr key={payment.purpose} className={payment.paid ? 'bg-green-500' : 'bg-yellow-500'}>
+                                                <td className="border p-2">
+                                                    <input
+                                                        type={payment.paid ? 'hidden' : 'checkbox'}
+                                                        checked={selectedPayments.includes(payment.purpose)}
+                                                        onChange={() => handlePaymentSelect(payment.purpose)}
+                                                        className="w-6 h-6 rounded-lg"
+                                                    />
+                                                </td>
+                                                <td className="border p-2">{payment.purpose}</td>
+                                                <td className="border p-2">{payment.amount}</td>
+                                                <td className="border p-2">
+                                                    {payment.paid ? 'Paid' : <button onClick={() => handlePaymentSelect(payment.purpose)}>Unpaid</button>}
+                                                </td>
+
+                                            </tr>
+
+                                        ))}
+                                    </tbody>
+                                </table>
+                                <div className="flex justify-end">
+                                    <p className="text-end mr-5"><span className="font-bold text-green-400">Paid Amount:</span> {payFeeStatus?.PaidAmount}</p>
+                                    <p className="text-end"><span className="font-bold text-red-400">Unpaid Amount:</span> {payFeeStatus?.unpaidAmount}</p>
+                                </div>
+
+                            </div>
+                        )}
+                    </>
+
+                    :
+
+                    <>
+                        <div className="flex justify-around text-lg font-semibold mb-8">
+                            <p>Name: {student?.name}</p>
+                            <p>Class Name: {student?.className}</p>
+                            <p>Section: {student?.section ? student?.section : ""}</p>
+                            <p>Shift: {student?.shift ? student?.shift : ""}</p>
+                            <p>Class Roll: {student?.classRoll}</p>
+                        </div>
+
+                        {stdPayment && (
+                            <div className="w-11/12 mx-auto">
+                                <table className="w-full border-collapse border">
+                                    <thead>
+                                        <tr>
+                                            <th className="border p-2">Check</th>
+                                            <th className="border p-2">Name</th>
+                                            <th className="border p-2">Amount</th>
+                                            <th className="border p-2">Paid/Unpaid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {stdPayment?.allFees && (stdPayment?.allFees).map((payment) => (
+                                            <tr key={payment.purpose} className={payment.paid ? 'bg-green-500' : 'bg-yellow-500'}>
+                                                <td className="border p-2">
+                                                    <input
+                                                        type={payment.paid ? 'hidden' : 'checkbox'}
+                                                        checked={selectedPayments.includes(payment.purpose)}
+                                                        onChange={() => handlePaymentSelect(payment.purpose)}
+                                                        className="w-6 h-6 rounded-lg"
+                                                    />
+                                                </td>
+                                                <td className="border p-2">{payment.purpose}</td>
+                                                <td className="border p-2">{payment.amount}</td>
+                                                <td className="border p-2">
+                                                    {payment.paid ? 'Paid' : <button onClick={() => handlePaymentSelect(payment.purpose)}>Unpaid</button>}
+                                                </td>
+                                                <td>
+                                                    dskfladjslfjk
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                <p className="text-end">Total Amount: {stdPayment?.totalAmount}</p>
+                            </div>
+                        )}
+                    </>
+            }
+
+
 
             {selectedPayments.length > 0 && (
                 <div className="flex mt-12 ml-14 pb-8 text-lg font-semibold items-center">

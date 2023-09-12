@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
 import app from '../firebase/firebase.config';
+import path from 'path-browserify';
 
 
 
@@ -27,14 +28,48 @@ const UserContext = ({ children }) => {
     const [showModal, setShowModal] = useState(false);
     const [uploadedImage, setUploadedImage] = useState('');
     const [currentSchoolCode, setCurrentSchoolCode] = useState('');
+    const [schoolPath, setSchoolPath] = useState('');
 
 
 
     const [isPaid, setIsPaid] = useState();
 
 
+    const getPath = () => {
+        // Get the current URL
+        const currentURL = window.location.href;
 
+        // Split the URL by '/'
+        const parts = currentURL.split('/');
 
+        // Access the second part (index 3 if 0-based)
+        const secondPart = parts[3];
+
+        return secondPart;
+    }
+
+    useEffect(() => {
+        const fetchSchoolPath = async () => {
+            const path = getPath();
+
+            try {
+                const response = await fetch(` http://localhost:5000/api/schools/url/${path}`);
+                if (response.ok) {
+                    const schoolData = await response.json();
+
+                    setCurrentSchoolCode(schoolData?.schoolCode);
+
+                } else {
+                    throw new Error('Failed to fetch staffs');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Handle error case
+            }
+        };
+
+        fetchSchoolPath();
+    }, [!currentSchoolCode]);
 
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
@@ -80,7 +115,7 @@ const UserContext = ({ children }) => {
     }, [])
 
 
-    const authInfo = { user, schools, setSchools, schoolName, currentSchoolCode, setCurrentSchoolCode, events, setEvents, loading, setLoading, createUser, signIn, logOut, teachersList, setTeachersList, isPaid, setIsPaid, setSchoolName, year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName, uploadedImage, setUploadedImage }
+    const authInfo = { user, schoolPath, schools, setSchools, schoolName, currentSchoolCode, setCurrentSchoolCode, events, setEvents, loading, setLoading, createUser, signIn, logOut, teachersList, setTeachersList, isPaid, setIsPaid, setSchoolName, year, setYear, startMonth, setStartMonth, endMonth, setEndMonth, eventColor, setEventColor, showModal, setShowModal, selectedDate, setSelectedDate, eventName, setEventName, uploadedImage, setUploadedImage }
 
     return (
         <AuthContext.Provider value={authInfo}>

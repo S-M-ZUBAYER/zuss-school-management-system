@@ -8,8 +8,12 @@ import Review from '../Review';
 import AutoImageSlider from './AutoImageSlider';
 
 const Home = () => {
-    const { currentSchoolCode } = useContext(AuthContext);
+    const { currentSchoolCode, setCurrentSchoolCode, user } = useContext(AuthContext);
     const [currentShool, setCurrentSchool] = useState(null)
+
+
+
+
     useEffect(() => {
         // Fetch school information when the component mounts
         fetch(`https://zuss-school-management-system-server-site.vercel.app/api/schools/school/${currentSchoolCode}`)
@@ -22,6 +26,7 @@ const Home = () => {
                 console.error('Error fetching school information:', error);
             });
     }, [currentSchoolCode]); // Empty dependency array ensures this effect runs only once
+
 
     return (
         <div className=''>
