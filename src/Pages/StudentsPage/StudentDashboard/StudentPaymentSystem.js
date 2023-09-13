@@ -27,8 +27,80 @@ function StudentPaymentSystem() {
             setSelectedPayments((prevSelected) => [...prevSelected, payment]);
         }
     };
+
+    const calculatePaymentStatus = async (selectedPayments, status, paidAmount, unpaidAmount) => {
+        console.log("click the update status")
+        const confirmed = window.confirm('Are you sure you want to make this payment?');
+
+        if (confirmed) {
+            let totalSelectedAmount = 0;
+            // Calculate the total selected amount and update the paid status
+            const newStatus = status.map((payment) => {
+                if (selectedPayments.includes(payment.purpose)) {
+                    totalSelectedAmount += Number(payment.amount);
+                    return { ...payment, paid: true };
+                }
+                return payment;
+            });
+
+            // Calculate the unpaid amount
+            const newUnpaidAmount = Number(unpaidAmount) - totalSelectedAmount;
+
+            const newPaidAmount = Number(paidAmount) + totalSelectedAmount;
+            console.log(totalSelectedAmount, newUnpaidAmount, newPaidAmount, newStatus)
+            // return { totalSelectedAmount, newPaidAmount, newUnpaidAmount, newStatus };
+
+            const StudentPaymentStatus = {
+
+                teacherStatus: true,
+                studentId: student?.studentId,
+                schoolCode: currentSchoolCode,
+                Name: student?.name,
+                ClassName: student?.className,
+                SectionName: student?.section,
+                Shift: student?.shift,
+                ClassRoll: student?.classRoll,
+                paymentMethod: paymentMethod,
+                agentNumber: agentNumber,
+                transactionId: transactionId,
+                PaidAmount: newPaidAmount,
+                unpaidAmount: newUnpaidAmount,
+                status: newStatus
+
+            }
+
+            try {
+                const response = await axios.delete(`http://localhost:5000/api/payFees/payStatus/${payFeeStatus?._id}`);
+                if (response.status === 200) {
+                    try {
+                        const response = await axios.post('http://localhost:5000/api/payFees', StudentPaymentStatus);
+                        console.log('Data stored successfully:', response.data);
+                        toast.success("Payment process completed successfully")
+                    } catch (error) {
+                        console.error('Error storing data:', error);
+                        toast.error("Payment process failed")
+
+                    }
+                };
+            } catch (error) {
+                console.error('Error deleting payment status:', error);
+                // Handle the error, e.g., show an error message to the user.
+            }
+
+
+            setShowPaymentModal(false);
+            setShowModal(true);
+            setTransactionId("");
+            setAgentNumber("");
+            closeModal();
+        }
+
+    };
+
+
     console.log(payFeeStatus)
     const handlePayment = async () => {
+        console.log("click the initial status")
         const confirmed = window.confirm('Are you sure you want to make this payment?');
 
         if (confirmed) {
@@ -77,6 +149,8 @@ function StudentPaymentSystem() {
             closeModal();
         }
     };
+
+    console.log(selectedPayments)
 
     useEffect(() => {
         const fetchCurrentFeesStatus = async () => {
@@ -362,12 +436,24 @@ function StudentPaymentSystem() {
                                 />
 
                                 <div className="flex justify-end">
-                                    <button
-                                        onClick={handlePayment}
-                                        className="bg-green-400 text-white px-4 py-2 rounded-lg mr-2"
-                                    >
-                                        Pay Now
-                                    </button>
+                                    {
+                                        Object.keys(payFeeStatus).length !== 0 ?
+                                            <button
+                                                onClick={() => calculatePaymentStatus(selectedPayments, payFeeStatus?.status, payFeeStatus?.PaidAmount, payFeeStatus?.unpaidAmount)}
+
+                                                className="bg-green-400 text-white px-4 py-2 rounded-lg mr-2"
+                                            >
+                                                Pay Now
+                                            </button> :
+                                            <button
+                                                onClick={handlePayment}
+                                                className="bg-green-400 text-white px-4 py-2 rounded-lg mr-2"
+                                            >
+                                                Pay Now
+                                            </button>
+                                    }
+
+
                                     <button
                                         onClick={closeModal}
                                         className="bg-red-400 text-white px-4 py-2 rounded-lg"
