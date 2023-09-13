@@ -5,7 +5,7 @@ import NewsTicker from './NewsSticker';
 import { AuthContext } from '../../../context/UserContext';
 import ShortOverView from '../ShortOverView';
 import Review from '../Review';
-import AutoImageSlider from './AutoImageSlider';
+import CarouselCustomNavigation from './CarouselCustomNavigation';
 
 const Home = () => {
     const { currentSchoolCode, setCurrentSchoolCode, user } = useContext(AuthContext);
@@ -35,6 +35,8 @@ const Home = () => {
             ></Banner>
             <NewsTicker newsItems={['Breaking news!', 'Latest headlines', 'News update', 'skfjlsakdjflakdsf', 'kdsjflajs flasjfsadkfda', 'sdjfasdfjlasfjls']} />
             {/* <AutoImageSlider></AutoImageSlider> */}
+
+            <CarouselCustomNavigation></CarouselCustomNavigation>
             <About
                 currentShool={currentShool}
             ></About>

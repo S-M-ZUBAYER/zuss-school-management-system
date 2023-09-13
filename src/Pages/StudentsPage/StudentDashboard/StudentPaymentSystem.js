@@ -11,6 +11,7 @@ function StudentPaymentSystem() {
     const [stdPayment, setStdPayment] = useState(null); // Initialize to null instead of {}
     const [allPayment, setAllPayment] = useState([]); // Initialize as an empty array
     const [payFeeStatus, setPayFeeStatus] = useState({}); // Initialize as an empty array
+    const [proposalAmount, setProposalAmount] = useState(""); // Initialize as an empty array
 
 
     const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -44,6 +45,7 @@ function StudentPaymentSystem() {
             });
 
             // Calculate the unpaid amount
+            setProposalAmount(totalSelectedAmount)
             const newUnpaidAmount = Number(unpaidAmount) - totalSelectedAmount;
 
             const newPaidAmount = Number(paidAmount) + totalSelectedAmount;
@@ -58,8 +60,10 @@ function StudentPaymentSystem() {
                 Name: student?.name,
                 ClassName: student?.className,
                 SectionName: student?.section,
-                Shift: student?.shift,
+                ShiftName: student?.shift,
                 ClassRoll: student?.classRoll,
+                proposalAmount,
+                selectedPayments,
                 paymentMethod: paymentMethod,
                 agentNumber: agentNumber,
                 transactionId: transactionId,
@@ -124,6 +128,8 @@ function StudentPaymentSystem() {
                 SectionName: student?.section,
                 Shift: student?.shift,
                 ClassRoll: student?.classRoll,
+                proposalAmount: calculateTotalSelectedAmount(),
+                selectedPayments,
                 paymentMethod: paymentMethod,
                 agentNumber: agentNumber,
                 transactionId: transactionId,
@@ -274,7 +280,11 @@ function StudentPaymentSystem() {
     const closeModal = () => {
         setShowModal(false);
     }
-    console.log(stdPayment, "std", payFeeStatus, 'status')
+
+    const handleToTeacherToast = () => {
+        toast.error("Teacher need to verify your previous payment proposal first")
+    }
+
 
     return (
         <div className="text-white mb-20">
@@ -371,9 +381,6 @@ function StudentPaymentSystem() {
                                                 <td className="border p-2">
                                                     {payment.paid ? 'Paid' : <button onClick={() => handlePaymentSelect(payment.purpose)}>Unpaid</button>}
                                                 </td>
-                                                <td>
-                                                    dskfladjslfjk
-                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -390,12 +397,23 @@ function StudentPaymentSystem() {
                 <div className="flex mt-12 ml-14 pb-8 text-lg font-semibold items-center">
                     <p className="mr-5">Selected Amount: <span className="text-green-400">{calculateTotalSelectedAmount()}</span></p>
                     <p>Unpaid Amount: <span className="text-yellow-400">{calculateUnpaidAmount()}</span></p>
-                    <button
-                        onClick={openModal}
-                        className="bg-green-400 px-2 py-1 ml-5 rounded-lg"
-                    >
-                        Pay Now
-                    </button>
+
+                    {
+                        payFeeStatus?.teacherStatus === true ?
+                            <button
+                                onClick={handleToTeacherToast}
+                                className={`bg-green-400 px-2 py-1 ml-5 rounded-lg`}
+                            >
+                                Pay Now
+                            </button> :
+                            <button
+                                onClick={openModal}
+                                className={`bg-green-400 px-2 py-1 ml-5 rounded-lg`}
+                            >
+                                Pay Now
+                            </button>
+                    }
+
 
                     {showModal && (
                         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
@@ -408,6 +426,7 @@ function StudentPaymentSystem() {
                                     <select
                                         value={paymentMethod}
                                         onChange={(e) => setPaymentMethod(e.target.value)}
+                                        required
                                         className="w-full p-2 border rounded-lg"
                                     >
                                         <option className="text-black" value="">Select Payment Method</option>
@@ -421,6 +440,7 @@ function StudentPaymentSystem() {
                                 <input
                                     type="text"
                                     placeholder="Agent Number"
+                                    required
                                     value={agentNumber}
                                     onChange={(e) => setAgentNumber(e.target.value)}
                                     className="w-full mb-2 p-2 border rounded-lg text-black"
@@ -430,6 +450,7 @@ function StudentPaymentSystem() {
                                 <input
                                     type="text"
                                     placeholder="Transaction ID"
+                                    required
                                     value={transactionId}
                                     onChange={(e) => setTransactionId(e.target.value)}
                                     className="w-full mb-4 p-2 border rounded-lg text-black"
@@ -441,7 +462,7 @@ function StudentPaymentSystem() {
                                             <button
                                                 onClick={() => calculatePaymentStatus(selectedPayments, payFeeStatus?.status, payFeeStatus?.PaidAmount, payFeeStatus?.unpaidAmount)}
 
-                                                className="bg-green-400 text-white px-4 py-2 rounded-lg mr-2"
+                                                className={`bg-green-400 text-white px-4 py-2 rounded-lg mr-2`}
                                             >
                                                 Pay Now
                                             </button> :

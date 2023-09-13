@@ -21,7 +21,6 @@ import Activities from "../Pages/IntroductionPage/IntroDashboard/Activities";
 import SalaryStatus from "../Pages/StaffPage/StaffDashboard/SalaryStatus";
 import ClassRoutine from "../Pages/TeachersPage/TeacherDashboard/ClassRoutine";
 import Calender from "../Pages/TeachersPage/TeacherDashboard/Calender";
-import PaymentCollection from "../Pages/TeachersPage/TeacherDashboard/PaymentCollection";
 import TransferCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/TransferCertificate";
 import CharacterCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/CharacterCertificate";
 import CourseCompletionCertificate from "../Pages/TeachersPage/TeacherDashboard/Certificates/CourseCompletionCertificate";
@@ -60,6 +59,7 @@ import SchoolStartEndField from "../Pages/AttendancePage/SchoolStartEndField";
 import ShowAllStudents from "../Pages/StudentsPage/ShowAllStudents";
 import StaffProfile from "../Pages/StaffPage/StaffDashboard/StaffProfile";
 import StudentsDetailsPage from "../Pages/AdminPage/AllStudent/StudentsDetailsPage";
+import Payment from "../Pages/AdminPage/AdminDashboard/Payment/Payment";
 
 export const router = createBrowserRouter([
     {
@@ -360,8 +360,8 @@ export const router = createBrowserRouter([
                 element: <CourseCompletionCertificate></CourseCompletionCertificate>
             },
             {
-                path: '/:name/admin/payment',
-                element: <PaymentCollection></PaymentCollection>
+                path: '/:name/admin/paymentSystem',
+                element: <Payment></Payment>
             },
             {
                 path: '/:name/admin/result&Calculation',
