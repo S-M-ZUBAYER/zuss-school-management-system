@@ -295,7 +295,7 @@ import { green } from '@cloudinary/url-gen/actions/adjust';
 import axios from 'axios';
 
 
-function AddResultCalculation() {
+function AddTermAndSubject() {
 
     const [term, setTerm] = useState('');
     const [subjects, setSubjects] = useState([]);
@@ -612,7 +612,7 @@ function AddResultCalculation() {
     );
 }
 
-export default AddResultCalculation;
+export default AddTermAndSubject;
 
 
 

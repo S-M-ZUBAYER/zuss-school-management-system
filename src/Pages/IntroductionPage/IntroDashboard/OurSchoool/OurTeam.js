@@ -1,25 +1,31 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import DisplaySpinner from '../../../Shared/Spinners/DisplaySpinner';
 
 
 
 const OurTeam = ({ schoolCode }) => {
 
     const [staffs, setStaffs] = useState([]);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
         const fetchStaffs = async () => {
             try {
+                setLoading(true);
                 const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${schoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);
+                    setLoading(false)
                 } else {
+                    setLoading(false)
                     throw new Error('Failed to fetch staffs');
                 }
             } catch (error) {
+                setLoading(false)
                 console.error('Error:', error);
                 // Handle error case
             }
@@ -28,6 +34,10 @@ const OurTeam = ({ schoolCode }) => {
         fetchStaffs();
     }, []); // Empty dependency array ensures the effect runs only once
 
+
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
+    }
 
     return (
         <section className="pt-32 pb-12  dark:bg-gray-800 dark:text-gray-100">

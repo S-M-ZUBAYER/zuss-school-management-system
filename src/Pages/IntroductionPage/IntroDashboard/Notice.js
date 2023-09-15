@@ -106,6 +106,7 @@ import { toast } from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context/UserContext';
 import { useEffect } from 'react';
+import DisplaySpinner from '../../Shared/Spinners/DisplaySpinner';
 
 function Notice() {
     const [notices, setNotices] = useState([]);
@@ -114,10 +115,12 @@ function Notice() {
     const [editedHeading, setEditedHeading] = useState('');
     const [editedMessage, setEditedMessage] = useState('');
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     console.log(currentSchoolCode);
 
     const fetchNotices = () => {
+        setLoading(true);
         fetch(`https://zuss-school-management-system-server-site.vercel.app/api/notices/?schoolCode=${encodeURIComponent(currentSchoolCode)}`)
             .then(response => {
                 if (response.ok) {
@@ -128,9 +131,11 @@ function Notice() {
             })
             .then(notices => {
                 setNotices(notices);
+                setLoading(false)
             })
             .catch(error => {
                 console.error('Error:', error);
+                setLoading(false)
             });
     };
 
@@ -142,15 +147,19 @@ function Notice() {
     useEffect(() => {
         const fetchNotices = async () => {
             try {
+                setLoading(true);
                 const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/notices/?schoolCode=${currentSchoolCode}`);
                 if (response.ok) {
                     const noticesData = await response.json();
                     setNotices(noticesData);
+                    setLoading(false)
                     console.log(noticesData)
                 } else {
+                    setLoading(false);
                     throw new Error('Failed to fetch notices');
                 }
             } catch (error) {
+                setLoading(false);
                 console.error('Error:', error);
                 // Handle error case
             }
@@ -221,6 +230,10 @@ function Notice() {
     const closeEditModal = () => {
         setIsEditModalOpen(false);
     };
+
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
+    }
 
     return (
         <div className="w-3/5 md:w-4/5 mx-auto">

@@ -31,7 +31,6 @@ import LeaveApplicationTcr from "../Pages/TeachersPage/TeacherDashboard/LeaveApp
 import AllStaffInfo from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AllStaffInfo";
 import AllStaffIntro from "../Pages/IntroductionPage/IntroDashboard/AllStaffIntro";
 import TcrLeaveApplication from "../Pages/TeachersPage/TeacherDashboard/TcrLeaveApplication";
-import AddResultCalculation from "../Pages/TeachersPage/TeacherDashboard/AddResultCalculation";
 import AddSalary from "../Pages/AdminPage/AdminDashboard/Salary/addSalary";
 import AcademicCalender from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AcademicCalenderPage/AcademicCalender";
 import AttendanceTaken from "../Pages/AttendancePage/AttendanceTaken";
@@ -60,6 +59,7 @@ import ShowAllStudents from "../Pages/StudentsPage/ShowAllStudents";
 import StaffProfile from "../Pages/StaffPage/StaffDashboard/StaffProfile";
 import StudentsDetailsPage from "../Pages/AdminPage/AllStudent/StudentsDetailsPage";
 import Payment from "../Pages/AdminPage/AdminDashboard/Payment/Payment";
+import AddTermAndSubject from "../Pages/TeachersPage/TeacherDashboard/AddTermAndSubject";
 
 export const router = createBrowserRouter([
     {
@@ -364,8 +364,8 @@ export const router = createBrowserRouter([
                 element: <Payment></Payment>
             },
             {
-                path: '/:name/admin/result&Calculation',
-                element: <AddResultCalculation></AddResultCalculation>
+                path: '/:name/admin/term&subjects',
+                element: <AddTermAndSubject></AddTermAndSubject>
             },
 
         ]

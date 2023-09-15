@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../context/UserContext';
+import DisplaySpinner from '../../Shared/Spinners/DisplaySpinner';
 
 const ClassRoutine = () => {
 
@@ -12,18 +13,21 @@ const ClassRoutine = () => {
     const year = new Date().getFullYear();
     const schoolCode = currentSchoolCode;
     const [classRoutines, setClassRoutines] = useState([]);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
                 const response = await axios.get('https://zuss-school-management-system-server-site.vercel.app/api/classRoutine', {
                     params: { year, schoolCode: currentSchoolCode },
                 });
 
                 setClassRoutines(response.data);
-                console.log(response.data)
+                setLoading(false);
             } catch (error) {
+                setLoading(false);
                 console.error('Error fetching class routines:', error);
             }
         };
@@ -49,6 +53,10 @@ const ClassRoutine = () => {
         window.print();
         document.body.innerHTML = originalContents;
     };
+
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
+    }
 
     return (
         <div>

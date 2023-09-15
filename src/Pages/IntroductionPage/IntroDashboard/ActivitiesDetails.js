@@ -14,7 +14,9 @@ const ActivitiesDetails = () => {
 
     return (
         <div className="lg:px-32 p-6 text-center">
-            <img src={currentEvent?.image} alt="Event" className="w-full h-84 object-contain rounded-t-lg" />
+            <div className=" flex justify-center ">
+                <img src={currentEvent?.image} alt="Event" className="w-7/12 h-auto object-contain rounded-lg" />
+            </div>
             <div className="py-4">
                 <h2 className="text-2xl font-bold text-green-300">{currentEvent?.eventName}</h2>
 

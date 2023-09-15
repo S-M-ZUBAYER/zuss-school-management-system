@@ -2,24 +2,30 @@ import React, { useContext, useEffect, useState } from 'react';
 import OurTeam from './OurTeam';
 import { AuthContext } from '../../../../context/UserContext';
 import About from '../../../Homepage/Home/About';
+import DisplaySpinner from '../../../Shared/Spinners/DisplaySpinner';
 
 
 function OurSchool() {
     const { currentSchoolCode } = useContext(AuthContext);
     const [currentShool, setCurrentSchool] = useState(null)
+    const [loading, setLoading] = useState(false)
 
 
     useEffect(() => {
         const fetchSchoolData = async () => {
             try {
+                setLoading(true);
                 const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/schools/school/${currentSchoolCode}`);
                 if (response.ok) {
                     const schoolData = await response.json();
                     setCurrentSchool(schoolData);
+                    setLoading(false);
                 } else {
+                    setLoading(false);
                     throw new Error('Failed to fetch staffs');
                 }
             } catch (error) {
+                setLoading(false);
                 console.error('Error:', error);
                 // Handle error case
             }
@@ -27,6 +33,10 @@ function OurSchool() {
 
         fetchSchoolData();
     }, []);
+
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
+    }
 
     return (
         <div className="text-white">

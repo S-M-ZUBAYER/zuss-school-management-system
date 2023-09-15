@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../context/UserContext';
 import axios from 'axios';
 import { useRef } from 'react';
+import DisplaySpinner from '../../Shared/Spinners/DisplaySpinner';
 
 const Calender = () => {
 
@@ -46,7 +47,7 @@ const Calender = () => {
     }, [currentSchoolCode]);
 
     if (loading) {
-        return <p>Loading calendar data...</p>;
+        return <DisplaySpinner></DisplaySpinner>
     }
 
     if (!calendarData) {

@@ -99,12 +99,12 @@ const Admin = () => {
                                                 >Payment System
                                                 </Link>
                                                 <Link
-                                                    to={`/${schoolName}/admin/result&Calculation`}
+                                                    to={`/${schoolName}/admin/term&subjects`}
                                                     className="block px-4 py-2 text-base text-gray-100 hover:bg-gray-100 hover:text-gray-900"
                                                     role="menuitem"
                                                     onClick={toggleStudentMenu}
                                                 >
-                                                    Add Result & Calculation
+                                                    Add Term & Subjects
                                                 </Link>
                                                 <Link
                                                     to={`/${schoolName}/admin/result`}

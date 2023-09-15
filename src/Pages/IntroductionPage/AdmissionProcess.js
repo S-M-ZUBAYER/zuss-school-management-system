@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/UserContext';
 import BtnSpinner from '../Shared/Spinners/BtnSpinner';
 import { AiOutlineDownload } from 'react-icons/ai';
+import DisplaySpinner from '../Shared/Spinners/DisplaySpinner';
 
 const AdmissionProcess = () => {
     const [applications, setApplications] = useState([]);
@@ -14,31 +15,37 @@ const AdmissionProcess = () => {
     const [classSearchQuery, setClassSearchQuery] = useState('');
     const [nameSearchQuery, setNameSearchQuery] = useState('');
     const [date, setDate] = useState(new Date().getFullYear());
-
+    const [loading, setLoading] = useState(false);
     const { currentSchoolCode } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchApplications = async () => {
             try {
+                setLoading(true);
                 const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/application/${currentSchoolCode}`, {
                     params: { date }
                 });
                 setApplications(response.data);
+                setLoading(false);
             } catch (error) {
+                setLoading(false);
                 console.error('Error fetching applications:', error);
             }
         };
 
         const fetchClassInfo = async () => {
             try {
+                setLoading(true);
                 const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
                 if (classInfoData) {
                     const classNames = classInfoData?.map((element) => element?.name);
                     setAllClasses(classNames);
                     setSearchClasses(classNames);
+                    setLoading(false);
                 }
             } catch (error) {
+                setLoading(false);
                 console.error('Error fetching classInfo:', error);
             }
         };
@@ -136,7 +143,9 @@ const AdmissionProcess = () => {
         newWindow.print();
     }
 
-
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
+    }
     return (
         <div className="pt-8">
             <h1 className="text-3xl font-bold text-lime-300 mb-8">
