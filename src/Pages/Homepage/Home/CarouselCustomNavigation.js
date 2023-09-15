@@ -1,48 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React from 'react';
+import { Carousel } from 'flowbite-react';
 
-function CarouselSlider() {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const images = ["https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80", "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80", "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"]
-    // Function to handle automatic image rotation
-    const rotateImages = () => {
-        const newIndex = (currentIndex + 1) % images.length;
-        setCurrentIndex(newIndex);
-    };
-
-    useEffect(() => {
-        // Rotate images automatically every 3 seconds
-        const interval = setInterval(rotateImages, 3000);
-
-        return () => clearInterval(interval);
-    }, [currentIndex]);
-
-    // Function to handle clicking on a marker
-    const handleMarkerClick = (index) => {
-        setCurrentIndex(index);
-    };
-
+function CarouselCustomNavigation() {
     return (
-        <div className="carousel-slider">
-            <div className="slider-images">
-                {images.map((image, index) => (
-                    <div
-                        key={index}
-                        className={`slide ${index === currentIndex ? "active" : ""}`}
-                        style={{ backgroundImage: `url(${image})` }}
-                    ></div>
-                ))}
+        <div className="pt-10 md:pt-25 bg-gradient-to-l from-blue-900 via-slate-900 to-black">
+            <div data-aos="fade-down" data-aos-duration="2000" className="mb-5">
+                <h2 className="mb-6 text-3xl md:text-5xl text-green-400 font-bold pt-20">Show Overview With Images</h2>
+                <p className="text-gray-200 px-10 md:px-20 text-base font-semibold">When starting a business, one key task is to create a business plan that outlines your goals and how you aim to achieve them. Your business overview is a necessary section that presents these ideas more broadly and provides your audience with background information about your company.</p>
             </div>
-            <div className="slider-markers">
-                {images.map((_, index) => (
-                    <div
-                        key={index}
-                        className={`marker ${index === currentIndex ? "active" : ""}`}
-                        onClick={() => handleMarkerClick(index)}
-                    ></div>
-                ))}
-            </div>
+            <Carousel className="w-10/12 h-[500px] mx-auto  md:mt-20">
+                <img
+                    alt="pic1"
+                    src="https://c0.wallpaperflare.com/preview/534/41/125/school-books-young-adult-education.jpg"
+                    className="object-cover w-full h-full object-center rounded-lg"
+                    style={{ objectFit: 'contain' }}
+                />
+                <img
+                    alt="pic2"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJnjAZc2w6O_DaJV3Oaaamt9XZ0FQ1S_yQ1w&usqp=CAU"
+                    className="object-cover w-full h-full object-center rounded-lg"
+                    style={{ objectFit: 'contain' }}
+                />
+                <img
+                    alt="pic3"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTuTRsnE-II-uE4PEHXux9lj8-6ouKj49h4A&usqp=CAU"
+                    className="object-cover w-full h-full object-center rounded-lg"
+                    style={{ objectFit: 'contain' }}
+                />
+                <img
+                    alt="pic4"
+                    src="https://img.freepik.com/free-photo/top-view-hardback-books-desk-with-coffee-keyboard_23-2148827248.jpg?w=2000"
+                    className="object-cover w-full h-full object-center rounded-lg"
+                    style={{ objectFit: 'contain' }}
+                />
+                <img
+                    alt="pic5"
+                    src="https://i.ibb.co/k32XKnw/student1.jpg"
+                    className="object-cover w-full h-full object-center rounded-lg"
+                    style={{ objectFit: 'contain' }}
+                />
+            </Carousel>
         </div>
     );
 }
 
-export default CarouselSlider;
+export default CarouselCustomNavigation;
+

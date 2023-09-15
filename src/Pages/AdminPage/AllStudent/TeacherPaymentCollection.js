@@ -4,10 +4,9 @@ import { AuthContext } from '../../../context/UserContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-function StudentPaymentSystem() {
-    const { currentSchoolCode, user } = useContext(AuthContext);
+function TeacherPaymentCollection({ student }) {
+    // const { currentSchoolCode, user } = useContext(AuthContext);
     const [selectedPayments, setSelectedPayments] = useState([]);
-    const [student, setStudent] = useState({});
     const [stdPayment, setStdPayment] = useState(null); // Initialize to null instead of {}
     const [allPayment, setAllPayment] = useState([]); // Initialize as an empty array
     const [payFeeStatus, setPayFeeStatus] = useState({}); // Initialize as an empty array
@@ -56,7 +55,7 @@ function StudentPaymentSystem() {
 
                 teacherStatus: true,
                 studentId: student?.studentId,
-                schoolCode: currentSchoolCode,
+                schoolCode: student?.schoolCode,
                 Name: student?.name,
                 ClassName: student?.className,
                 SectionName: student?.section,
@@ -122,7 +121,7 @@ function StudentPaymentSystem() {
 
                 teacherStatus: true,
                 studentId: student?.studentId,
-                schoolCode: currentSchoolCode,
+                schoolCode: student?.schoolCode,
                 Name: student?.name,
                 ClassName: student?.className,
                 SectionName: student?.section,
@@ -158,46 +157,16 @@ function StudentPaymentSystem() {
 
     console.log(selectedPayments)
 
-    useEffect(() => {
-        const fetchCurrentFeesStatus = async () => {
-            try {
-                const url = `https://zuss-school-management-system-server-site.vercel.app/api/students/student/${currentSchoolCode}?email=${user?.email}&year=${new Date().getFullYear()}`;
-                const response = await axios.get(url);
-                if (response.data.length > 0) {
-                    setStudent(response.data[0]);
-                }
-            } catch (error) {
-                console.error('Error fetching students:', error);
-            }
-        };
 
-        fetchCurrentFeesStatus();
 
-    }, [currentSchoolCode, user?.email]); // Removed 'allPayment' from the dependency array
 
-    console.log(`https://zuss-school-management-system-server-site.vercel.app/api/students/student/${currentSchoolCode}?email=${user?.email}&year=${new Date().getFullYear()}`)
 
-    useEffect(() => {
-        const fetchStudents = async () => {
-            try {
-                const url = `https://zuss-school-management-system-server-site.vercel.app/api/students/student/${currentSchoolCode}?email=mukul@gmail.com&year=${new Date().getFullYear()}`;
-                const response = await axios.get(url);
-                if (response.data.length > 0) {
-                    setStudent(response.data[0]);
-                }
-            } catch (error) {
-                console.error('Error fetching students:', error);
-            }
-        };
 
-        fetchStudents();
-
-    }, [currentSchoolCode, user?.email]); // Removed 'allPayment' from the dependency array
 
     useEffect(() => {
         const fetchPayment = async () => {
             try {
-                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/stdPayment/${currentSchoolCode}?year=${new Date().getFullYear()}`);
+                const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/stdPayment/${student?.schoolCode}?year=${new Date().getFullYear()}`);
                 setAllPayment(response.data);
             } catch (error) {
                 console.error('Error fetching payment information:', error);
@@ -206,7 +175,7 @@ function StudentPaymentSystem() {
 
         fetchPayment();
 
-    }, [currentSchoolCode, user?.email]); // Removed 'allPayment' from the dependency array
+    }, [student?.schoolCode, student?.email]); // Removed 'allPayment' from the dependency array
 
 
     // Function to handle the GET request
@@ -214,7 +183,7 @@ function StudentPaymentSystem() {
         try {
             // Make a GET request to your backend route with query parameters
             const response = await axios.get(
-                `http://localhost:5000/api/payFees/payStatus/${currentSchoolCode}?studentId=${student?.studentId}`
+                `http://localhost:5000/api/payFees/payStatus/${student?.schoolCode}?studentId=${student?.studentId}`
             );
 
             // Update the paymentStatus state with the response data
@@ -228,7 +197,7 @@ function StudentPaymentSystem() {
     useEffect(() => {
         // Fetch payment status when the component mounts
         fetchPaymentStatus();
-    }, [currentSchoolCode, student?.studentId]);
+    }, [student?.schoolCode, student?.email]);
 
 
     useEffect(() => {
@@ -291,7 +260,7 @@ function StudentPaymentSystem() {
 
     return (
         <div className="text-white mb-20">
-            <h2 className="text-3xl font-semibold text-green-400 mt-5 mb-12">Payment System For Student</h2>
+            <h2 className="text-3xl font-semibold text-green-400 mt-5 mb-12">Payment System By Teacher</h2>
 
             {
                 Object.keys(payFeeStatus).length !== 0 ?
@@ -494,4 +463,4 @@ function StudentPaymentSystem() {
     );
 }
 
-export default StudentPaymentSystem;
+export default TeacherPaymentCollection;

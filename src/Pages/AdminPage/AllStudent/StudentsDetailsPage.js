@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import StudentOverView from './StudentOverView';
 import StudentBtnShow from './StudentBtnShow';
 import ShowAttendance from './ShowAttendance';
+import TeacherPaymentCollection from './TeacherPaymentCollection';
+import ResultAddPage from './ResultAddPage';
 
 const StudentsDetailsPage = () => {
     const [activeButton, setActiveButton] = useState('Attendance');
@@ -78,10 +80,14 @@ const StudentsDetailsPage = () => {
 
             }
             {
-                activeButton === 'Payment' && <div>payment</div>
+                activeButton === 'Payment' && <TeacherPaymentCollection
+                    student={student}
+                ></TeacherPaymentCollection>
             }
             {
-                activeButton === 'Result' && <div>Result</div>
+                activeButton === 'Result' && <ResultAddPage
+                    student={student}
+                ></ResultAddPage>
             }
         </div>
     );

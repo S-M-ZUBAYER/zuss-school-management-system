@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../context/UserContext';
 
 const SchoolStartEndField = () => {
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
+    const { currentSchoolCode } = useContext(AuthContext)
 
     const handleStartTimeChange = (e) => {
         setStartTime(e.target.value);
@@ -12,16 +15,44 @@ const SchoolStartEndField = () => {
         setEndTime(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Do something with the start time and end time values
-        console.log('Start Time:', startTime);
-        console.log('End Time:', endTime);
+        // Prepare the data to send in the request body
+        const data = {
+            startTime: startTime,
+            endTime: endTime,
+            currentSchoolCode: currentSchoolCode // Assuming you have this value
+        };
+        console.log(data)
 
-        // Clear the input fields
-        setStartTime('');
-        setEndTime('');
+        try {
+            // Check if the school code has previous start and end times
+            const response = await fetch(`http://localhost:5000/api/teacherSetTime/${currentSchoolCode}`, {
+                method: 'PATCH', // Use PATCH method for updating
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.status === 200) {
+                console.log('Start time and end time updated successfully.');
+                toast.success('Start time and end time updated successfully.');
+            } else if (response.status === 201) {
+                console.log('Start time and end time created successfully.');
+                toast.success('Start time and end time updated successfully.');
+            } else {
+                console.error('Failed to update/start time and end time.');
+                toast.error('Failed to update/start time and end time.');
+            }
+
+            // Clear the input fields
+            setStartTime('');
+            setEndTime('');
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -48,7 +79,7 @@ const SchoolStartEndField = () => {
                     onChange={handleEndTimeChange}
                 />
             </div>
-            <button className="bg-green-300 py-1 px-4 rounded-tr-lg rounded-bl-lg mt-5 mb-10" type="submit">Save</button>
+            <button className="bg-green-300 py-1 px-4 rounded-tr-lg rounded-bl-lg mt-5 mb-10 text-black font-bold" type="submit">Save</button>
         </form>
     );
 };
