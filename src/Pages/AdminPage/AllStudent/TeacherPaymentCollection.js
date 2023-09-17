@@ -73,10 +73,10 @@ function TeacherPaymentCollection({ student }) {
             }
 
             try {
-                const response = await axios.delete(`http://localhost:5000/api/payFees/payStatus/${payFeeStatus?._id}`);
+                const response = await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/payFees/payStatus/${payFeeStatus?._id}`);
                 if (response.status === 200) {
                     try {
-                        const response = await axios.post('http://localhost:5000/api/payFees', StudentPaymentStatus);
+                        const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/payFees', StudentPaymentStatus);
                         console.log('Data stored successfully:', response.data);
                         toast.success("Payment process completed successfully")
                     } catch (error) {
@@ -139,7 +139,7 @@ function TeacherPaymentCollection({ student }) {
             }
 
             try {
-                const response = await axios.post('http://localhost:5000/api/payFees', StudentPaymentStatus);
+                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/payFees', StudentPaymentStatus);
                 console.log('Data stored successfully:', response.data);
                 toast.success("Payment process completed successfully")
             } catch (error) {
@@ -183,7 +183,7 @@ function TeacherPaymentCollection({ student }) {
         try {
             // Make a GET request to your backend route with query parameters
             const response = await axios.get(
-                `http://localhost:5000/api/payFees/payStatus/${student?.schoolCode}?studentId=${student?.studentId}`
+                `https://zuss-school-management-system-server-site.vercel.app/api/payFees/payStatus/${student?.schoolCode}?studentId=${student?.studentId}`
             );
 
             // Update the paymentStatus state with the response data

@@ -4,22 +4,27 @@ import { AuthContext } from "../../../context/UserContext";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
+import DisplaySpinner from "../../Shared/Spinners/DisplaySpinner";
 
 const SalaryStatus = () => {
     const { user, teachersList, currentSchoolCode } = useContext(AuthContext);
     const [staffSalary, setStaffSalary] = useState({});
     const [staffInfo, setStaffInfo] = useState({});
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
         const fetchStaffSalary = async () => {
             try {
+                setLoading(true);
                 const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/staffSalary/staff/${user?.email}`);
                 const staffSalary = response.data; // Assuming the API response provides the salary data
                 setStaffSalary(staffSalary);
+                setLoading(false);
                 // Do something with the staffSalary, such as updating state
             } catch (error) {
                 console.error('Error fetching staff salary:', error);
+                setLoading(false);
             }
         };
 
@@ -31,12 +36,15 @@ const SalaryStatus = () => {
     useEffect(() => {
         const fetchStaffInfo = async () => {
             try {
+                setLoading(true);
                 const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/schoolUser/${user?.email}`);
                 const staffSalary = response.data; // Assuming the API response provides the salary data
                 setStaffInfo(staffSalary);
+                setLoading(false);
                 // Do something with the staffSalary, such as updating state
             } catch (error) {
                 console.error('Error fetching staff salary:', error);
+                setLoading(false);
             }
         };
 
@@ -48,6 +56,10 @@ const SalaryStatus = () => {
     const filteredTeachers = teachersList.filter((teacher) =>
         teacher.email.toLowerCase().includes(user?.email.toLowerCase())
     );
+
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
+    }
 
     return (
         <div className="flex flex-col items-center text-white">

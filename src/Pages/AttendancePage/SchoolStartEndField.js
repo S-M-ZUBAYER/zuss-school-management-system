@@ -28,7 +28,7 @@ const SchoolStartEndField = () => {
 
         try {
             // Check if the school code has previous start and end times
-            const response = await fetch(`http://localhost:5000/api/teacherSetTime/${currentSchoolCode}`, {
+            const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/teacherSetTime/${currentSchoolCode}`, {
                 method: 'PATCH', // Use PATCH method for updating
                 headers: {
                     'Content-Type': 'application/json'

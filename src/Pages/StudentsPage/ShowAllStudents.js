@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/UserContext';
 import ShowStudentInfoTable from './ShowStudentInfoTable';
+import DisplaySpinner from '../Shared/Spinners/DisplaySpinner';
 
 const ShowAllStudents = () => {
     const [students, setStudents] = useState([]);
@@ -22,7 +23,7 @@ const ShowAllStudents = () => {
     const [shifts, setShifts] = useState([]);
     const [classInfo, setClassInfo] = useState([]);
     const [name, setName] = useState("");
-
+    const [loading, setLoading] = useState(false);
 
     const { currentSchoolCode } = useContext(AuthContext);
 
@@ -45,13 +46,16 @@ const ShowAllStudents = () => {
         const fetchStudents = async () => {
 
             try {
+                setLoading(true);
                 const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/students/${currentSchoolCode}`, {
                     params: { year } // Send date as a query parameter
                 });
 
                 setAllStudents(response.data);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching applications:', error);
+                setLoading(false);
             }
         };
 
@@ -218,6 +222,7 @@ const ShowAllStudents = () => {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
             try {
+                setLoading(true);
                 const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
 
@@ -226,11 +231,12 @@ const ShowAllStudents = () => {
                     const classNames = classInfoData.map((element) => element?.name);
                     // setClassInfo(classInfoData?.classInfo)
                     setAllClasses(classNames);
-
+                    setLoading(false);
                 }
 
             } catch (error) {
                 console.error('Error fetching classInfo:', error);
+                setLoading(false);
             }
         };
 
@@ -257,6 +263,9 @@ const ShowAllStudents = () => {
             }
         })
 
+    }
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
     }
 
     return (

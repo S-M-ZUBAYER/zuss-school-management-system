@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const ShowStudentInfoTable = ({
     allStudents,
@@ -79,7 +80,10 @@ const ShowStudentInfoTable = ({
                                         <td>{student.name}</td>
                                         <td>{student.studentId}</td>
                                         <td>{student.classRoll}</td>
-                                        <td onClick={handleToShowDetails}><button className="bg-green-400 px-3 py-1 rounded-lg">Details</button></td>
+                                        <td ><Link to={`details/${student?.studentId}`} className="">
+                                            <button className="bg-green-400 px-3 py-1 rounded-lg">Details</button>
+                                        </Link>
+                                        </td>
                                     </tr>
                                 ))}
                         </tbody>

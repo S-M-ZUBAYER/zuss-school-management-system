@@ -83,12 +83,13 @@ const SubjectsTable = ({ termData, student }) => {
                 classRoll: student?.classRoll,
                 term,
                 subjectMarks,
+                allSubjects,
                 termAverage,
                 termGrade
             };
 
             // Make a PATCH request to update the student's result status
-            fetch(`http://localhost:5000/api/AddUpdateResultRoutes/${student?.studentId}/${student?.year}/${student?.schoolCode}/${term}`, {
+            fetch(`https://zuss-school-management-system-server-site.vercel.app/api/AddUpdateResultRoutes/${student?.studentId}/${student?.year}/${student?.schoolCode}/${term}`, {
                 method: 'PATCH', // Use the PATCH HTTP method for updates
                 headers: {
                     'Content-Type': 'application/json',

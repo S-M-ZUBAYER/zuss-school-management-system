@@ -11,6 +11,7 @@ const AddStaff = () => {
     const [teacherId, setTeacherId] = useState('');
     const [name, setName] = useState('');
     const [designation, setDesignation] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [image, setImage] = useState(null);
@@ -21,6 +22,20 @@ const AddStaff = () => {
     const [about, setAbout] = useState('');
 
     const handleFileUpload = useCallback(async (acceptedFiles) => {
+        console.log(teacherId,
+            name,
+            schoolName,
+            currentSchoolCode,
+            designation,
+            selectedStatus,
+            phone,
+            email,
+            image,
+            bloodGroup,
+            district,
+            division,
+            address,
+            about,)
         const apiKey = process.env.REACT_APP_imgbbKey;
         const formData = new FormData();
         formData.append('image', acceptedFiles[0]);
@@ -45,7 +60,7 @@ const AddStaff = () => {
             toast.error('Please fill in all fields');
             return;
         }
-
+        console.log(selectedStatus)
 
         try {
             // Make POST request to backend
@@ -55,6 +70,7 @@ const AddStaff = () => {
                 schoolName,
                 schoolCode: currentSchoolCode,
                 designation,
+                selectedStatus,
                 phone,
                 email,
                 image,
@@ -65,12 +81,13 @@ const AddStaff = () => {
                 about,
             });
 
-            console.log(response)
+
 
             // Clear form fields
             setName('');
             setTeacherId("");
             setDesignation('');
+            setSelectedStatus('');
             setPhone('');
             setEmail('');
             setDistrict("");
@@ -145,6 +162,25 @@ const AddStaff = () => {
                         className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
+
+                <div className="flex justify-between items-center">
+                    <label htmlFor="status" className="block font-semibold text-gray-300">
+                        Status:
+                    </label>
+                    <select
+                        id="status"
+                        value={selectedStatus}
+                        onChange={(e) => setSelectedStatus(e.target.value)}
+                        className="w-10/12 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="">Select an option</option>
+                        <option value="Management">Management</option>
+                        <option value="Principal">Principal</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+
                 <div className="flex justify-between items-center">
                     <label htmlFor="phone" className="block font-semibold text-gray-300">
                         Phone :

@@ -30,7 +30,6 @@ const Students = () => {
 
                                 <li><Link to={`/${schoolName}/student/payment`}>My Payment</Link></li>
                                 <li><Link to={`/${schoolName}/student/allStudent`}>All Student</Link></li>
-                                <li><Link to={`/${schoolName}/student/result`}>All Student Result</Link></li>
                                 <li><Link to={`/${schoolName}/student/admissionStudent`}>Admission Student</Link></li>
                                 <li><Link to={`/${schoolName}/student/showRoutine`}>Class Routine</Link></li>
                                 <li><Link to={`/${schoolName}/student/calender`}>Academic Calender</Link></li>

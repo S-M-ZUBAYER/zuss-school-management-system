@@ -27,7 +27,7 @@
 
 //         const fetchTime = async () => {
 //             try {
-//                 const response = await fetch(`http://localhost:5000/api/teacherSetTime/${currentSchoolCode}`);
+//                 const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/teacherSetTime/${currentSchoolCode}`);
 //                 if (response.ok) {
 //                     const timeData = await response.json();
 //                     setAtdTime(timeData);
@@ -148,40 +148,49 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/UserContext';
+import DisplaySpinner from '../Shared/Spinners/DisplaySpinner';
 
 const StaffAttendance = () => {
     const [staffs, setStaffs] = useState([]);
     const [atdTime, setAtdTime] = useState({});
     const [allAttendances, setAllAttendances] = useState([]);
     const { currentSchoolCode } = useContext(AuthContext);
-    console.log(allAttendances)
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         const fetchStaffs = async () => {
             try {
+                setLoading(true);
                 const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}`);
                 if (response.ok) {
                     const staffsData = await response.json();
                     setStaffs(staffsData);
+                    setLoading(false);
                 } else {
                     throw new Error('Failed to fetch staffs');
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error('Error:', error);
-                // Handle error case
+                setLoading(false);
             }
         };
 
         const fetchTime = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/teacherSetTime/${currentSchoolCode}`);
+                setLoading(true);
+                const response = await fetch(`https://zuss-school-management-system-server-site.vercel.app/api/teacherSetTime/${currentSchoolCode}`);
                 if (response.ok) {
                     const timeData = await response.json();
                     setAtdTime(timeData);
+                    setLoading(false);
                 } else {
+                    setLoading(false);
                     throw new Error('Failed to fetch time');
                 }
             } catch (error) {
                 console.error('Error:', error);
+                setLoading(false);
                 // Handle error case
             }
         };
@@ -255,6 +264,10 @@ const StaffAttendance = () => {
             setStaffs([...staffs]);
         }
     };
+
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
+    }
 
     return (
         <div className="text-white">

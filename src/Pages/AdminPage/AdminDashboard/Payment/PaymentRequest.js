@@ -16,7 +16,7 @@ const PaymentRequest = () => {
         if (confirmed) {
             try {
                 // Send a PUT request to update the teacher status to false
-                await axios.put(`http://localhost:5000/api/payFees/updateStatus/${id}`);
+                await axios.put(`https://zuss-school-management-system-server-site.vercel.app/api/payFees/updateStatus/${id}`);
                 // Handle success (e.g., show a success message)
                 toast.success('Student payment status updated successfully');
             } catch (error) {
@@ -34,7 +34,7 @@ const PaymentRequest = () => {
         if (confirmed) {
             try {
                 // Send a PUT request to update the teacher status to false
-                await axios.put(`http://localhost:5000/api/payFees/updateRejectStatus/${id}`, {
+                await axios.put(`https://zuss-school-management-system-server-site.vercel.app/api/payFees/updateRejectStatus/${id}`, {
                     teacherStatus: false,
                     selectedPayments: selectedPayments,
                 });
@@ -58,7 +58,7 @@ const PaymentRequest = () => {
             try {
                 // Make the GET request to the API
                 const response = await axios.get(
-                    `http://localhost:5000/api/payFees/teacherPayStatus/${currentSchoolCode}`
+                    `https://zuss-school-management-system-server-site.vercel.app/api/payFees/teacherPayStatus/${currentSchoolCode}`
                 );
                 console.log(response.data)
                 // Update the state with the response data

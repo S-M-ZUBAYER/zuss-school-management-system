@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../context/UserContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import DisplaySpinner from '../../Shared/Spinners/DisplaySpinner';
 
 function StudentPaymentSystem() {
     const { currentSchoolCode, user } = useContext(AuthContext);
@@ -12,7 +13,7 @@ function StudentPaymentSystem() {
     const [allPayment, setAllPayment] = useState([]); // Initialize as an empty array
     const [payFeeStatus, setPayFeeStatus] = useState({}); // Initialize as an empty array
     const [proposalAmount, setProposalAmount] = useState(""); // Initialize as an empty array
-
+    const [loading, setLoading] = useState(false)
 
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [paymentData, setPaymentData] = useState({
@@ -74,10 +75,10 @@ function StudentPaymentSystem() {
             }
 
             try {
-                const response = await axios.delete(`http://localhost:5000/api/payFees/payStatus/${payFeeStatus?._id}`);
+                const response = await axios.delete(`https://zuss-school-management-system-server-site.vercel.app/api/payFees/payStatus/${payFeeStatus?._id}`);
                 if (response.status === 200) {
                     try {
-                        const response = await axios.post('http://localhost:5000/api/payFees', StudentPaymentStatus);
+                        const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/payFees', StudentPaymentStatus);
                         console.log('Data stored successfully:', response.data);
                         toast.success("Payment process completed successfully")
                     } catch (error) {
@@ -140,7 +141,7 @@ function StudentPaymentSystem() {
             }
 
             try {
-                const response = await axios.post('http://localhost:5000/api/payFees', StudentPaymentStatus);
+                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/payFees', StudentPaymentStatus);
                 console.log('Data stored successfully:', response.data);
                 toast.success("Payment process completed successfully")
             } catch (error) {
@@ -161,13 +162,16 @@ function StudentPaymentSystem() {
     useEffect(() => {
         const fetchCurrentFeesStatus = async () => {
             try {
+                setLoading(true);
                 const url = `https://zuss-school-management-system-server-site.vercel.app/api/students/student/${currentSchoolCode}?email=${user?.email}&year=${new Date().getFullYear()}`;
                 const response = await axios.get(url);
                 if (response.data.length > 0) {
                     setStudent(response.data[0]);
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error('Error fetching students:', error);
+                setLoading(false);
             }
         };
 
@@ -214,7 +218,7 @@ function StudentPaymentSystem() {
         try {
             // Make a GET request to your backend route with query parameters
             const response = await axios.get(
-                `http://localhost:5000/api/payFees/payStatus/${currentSchoolCode}?studentId=${student?.studentId}`
+                `https://zuss-school-management-system-server-site.vercel.app/api/payFees/payStatus/${currentSchoolCode}?studentId=${student?.studentId}`
             );
 
             // Update the paymentStatus state with the response data
@@ -288,6 +292,10 @@ function StudentPaymentSystem() {
         toast.error("Teacher need to verify your previous payment proposal first")
     }
 
+
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
+    }
 
     return (
         <div className="text-white mb-20">

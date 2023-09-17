@@ -3,15 +3,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
+import DisplaySpinner from '../Shared/Spinners/DisplaySpinner';
 
 const Admission = () => {
     const [admissionData, setAdmissionData] = useState([]);
 
     const { currentSchoolCode, schoolName } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
                 // Make a GET request to fetch admission data
                 const response = await axios.get('https://zuss-school-management-system-server-site.vercel.app/api/admissionInfo', {
                     params: {
@@ -19,15 +22,19 @@ const Admission = () => {
                     },
                 });
                 setAdmissionData(response.data);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching admission data:', error);
+                setLoading(false);
             }
         };
 
         fetchData();
     }, []);
 
-
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
+    }
 
     return (
         <div className="p-4 bg-gradient-to-l from-blue-900 via-slate-900 to-black text-slate-100 lg:px-24">

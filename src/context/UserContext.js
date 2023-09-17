@@ -53,7 +53,7 @@ const UserContext = ({ children }) => {
             const path = getPath();
 
             try {
-                const response = await fetch(` http://localhost:5000/api/schools/url/${path}`);
+                const response = await fetch(` https://zuss-school-management-system-server-site.vercel.app/api/schools/url/${path}`);
                 if (response.ok) {
                     const schoolData = await response.json();
 

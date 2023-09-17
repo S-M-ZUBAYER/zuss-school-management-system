@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import Modal from 'react-modal';
 import { AuthContext } from '../../../context/UserContext';
+import DisplaySpinner from '../../Shared/Spinners/DisplaySpinner';
 
 const StaffProfile = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -17,22 +18,29 @@ const StaffProfile = () => {
     const [userProfileData, setUserProfileData] = useState({})
 
     const { currentSchoolCode, user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         fetch(`https://zuss-school-management-system-server-site.vercel.app/api/staffs/${currentSchoolCode}/${user?.email}`)
             .then((response) => {
                 if (!response.ok) {
+                    setLoading(false);
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+                setLoading(false);
                 return response.json();
+
             })
             .then((data) => {
                 // Handle the staff data received from the API
                 console.log('Staff Data:', data[0]);
                 setUserProfileData(data[0])
+                setLoading(false);
             })
             .catch((error) => {
                 // Handle errors
+                setLoading(false);
                 console.error('Fetch Error:', error);
             });
     }, [user?.email, currentSchoolCode]);
@@ -108,6 +116,10 @@ const StaffProfile = () => {
         setUserProfileData(profileData);
         localStorage.setItem('staffProfile', JSON.stringify(profileData));
         closeModal();
+    }
+
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
     }
 
     return (

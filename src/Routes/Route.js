@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main/Main"
 import Admin from "../Pages/AdminPage/Admin";
-import AllResultSheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/AllResultSheet";
 import Std_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/Std_Atd_Sheet";
 import Tcr_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/Tcr_Atd_Sheet";
 import Contact from "../Pages/ContactPage/Contact";
@@ -60,6 +59,7 @@ import StaffProfile from "../Pages/StaffPage/StaffDashboard/StaffProfile";
 import StudentsDetailsPage from "../Pages/AdminPage/AllStudent/StudentsDetailsPage";
 import Payment from "../Pages/AdminPage/AdminDashboard/Payment/Payment";
 import AddTermAndSubject from "../Pages/TeachersPage/TeacherDashboard/AddTermAndSubject";
+import ShowStudentsDetailsPage from "../Pages/StudentsPage/ShowStudentDetailsPage";
 
 export const router = createBrowserRouter([
     {
@@ -213,10 +213,6 @@ export const router = createBrowserRouter([
                 element: <Calender></Calender>
             },
             {
-                path: '/:name/student/result',
-                element: <AllResultSheet></AllResultSheet>
-            },
-            {
                 path: '/:name/student/admissionStudent',
                 element: <AdmissionProcess></AdmissionProcess>
             },
@@ -227,6 +223,10 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/student/allStudent',
                 element: <ShowAllStudents></ShowAllStudents>
+            },
+            {
+                path: '/:name/student/allStudent/details/:studentId',
+                element: <ShowStudentsDetailsPage></ShowStudentsDetailsPage>
             },
 
         ]
@@ -274,10 +274,6 @@ export const router = createBrowserRouter([
             {
                 path: '/:name/admin/calender',
                 element: <AcademicCalender></AcademicCalender>
-            },
-            {
-                path: '/:name/admin/result',
-                element: <AllResultSheet></AllResultSheet>
             },
             {
                 path: '/:name/admin/staff',

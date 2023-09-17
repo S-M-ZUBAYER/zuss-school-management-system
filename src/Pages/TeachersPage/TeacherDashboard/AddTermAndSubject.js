@@ -458,7 +458,7 @@ function AddTermAndSubject() {
             const confirmed = window.confirm('Are you sure you want to upload these Term information?');
             if (confirmed) {
 
-                const response = await axios.post('http://localhost:5000/api/termSubject', termInfo);
+                const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/termSubject', termInfo);
 
                 toast.success("Upload these Term information successfully");
                 setAllTerm([...allTerm, termInfo])

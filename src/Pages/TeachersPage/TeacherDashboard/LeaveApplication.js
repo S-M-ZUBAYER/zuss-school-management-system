@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import { toast } from "react-hot-toast";
 import { AiOutlineDownload } from 'react-icons/ai';
 import html2pdf from "html2pdf.js";
+import { AuthContext } from "../../../context/UserContext";
 // import { saveAs } from 'file-saver';
 
 
@@ -14,8 +15,27 @@ function LeaveApplication({ name, color }) {
     const [isBold, setIsBold] = useState(false);
     const [isItalic, setIsItalic] = useState(false);
     const [isUnderline, setIsUnderline] = useState(false);
+    const { schoolName } = useContext(AuthContext);
+    const [ein, setEIN] = useState('');
+    const [address, setAddress] = useState('');
+
+    const handleEINChange = (e) => {
+        setEIN(e.target.value);
+    };
+
+    const handleAddressChange = (e) => {
+        setAddress(e.target.value);
+    };
 
 
+    // get the date ....
+    const currentDate = new Date();
+
+    // Get the individual date components
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1; // Month is zero-based, so add 1
+    const year = currentDate.getFullYear()
+    const formattedDate = `${month}/${day}/${year}`;
     // part for upload img
 
     const [file, setFile] = useState(null);
@@ -81,8 +101,31 @@ function LeaveApplication({ name, color }) {
 
 
     return (
-        <div className="h-screen bg-gray-100 flex flex-col">
-
+        <div className="h-screen bg-gray-100 flex flex-col pt-10 pb-10">
+            <div className="mb-4 flex items-center justify-center ">
+                <label htmlFor="ein" className="block text-gray-600 font-semibold">EIN: </label>
+                <input
+                    type="text"
+                    id="ein"
+                    name="ein"
+                    value={ein}
+                    onChange={handleEINChange}
+                    className="ml-10 w-7/12 border-gray-300 border rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-indigo-200"
+                    required
+                />
+            </div>
+            <div className="mb-4 flex items-center justify-center">
+                <label htmlFor="address" className="block text-gray-600 font-semibold">Address:</label>
+                <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={address}
+                    onChange={handleAddressChange}
+                    className="ml-2 w-7/12 border-gray-300 border rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-indigo-200"
+                    required
+                />
+            </div>
 
             <div>
                 <div {...getRootProps()} className="border-dashed border-2 p-4 cursor-pointer bg-yellow-100 w-2/6 mx-auto my-3">
@@ -175,8 +218,18 @@ function LeaveApplication({ name, color }) {
                         {/* <img z-10 src="https://tse4.mm.bing.net/th?id=OIP.IhMJ0rAv6sBTVr5doQJHgAHaHa&pid=Api&P=0"></img> */}
                         <img z-10 src={imageUrl}></img>
                     </span>
+                    <h1 className="font-bold text-3xl text-lime-800">
+                        {schoolName}
+                    </h1>
+                    <h1 className=" text-xl z-40 font-bold text-lime-800">{name}</h1>
 
-                    <h1 className=" text-lg z-40 font-semibold text-yellow-900">{name}</h1>
+                    <p className=" absolute right-8 top-4"><span className="font-semibold">EIIN:</span>{ein}</p>
+                    <p className=" absolute left-0 bottom-[-30px]"><span className="font-semibold">Address:</span>{address}</p>
+
+
+                    <p className="absolute font-semibold text-lg left-4 bottom-2">Date: {formattedDate}</p>
+                    <p className=" absolute font-semibold text-lg right-20 bottom-8">Principle</p>
+                    <p className=" absolute font-semibold text-lg right-4 bottom-2">{schoolName}</p>
 
                     <div
                         contentEditable

@@ -6,6 +6,7 @@ import { AuthContext } from '../../../context/UserContext';
 import EachStaff from '../../IntroductionPage/IntroDashboard/EachStaff';
 import StudentInfoTable from './StudentInfoTable';
 import { toast } from 'react-hot-toast';
+import DisplaySpinner from '../../Shared/Spinners/DisplaySpinner';
 
 const AllStudent = () => {
     const [students, setStudents] = useState([]);
@@ -23,7 +24,7 @@ const AllStudent = () => {
     const [shifts, setShifts] = useState([]);
     const [classInfo, setClassInfo] = useState([]);
     const [name, setName] = useState("");
-    const [showPopup, setShowPopup] = useState(false);
+    const [loading, setLoading] = useState(false)
 
 
     const { currentSchoolCode } = useContext(AuthContext);
@@ -44,15 +45,16 @@ const AllStudent = () => {
 
     useEffect(() => {
         const fetchStudents = async () => {
-            console.log(currentSchoolCode, year)
             try {
+                setLoading(true);
                 const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/students/${currentSchoolCode}`, {
                     params: { year } // Send date as a query parameter
                 });
-                console.log(response?.data, "allstudents");
                 setAllStudents(response.data, "allldskfjjds");
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching applications:', error);
+                setLoading(false);
             }
         };
 
@@ -219,15 +221,15 @@ const AllStudent = () => {
         // Fetch class information based on schoolCode
         const fetchClassInfo = async () => {
             try {
+                setLoading(true);
                 const response = await axios.get(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`);
                 const classInfoData = response.data?.classInfo;
-
                 setClassInfo(classInfoData)
                 if (classInfoData) {
                     const classNames = classInfoData.map((element) => element?.name);
                     // setClassInfo(classInfoData?.classInfo)
                     setAllClasses(classNames);
-
+                    setLoading(false);
                 }
 
             } catch (error) {
@@ -258,6 +260,10 @@ const AllStudent = () => {
             }
         })
 
+    }
+
+    if (loading) {
+        return <DisplaySpinner></DisplaySpinner>
     }
 
     return (

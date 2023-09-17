@@ -2,10 +2,9 @@ import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import SubjectsTable from './SubjectsTable';
-import SubjectUpdateResultTable from './SubjectUpdateResultTable';
+import ShowResultTable from './ShowResultTable';
 
-const ResultAddPage = ({ student }) => {
+const ShowResultPage = ({ student }) => {
 
     const [allSubjectList, setAllSubjectList] = useState([]);
     const [stdSubjectList, setStdSubjectList] = useState([]);
@@ -23,16 +22,16 @@ const ResultAddPage = ({ student }) => {
             .then((data) => {
                 // Set the fetched student results in your component's state
                 setStdUpdateResultList(data);
-                console.log(data, "Update result")
+
             })
             .catch((error) => {
                 console.error('Error fetching student results:', error);
                 // Handle errors, such as network issues or server errors
             });
     }, [student?.schoolCode, student?.year, student?.studentId]);
-    console.log(stdUpdateResultList, "Update result")
 
-    console.log(stdSubjectList, "subjectList")
+
+
     useEffect(() => {
         const fetchPayment = async () => {
             try {
@@ -66,28 +65,22 @@ const ResultAddPage = ({ student }) => {
 
     return (
         <div>
-            <h1 className="text-2xl font-semibold mb-4 text-white my-10">Add Result & Calculation</h1>
+            <h1 className="text-2xl font-semibold mb-4 text-white my-10">Show Result</h1>
             {
                 stdUpdateResultList && stdUpdateResultList.length > 0 ?
                     stdUpdateResultList?.map((updateResult, index) => (
-                        <SubjectUpdateResultTable
+                        <ShowResultTable
                             key={index}
                             termData={updateResult}
                             student={student}
                         >
-                        </SubjectUpdateResultTable>
+                        </ShowResultTable>
                     )) :
-                    stdSubjectList && stdSubjectList.length > 0 && stdSubjectList.map((termData, index) => (
-                        <SubjectsTable
-                            key={index}
-                            termData={termData}
-                            student={student}
-                        />
-                    ))
+                    <h1 className="my-10 font-bold text-3xl text-red-500">Still No Result Available</h1>
             }
 
         </div>
     );
 };
 
-export default ResultAddPage;
+export default ShowResultPage;
