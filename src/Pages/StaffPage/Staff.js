@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
+import { AuthContext } from '../../context/UserContext';
 
 const Staff = () => {
 

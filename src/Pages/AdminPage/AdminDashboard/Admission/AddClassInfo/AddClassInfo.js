@@ -7,9 +7,9 @@ import axios from 'axios';
 const AddClassInfo = () => {
     const [classNames, setClassNames] = useState([]);
     const [classInfo, setClassInfo] = useState([]);
-    const [className, setClassName] = useState('');
-    const [section, setSection] = useState('');
-    const [shift, setShift] = useState('');
+    const [className, setClassName] = useState([]);
+    const [section, setSection] = useState([]);
+    const [shift, setShift] = useState([]);
 
     const { schoolName, currentSchoolCode } = useContext(AuthContext);
 
@@ -77,8 +77,8 @@ const AddClassInfo = () => {
 
     const handleToAdd = async () => {
         try {
-            // Make POST request to backend
-            const response = await axios.post('https://zuss-school-management-system-server-site.vercel.app/api/classes', {
+            // Make PATCH request to backend
+            const response = await axios.patch(`https://zuss-school-management-system-server-site.vercel.app/api/classes/${currentSchoolCode}`, {
                 schoolName: schoolName,
                 schoolCode: currentSchoolCode,
                 classInfo: classNames
@@ -87,15 +87,14 @@ const AddClassInfo = () => {
             // Clear form fields
             setClassName('');
 
-
             // Show success toast
-            toast.success('added All ClassName, Section and Shift successfully');
+            toast.success('Updated ClassName, Section, and Shift successfully');
         } catch (error) {
             // Show error toast if request fails
-            toast.error('Failed to add ClassName, Section and Shift ');
+            toast.error('Failed to update ClassName, Section, and Shift');
         }
-
     };
+
 
     return (
 

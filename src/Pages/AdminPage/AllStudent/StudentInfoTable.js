@@ -90,7 +90,7 @@ const StudentInfoTable = ({
 
 
 
-    const classNames = classInfoData.map((classInfo) => classInfo.name);
+    const classNames = classInfoData && classInfoData.length > 0 && classInfoData.map((classInfo) => classInfo.name);
 
     function getCurrentDate() {
         const currentDate = new Date();
@@ -208,7 +208,7 @@ const StudentInfoTable = ({
     return (
         <div>
             {/* Display filtered students */}
-            {classNames.map((className, index) => (
+            {classNames && classNames.length > 0 && classNames.map((className, index) => (
                 <div className="mx-10 my-10" key={index}>
                     <h2 className="font-bold text-lime-400 underline text-3xl mt-10 mb-5">
                         {className}

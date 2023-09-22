@@ -116,7 +116,7 @@ const OurTeam = ({ schoolCode }) => {
         };
 
         fetchStaffs();
-    }, []); // Empty dependency array ensures the effect runs only once
+    }, [schoolCode]); // Empty dependency array ensures the effect runs only once
 
     // Function to group staffs by selectedStatus
     const groupStaffsByStatus = () => {

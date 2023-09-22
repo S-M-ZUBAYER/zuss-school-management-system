@@ -4,7 +4,6 @@ import Admin from "../Pages/AdminPage/Admin";
 import Std_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/Std_Atd_Sheet";
 import Tcr_Atd_Sheet from "../Pages/AdminPage/AdminDashboard/AdminPageDashboard/Tcr_Atd_Sheet";
 import Contact from "../Pages/ContactPage/Contact";
-import Home from "../Pages/Homepage/Home/Home";
 import Introduction from "../Pages/IntroductionPage/Introduction";
 import Login from "../Pages/Login/Login";
 import MainAdmin from "../Pages/MainAdminPage/MainAdmin";
@@ -60,6 +59,7 @@ import StudentsDetailsPage from "../Pages/AdminPage/AllStudent/StudentsDetailsPa
 import Payment from "../Pages/AdminPage/AdminDashboard/Payment/Payment";
 import AddTermAndSubject from "../Pages/TeachersPage/TeacherDashboard/AddTermAndSubject";
 import ShowStudentsDetailsPage from "../Pages/StudentsPage/ShowStudentDetailsPage";
+import Home from "../Pages/Homepage/Home/Home";
 
 export const router = createBrowserRouter([
     {
