@@ -9,6 +9,7 @@ const Admission = () => {
     const [admissionData, setAdmissionData] = useState([]);
 
     const { currentSchoolCode, schoolName } = useContext(AuthContext);
+    const [numbers, setNumbers] = useState(false)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -30,7 +31,25 @@ const Admission = () => {
         };
 
         fetchData();
-    }, []);
+    }, [currentSchoolCode]);
+
+    useEffect(() => {
+        const fetchPaymentNumbers = async () => {
+            try {
+                // Send a GET request to retrieve payment numbers for the school
+                const response = await axios.get(
+                    `https://zuss-school-management-system-server-site.vercel.app/api/PaymentNumbers/${currentSchoolCode}`
+                );
+                setNumbers((response.data[0].numbers[0]));
+            } catch (error) {
+                console.error(error);
+                // Handle the error as needed
+            }
+        };
+
+        fetchPaymentNumbers();
+    }, [currentSchoolCode]);
+
 
     if (loading) {
         return <DisplaySpinner></DisplaySpinner>
@@ -53,7 +72,15 @@ const Admission = () => {
                     {(data.admissionInfo).feeType === 'applicationFee' && (
                         <div>
                             <h2>Application Fee: <span>{(data.admissionInfo).applicationFee} Taka</span></h2>
+                            <h1 className="text-3xl font-bold mt-10 mb-4 bg-gradient-to-r from-green-500 to-yellow-500 text-transparent bg-clip-text">Available Payment</h1>
+                            {
+                                numbers && Object.keys(numbers).length !== 0 && <>
+                                    <p className="pt-2  text-lg"><span className="text-green-400">Bkash:</span>  {numbers.bkash}</p>
+                                    <p className="pt-2 text-lg"><span className="text-green-400">Nagad:</span> {numbers.nagad}</p>
+                                    <p className="pt-2 text-lg mb-12"><span className="text-green-400">Upay:</span> {numbers.upay}</p>
 
+                                </>
+                            }
                         </div>
                     )}
                     {(data.admissionInfo).feeType !== 'applicationFee' && (

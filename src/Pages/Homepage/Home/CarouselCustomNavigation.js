@@ -11,13 +11,13 @@
 //     const [loading, setLoading] = useState(false);
 //     const [allImages, setAllImages] = useState([]);
 //     const { currentSchoolCode } = useContext(AuthContext);
-//     console.log(`http://localhost:5000/api/SliderImgs/${currentSchoolCode}`)
+//     console.log(`https://zuss-school-management-system-server-site.vercel.app/api/SliderImgs/${currentSchoolCode}`)
 //     useEffect(() => {
 //         const fetchSliderImgs = async () => {
 //             try {
 //                 setLoading(true);
 //                 const response = await fetch(
-//                     `http://localhost:5000/api/SliderImgs/${currentSchoolCode}`
+//                     `https://zuss-school-management-system-server-site.vercel.app/api/SliderImgs/${currentSchoolCode}`
 //                 );
 //                 if (response.ok) {
 //                     const ImgData = await response.json();
@@ -117,7 +117,7 @@ function CarouselCustomNavigation() {
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `http://localhost:5000/api/SliderImgs/${currentSchoolCode}`
+                    `https://zuss-school-management-system-server-site.vercel.app/api/SliderImgs/${currentSchoolCode}`
                 );
                 if (response.ok) {
                     const imgData = await response.json();

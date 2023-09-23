@@ -397,6 +397,7 @@ const Apply = () => {
                                     <option value="">Select Your Payment Method</option>
                                     <option value="Bkash">Bkash</option>
                                     <option value="Nagad">Nagad</option>
+                                    <option value="Upay">Upay</option>
                                 </select>
                             </div>
                             <div className="flex justify-between items-center">

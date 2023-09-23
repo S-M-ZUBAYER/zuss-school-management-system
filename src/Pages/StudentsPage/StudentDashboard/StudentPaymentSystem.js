@@ -13,6 +13,7 @@ function StudentPaymentSystem() {
     const [allPayment, setAllPayment] = useState([]); // Initialize as an empty array
     const [payFeeStatus, setPayFeeStatus] = useState({}); // Initialize as an empty array
     const [proposalAmount, setProposalAmount] = useState(""); // Initialize as an empty array
+    const [numbers, setNumbers] = useState({})
     const [loading, setLoading] = useState(false)
 
     const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -29,6 +30,24 @@ function StudentPaymentSystem() {
             setSelectedPayments((prevSelected) => [...prevSelected, payment]);
         }
     };
+
+
+    useEffect(() => {
+        const fetchPaymentNumbers = async () => {
+            try {
+                // Send a GET request to retrieve payment numbers for the school
+                const response = await axios.get(
+                    `https://zuss-school-management-system-server-site.vercel.app/api/PaymentNumbers/${currentSchoolCode}`
+                );
+                setNumbers((response.data[0].numbers[0]));
+            } catch (error) {
+                console.error(error);
+                // Handle the error as needed
+            }
+        };
+
+        fetchPaymentNumbers();
+    }, [currentSchoolCode]);
 
     const calculatePaymentStatus = async (selectedPayments, status, paidAmount, unpaidAmount) => {
         console.log("click the update status")
@@ -101,6 +120,7 @@ function StudentPaymentSystem() {
         }
 
     };
+
 
 
     console.log(payFeeStatus)
@@ -299,7 +319,16 @@ function StudentPaymentSystem() {
 
     return (
         <div className="text-white mb-20">
-            <h2 className="text-3xl font-semibold text-green-400 mt-5 mb-12">Payment System For Student</h2>
+            <h2 className="text-3xl font-semibold text-green-400 mt-5 mb-3">Payment System For Student</h2>
+
+            {
+                numbers && Object.keys(numbers).length !== 0 && <>
+                    <p className="pt-2  text-lg"><span className="text-green-400">Bkash:</span>  {numbers.bkash}</p>
+                    <p className="pt-2 text-lg"><span className="text-green-400">Nagad:</span> {numbers.nagad}</p>
+                    <p className="pt-2 text-lg mb-12"><span className="text-green-400">Upay:</span> {numbers.upay}</p>
+
+                </>
+            }
 
             {
                 Object.keys(payFeeStatus).length !== 0 ?
