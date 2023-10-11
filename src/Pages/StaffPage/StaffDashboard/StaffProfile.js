@@ -45,7 +45,7 @@ const StaffProfile = () => {
             });
     }, [user?.email, currentSchoolCode]);
 
-
+    console.log(userProfileData)
     function openModal() {
         setModalIsOpen(true);
     }

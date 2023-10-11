@@ -11,7 +11,7 @@ const Review = () => {
                         </h2>
 
                         <p className="text-slate-300 mx-auto mt-4 px-10 md:px-20">
-                            Your small words can motivate and encourage your students, especially those who are lacking behind, so keep telling them to improve, and they can do it. You can use the comments below to motivate students in your online classes.
+                            Regular school reviews are imperative for enhancing performance. They offer a critical assessment of teaching methods, curriculum effectiveness, and student outcomes. These evaluations drive continuous improvement, ensuring that schools remain dynamic, adaptable, and dedicated to providing the best possible education for students.
                         </p>
                     </div>
 
@@ -28,12 +28,12 @@ const Review = () => {
                             <blockquote
                                 className="-mt-6 flex flex-col justify-between rounded-lg p-12 text-center shadow-xl"
                             >
-                                <p className="text-lg font-bold text-slate-300">Sonia Mirja</p>
+                                <p className="text-lg font-bold text-slate-300">Miss Merry Khatun</p>
                                 <p className="mt-1 text-xs font-medium text-slate-300">
-                                    Digital Marketing at Studio
+                                    HouseWife
                                 </p>
                                 <p className="mt-4 text-sm text-slate-300">
-                                    Often students can’t give their best, it is important to talk and enquire about the problem they are facing and where they are lacking. And while you do this you need to be very particular with the words. Here are some good comments for improvement and assistance for students.
+                                    This school has been a game-changer for our child's growth. The dedicated teachers, nurturing environment, and diverse opportunities for learning have exceeded our expectations.
                                 </p>
 
                                 <div className="mt-8 flex justify-center gap-0.5 text-green-500">
@@ -103,10 +103,10 @@ const Review = () => {
                             >
                                 <p className="text-lg font-bold text-slate-300">Mirjaa jalian</p>
                                 <p className="mt-1 text-xs font-medium text-slate-300">
-                                    Digital Marketing at Studio
+                                    Lawyer
                                 </p>
                                 <p className="mt-4 text-sm text-slate-300">
-                                    Often students can’t give their best, it is important to talk and enquire about the problem they are facing and where they are lacking. And while you do this you need to be very particular with the words. Here are some good comments for improvement and assistance for students.
+                                    I am thrilled with the supportive community at our school. The strong academic focus, extracurricular options, and caring staff create an ideal learning environment.
                                 </p>
 
                                 <div className="mt-8 flex justify-center gap-0.5 text-green-500">
@@ -176,10 +176,10 @@ const Review = () => {
                             >
                                 <p className="text-lg font-bold text-slate-300">Happay khanna</p>
                                 <p className="mt-1 text-xs font-medium text-slate-300">
-                                    Digital Marketing at Studio
+                                    Teacher
                                 </p>
                                 <p className="mt-4 text-sm text-slate-300">
-                                    Often students can’t give their best, it is important to talk and enquire about the problem they are facing and where they are lacking. And while you do this you need to be very particular with the words. Here are some good comments for improvement and assistance for students.
+                                    This school provides an excellent balance of academics and character development. It's a place where our child thrives academically and socially.
                                 </p>
 
                                 <div className="mt-8 flex justify-center gap-0.5 text-green-500">
@@ -249,10 +249,10 @@ const Review = () => {
                             >
                                 <p className="text-lg font-bold text-slate-300">Rachile Mark</p>
                                 <p className="mt-1 text-xs font-medium text-slate-300">
-                                    Digital Marketing at Studio
+                                    Doctor
                                 </p>
                                 <p className="mt-4 text-sm text-slate-300">
-                                    Often students can’t give their best, it is important to talk and enquire about the problem they are facing and where they are lacking. And while you do this you need to be very particular with the words. Here are some good comments for improvement and assistance for students.
+                                    Choosing this school was one of our best decisions. The innovative teaching methods, engaging curriculum, and inclusive atmosphere make it exceptional.
                                 </p>
 
                                 <div className="mt-8 flex justify-center gap-0.5 text-green-500">
@@ -322,10 +322,10 @@ const Review = () => {
                             >
                                 <p className="text-lg font-bold text-slate-300">S M Zubayer</p>
                                 <p className="mt-1 text-xs font-medium text-slate-300">
-                                    Digital Marketing at Studio
+                                    Service Holder
                                 </p>
                                 <p className="mt-4 text-sm text-slate-300">
-                                    Often students can’t give their best, it is important to talk and enquire about the problem they are facing and where they are lacking. And while you do this you need to be very particular with the words. Here are some good comments for improvement and assistance for students.
+                                    my child's progress at this school is remarkable. The committed teachers and well-rounded education have ignited a love for learning.
                                 </p>
 
                                 <div className="mt-8 flex justify-center gap-0.5 text-green-500">
@@ -395,10 +395,10 @@ const Review = () => {
                             >
                                 <p className="text-lg font-bold text-slate-300">Bannah khan</p>
                                 <p className="mt-1 text-xs font-medium text-slate-300">
-                                    Digital Marketing at Studio
+                                    Housewife
                                 </p>
                                 <p className="mt-4 text-sm text-slate-300">
-                                    Often students can’t give their best, it is important to talk and enquire about the problem they are facing and where they are lacking. And while you do this you need to be very particular with the words. Here are some good comments for improvement and assistance for students.
+                                    I appreciate this school's dedication to excellence. It prepares students not just for tests but for life, fostering critical thinking and empathy.
                                 </p>
 
                                 <div className="mt-8 flex justify-center gap-0.5 text-green-500">

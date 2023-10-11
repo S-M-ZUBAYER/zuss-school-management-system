@@ -151,7 +151,7 @@ function CarouselCustomNavigation() {
                 <div className="pt-10 md:pt-25 bg-gradient-to-l from-blue-900 via-slate-900 to-black">
                     <div data-aos="fade-down" data-aos-duration="2000" className="mb-5">
                         <h2 className="mb-6 text-3xl md:text-5xl text-green-400 font-bold pt-20">Show Overview With Images</h2>
-                        <p className="text-gray-200 px-10 md:px-20 text-base font-semibold">When starting a business, one key task is to create a business plan that outlines your goals and how you aim to achieve them. Your business overview is a necessary section that presents these ideas more broadly and provides your audience with background information about your company.</p>
+                        <p className="text-gray-200 px-10 md:px-20 text-base font-semibold">A school's primary target is to provide quality education, equipping students with skills and knowledge to contribute positively to society. Through diverse activities, schools foster social and personal development, nurturing future leaders. Their role extends beyond academics, shaping responsible citizens who drive progress and social cohesion, enriching both the individual and the nation.</p>
                     </div>
                     <Carousel className="w-10/12 h-[500px] mx-auto  md:mt-20">
                         {allImages && allImages.length > 0 && allImages.map((imgUrl, index) => (

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/UserContext';
 import { useEffect } from 'react';
 import axios from 'axios';
+import BtnSpinner from '../Shared/Spinners/BtnSpinner';
 
 
 
@@ -98,12 +99,12 @@ const Register = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setLoading(true);
         const name = event.target.name.value;
         const image = event.target.image.files[0];
         const email = event.target.email.value;
         const password = event.target.password.value;
         const confirmPassword = event.target.confirmPassword.value;
-        setLoading(true);
         console.log(schoolName, currentSchoolCode, name, image, email, password, confirmPassword);
         if (password.length < 6) {
             setLengthError("Your Password has to be a minimum of 6 characters");
@@ -337,15 +338,15 @@ const Register = () => {
                                 type='submit'
                                 className='w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-gray-700 hover:text-white text-gray-100 bg-gradient-to-r from-purple-400 to-pink-600'
                             >
-                                {/* {loading ? <BtnSpinner></BtnSpinner> : 'Sign Up'} */}
-                                Sign Up
+                                {loading ? <BtnSpinner></BtnSpinner> : 'Sign Up'}
+
                             </button>
                         </div>
                     </div>
                 </form>
                 <p className='px-6 text-sm text-center text-gray-400'>
                     Already have an account yet?{' '}
-                    <Link to='/login' className='hover:underline text-gray-600'>
+                    <Link to={`/${schoolName}/login`} className='hover:underline text-gray-600'>
                         Sign In
                     </Link>
                     .

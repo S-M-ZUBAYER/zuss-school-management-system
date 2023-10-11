@@ -6,7 +6,7 @@ const ShortOverView = () => {
         <section className="p-6 py-6  lg:px-24 bg-gradient-to-l from-blue-900 via-slate-900 to-black pt-12 text-gray-200">
             <div data-aos="fade-down" data-aos-duration="2000" className="mb-5 mt-32">
                 <h2 className=" mb-6 text-3xl md:text-5xl text-green-400 font-bold">Short Overview</h2>
-                <p className="text-gray-200 px-10 md:px-20 text-base font-semibold">When starting a business, one key task is to create a business plan that outlines your goals and how you aim to achieve them. Your business overview is a necessary section that presents these ideas more broadly and provides your audience with background information about your company.</p>
+                <p className="text-gray-200 px-10 md:px-20 text-base font-semibold">Schools set their sights on shaping well-rounded individuals through a mix of academic and extracurricular activities. Beyond personal growth, they play a pivotal role in cultivating responsible citizens who can positively impact society. Schools are the cornerstone of a nation's progress, nurturing future leaders who drive social and economic development.</p>
             </div>
             <div className="container grid grid-cols-1 gap-6 mt-20 mx-auto md:grid-cols-2 xl:grid-cols-3">
                 <div data-aos="fade-right" data-aos-duration="2000" className="flex py-8 px-8 space-x-4 rounded-lg md:space-x-6 bg-gradient-to-t from-blue-900 via-slate-900 to-violet-700 text-gray-100">

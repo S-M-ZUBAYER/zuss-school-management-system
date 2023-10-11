@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
@@ -6,11 +6,18 @@ import { AuthContext } from '../../context/UserContext';
 
 const Staff = () => {
 
+
     const { schoolName } = useContext(AuthContext);
+
+
+
+
 
     return (
         <div>
-            <Navbar></Navbar>
+            <Navbar
+
+            ></Navbar>
 
             <div className="drawer drawer-mobile">
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
@@ -35,6 +42,8 @@ const Staff = () => {
                     </ul>
 
                 </div>
+
+
             </div>
 
             <Footer></Footer>
@@ -43,3 +52,5 @@ const Staff = () => {
 };
 
 export default Staff;
+
+

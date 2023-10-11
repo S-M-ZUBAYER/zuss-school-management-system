@@ -111,10 +111,7 @@ import DisplaySpinner from '../../Shared/Spinners/DisplaySpinner';
 function Notice() {
     const [notices, setNotices] = useState([]);
     const { schoolName, currentSchoolCode } = useContext(AuthContext);
-    const [editingNotice, setEditingNotice] = useState(null);
-    const [editedHeading, setEditedHeading] = useState('');
-    const [editedMessage, setEditedMessage] = useState('');
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    ;
     const [loading, setLoading] = useState(false);
 
     console.log(currentSchoolCode);
@@ -169,67 +166,13 @@ function Notice() {
     }, [currentSchoolCode]);
 
 
-    const handleToDeleteNotice = (id) => {
-        const confirmed = window.confirm(`Are you sure to delete this notice?`);
-        if (!confirmed) {
-            return;
-        } else {
-            fetch(`https://zuss-school-management-system-server-site.vercel.app/api/notices/${id}`, {
-                method: 'DELETE',
-            })
-                .then(response => {
-                    if (response.ok) {
-                        toast.success('Notice deleted successfully');
-                        setNotices(notices.filter(notice => notice?._id !== id));
-                    } else {
-                        throw new Error('Failed to delete notice');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    };
 
-    const openEditModal = (notice) => {
-        setEditingNotice(notice);
-        setEditedHeading(notice.heading);
-        setEditedMessage(notice.message);
-        setIsEditModalOpen(true);
-    };
 
-    const handleUpdateNotice = () => {
-        if (editingNotice) {
-            const updatedNotice = {
-                ...editingNotice,
-                heading: editedHeading,
-                message: editedMessage,
-            };
 
-            fetch(`https://zuss-school-management-system-server-site.vercel.app/api/notices/${editingNotice._id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedNotice),
-            })
-                .then(response => {
-                    if (response.ok) {
-                        setIsEditModalOpen(false);
-                        fetchNotices(); // Fetch notices again to reflect the updated data
-                    } else {
-                        throw new Error('Failed to update notice');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    };
 
-    const closeEditModal = () => {
-        setIsEditModalOpen(false);
-    };
+
+
+
 
     if (loading) {
         return <DisplaySpinner></DisplaySpinner>
@@ -253,14 +196,7 @@ function Notice() {
                                         <p className="text-base mt-2 mr-5 text-teal-600 font-semibold">{notice?.time.split("T")[0]}</p>
                                         <p className="text-base mt-2 text-teal-600 font-semibold">{notice?.date.split("T")[0]}</p>
                                     </div>
-                                    <div className="col-span-3 flex items-center justify-end">
-                                        <button className="mr-3" onClick={() => openEditModal(notice)}>
-                                            <BiEditAlt className="w-6 h-6 text-green-500"></BiEditAlt>
-                                        </button>
-                                        <button className="mr-3">
-                                            <MdDelete onClick={() => handleToDeleteNotice(notice?._id)} className="w-6 h-6 text-red-500"></MdDelete>
-                                        </button>
-                                    </div>
+
                                 </div>
                                 <h2 className="font-bold text-lg mb-2 text-lime-400">{notice.heading}</h2>
                                 <p className="text-gray-200 text-base">{notice.message}</p>
@@ -268,30 +204,7 @@ function Notice() {
                         ))}
             </div>
 
-            {isEditModalOpen && (
-                <div className="edit-modal rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 w-3/6 h-84">
-                    <div>
-                        <label className="block text-start  mb-1 font-bold" htmlFor="">Heading</label>
-                        <input
-                            type="text"
-                            className="border-2 text-start w-full mb-2 px-1"
-                            value={editedHeading}
-                            onChange={(e) => setEditedHeading(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="" className="block text-start mb-1 font-bold">Notice</label>
-                        <textarea
-                            type="text"
-                            className="border-2 text-start w-full mb-5 px-1"
-                            value={editedMessage}
-                            onChange={(e) => setEditedMessage(e.target.value)}
-                        />
-                    </div>
-                    <button className="px-3 py-1 rounded-lg bg-yellow-200 mr-3" onClick={handleUpdateNotice}>Update</button>
-                    <button className="px-3 py-1 rounded-lg bg-green-200" onClick={closeEditModal}>Cancel</button>
-                </div>
-            )}
+
         </div>
     );
 }

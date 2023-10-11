@@ -60,11 +60,14 @@ import Payment from "../Pages/AdminPage/AdminDashboard/Payment/Payment";
 import AddTermAndSubject from "../Pages/TeachersPage/TeacherDashboard/AddTermAndSubject";
 import ShowStudentsDetailsPage from "../Pages/StudentsPage/ShowStudentDetailsPage";
 import Home from "../Pages/Homepage/Home/Home";
+import LogIn from "../Pages/Login/Login";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainAdmin></MainAdmin>,
+        // element: <MainAdmin></MainAdmin>,
+        element: <LogIn></LogIn>,
         errorElement: <ErrorPage></ErrorPage>
     },
     {
@@ -152,23 +155,23 @@ export const router = createBrowserRouter([
     {
 
         path: '/:name/teacher',
-        element: <Teachers></Teachers>,
+        element: <PrivateRoute><Teachers></Teachers></PrivateRoute>,
         children: [
             {
                 path: '/:name/teacher/dashboard',
-                element: <TeacherDashboard></TeacherDashboard>
+                element: <PrivateRoute><TeacherDashboard></TeacherDashboard></PrivateRoute>
             },
             {
                 path: '/:name/teacher/TeacherProfile',
-                element: <StaffProfile></StaffProfile>
+                element: <PrivateRoute><StaffProfile></StaffProfile></PrivateRoute>
             },
             {
                 path: '/:name/teacher/routine',
-                element: <ClassRoutine></ClassRoutine>
+                element: <PrivateRoute><ClassRoutine></ClassRoutine></PrivateRoute>
             },
             {
                 path: '/:name/teacher/salaryStatus',
-                element: <SalaryStatus></SalaryStatus>
+                element: <PrivateRoute><SalaryStatus></SalaryStatus></PrivateRoute>
             },
             {
                 path: '/:name/teacher/calender',
@@ -180,7 +183,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/:name/teacher/attendance',
-                element: <AttendanceTaken></AttendanceTaken>
+                element: <PrivateRoute><AttendanceTaken></AttendanceTaken></PrivateRoute>
             }
 
 
@@ -202,7 +205,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/:name/student/payment',
-                element: <StudentPaymentSystem></StudentPaymentSystem>
+                element: <PrivateRoute><StudentPaymentSystem></StudentPaymentSystem></PrivateRoute>
             },
             {
                 path: '/:name/student/leave',
@@ -235,7 +238,7 @@ export const router = createBrowserRouter([
     {
 
         path: '/:name/staff',
-        element: <Staff></Staff>,
+        element: <PrivateRoute><Staff></Staff></PrivateRoute>,
         children: [
             {
                 path: '/:name/staff/dashboard',
@@ -248,11 +251,11 @@ export const router = createBrowserRouter([
 
             {
                 path: '/:name/staff/salary',
-                element: <SalaryStatus></SalaryStatus>
+                element: <PrivateRoute><SalaryStatus></SalaryStatus></PrivateRoute>
             },
             {
                 path: '/:name/staff/atd',
-                element: <StaffAttendanceSheet></StaffAttendanceSheet>
+                element: <PrivateRoute><StaffAttendanceSheet></StaffAttendanceSheet></PrivateRoute>
             },
             {
                 path: '/:name/staff/calender',
@@ -265,7 +268,7 @@ export const router = createBrowserRouter([
     {
 
         path: '/:name/admin',
-        element: <Admin></Admin>,
+        element: <PrivateRoute><Admin></Admin></PrivateRoute>,
         children: [
             {
                 path: '/:name/admin/dashboard',

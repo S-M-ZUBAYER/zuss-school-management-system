@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/UserContext';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
+import BtnSpinner from '../Shared/Spinners/BtnSpinner';
 // import { setAuthToken, setAuthTokenGmail } from '../../../Api/Auth/Auth';
 // import BtnSpinner from '../../../components/Sprinners/BtnSpinner/BtnSpinner';
 // import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
@@ -22,6 +23,7 @@ const LogIn = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setLoading(true);
         const email = event.target.email.value;
         const password = event.target.password.value;
         console.log(email, password)
@@ -33,10 +35,12 @@ const LogIn = () => {
                         setSchoolName((response?.data).schoolName)
                         setCurrentSchoolCode((response?.data).schoolCode);
                         localStorage.setItem('schoolUser', JSON.stringify(response.data))
-
+                        setLoading(false);
                     })
                     .catch(error => {
                         console.error('Error fetching data:', error);
+                        setLoading(false);
+                        toast.error(error.message)
                     });
                 toast.success('logIn successfully');
 
@@ -54,20 +58,20 @@ const LogIn = () => {
 
 
     const handleToResetPassword = () => {
-        resetPassword(userEmail)
-            .then(() => {
-                toast.success('Please check your email to reset')
-                setLoading(false);
-            })
-            .catch(err => {
-                toast.error(err.message);
-                console.log(err);
-                setLoading(false);
-            })
+        // resetPassword(userEmail)
+        //     .then(() => {
+        //         toast.success('Please check your email to reset')
+        //         setLoading(false);
+        //     })
+        //     .catch(err => {
+        //         toast.error(err.message);
+        //         console.log(err);
+        //         setLoading(false);
+        //     })
     }
 
     return (
-        <div className='flex justify-center items-center py-8  drop-shadow-2xl bg-gradient-to-l from-blue-900 via-slate-900 to-black'>
+        <div className=' h-screen flex justify-center items-center py-8  drop-shadow-2xl bg-gradient-to-l from-blue-900 via-slate-900 to-black'>
             <div data-aos="zoom-in-down" data-aos-duration="2000" className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
                 <div className='mb-8 text-center'>
                     <h1 className='my-3 text-4xl font-bold'>Sign in</h1>
@@ -138,8 +142,7 @@ const LogIn = () => {
                             type='submit'
                             className='w-full px-8 py-3 font-semibold rounded-md bg-red-900 hover:bg-gray-700 hover:text-white text-gray-100 bg-gradient-to-r from-purple-400 to-green-600'
                         >
-                            {/* {loading ? <BtnSpinner /> : 'Sign in'} */}
-                            Sign In
+                            {loading ? <BtnSpinner /> : 'Sign in'}
                         </button>
                     </div>
                 </form>

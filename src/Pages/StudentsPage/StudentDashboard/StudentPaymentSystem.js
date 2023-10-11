@@ -204,7 +204,7 @@ function StudentPaymentSystem() {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const url = `https://zuss-school-management-system-server-site.vercel.app/api/students/student/${currentSchoolCode}?email=mukul@gmail.com&year=${new Date().getFullYear()}`;
+                const url = `https://zuss-school-management-system-server-site.vercel.app/api/students/student/${currentSchoolCode}?email=${user?.email}&year=${new Date().getFullYear()}`;
                 const response = await axios.get(url);
                 if (response.data.length > 0) {
                     setStudent(response.data[0]);
@@ -457,8 +457,8 @@ function StudentPaymentSystem() {
 
                     {showModal && (
                         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
-                            <div className="bg-white p-4 rounded-lg">
-                                <h2 className="text-2xl font-semibold mb-4">Payment Modal</h2>
+                            <div className="bg-white p-4 rounded-lg text-black">
+                                <h2 className="text-2xl font-semibold mb-4">Payment Info</h2>
 
                                 {/* Payment Method Dropdown */}
                                 <div className="mb-2">

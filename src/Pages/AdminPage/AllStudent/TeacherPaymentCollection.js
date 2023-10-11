@@ -389,8 +389,8 @@ function TeacherPaymentCollection({ student }) {
 
                     {showModal && (
                         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
-                            <div className="bg-white p-4 rounded-lg">
-                                <h2 className="text-2xl font-semibold mb-4">Payment Modal</h2>
+                            <div className="bg-white p-4 rounded-l text-black">
+                                <h2 className="text-2xl font-semibold mb-4">Payment Info</h2>
 
                                 {/* Payment Method Dropdown */}
                                 <div className="mb-2">

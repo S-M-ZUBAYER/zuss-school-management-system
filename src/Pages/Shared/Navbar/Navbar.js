@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import img from "../../../Assets/Images/School.jpg"
+import img from "../../../Assets/Images/Astha.jpg"
 import { AuthContext } from '../../../context/UserContext';
 import { toast } from 'react-hot-toast';
 import { useEffect } from 'react';
@@ -52,6 +52,7 @@ const Navbar = () => {
 
     return (
         <header className="p-4 dark:bg-gray-800 dark:text-gray-100 text-slate-200 bg-gradient-to-t from-blue-900 via-slate-900 to-black">
+
             <div className="container flex justify-between h-16 mx-auto">
                 <Link rel="noopener noreferrer" to={`/${schoolName}`} aria-label="Back to homepage" className="flex items-center p-2">
                     <img className="h-10 w-10 rounded-full" src={img} alt="school logo" />
@@ -72,9 +73,9 @@ const Navbar = () => {
                     <li className="flex">
                         <Link rel="noopener noreferrer" to={`/${schoolName}/staff/dashboard`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Staff</Link>
                     </li>
-                    <li className="flex">
+                    {/* <li className="flex">
                         <Link rel="noopener noreferrer" to={`/${schoolName}/admin/dashboard`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Admin</Link>
-                    </li>
+                    </li> */}
                     <li className="flex">
                         <Link rel="noopener noreferrer" to={`/${schoolName}/admission`} className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent">Admission</Link>
                     </li>
@@ -141,13 +142,13 @@ const Navbar = () => {
                                 >
                                     Staff
                                 </Link>
-                                <Link
+                                {/* <Link
                                     to={`/${schoolName}/admin`}
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                     role="menuitem"
                                 >
                                     Admin
-                                </Link>
+                                </Link> */}
 
 
                                 <Link

@@ -24,7 +24,7 @@ const Contact = () => {
 
                                 <div className="flex-1 px-2 mt-4 md:mt-0">
                                     <label className="block mb-2 text-sm ">Email address</label>
-                                    <input type="email" placeholder="johndoe@example.com" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <input type="email" placeholder="asthainsight10@gmail.com" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                                 </div>
                             </div>
 
@@ -50,8 +50,8 @@ const Contact = () => {
                                 </svg>
 
                                 <span className="mx-2 v truncate w-72 ">
-                                    Cecilia Chapman 711-2880 Nulla
-                                    St. Mankato Mississippi 96522
+                                    Padma Abashik, Rajshahi
+                                    Raiganj,Sirajganj
                                 </span>
                             </p>
 

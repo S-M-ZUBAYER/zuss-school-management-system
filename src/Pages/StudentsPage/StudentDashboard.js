@@ -14,7 +14,7 @@ const StudentDashboard = () => {
 
     return (
         <div className="container mx-auto my-10 px-4">
-            <div className="flex justify-around items-center">
+            <div className="md:flex md:justify-around items-center">
                 <div className="w-1/2">
                     <PieChart width={400} height={400}>
                         <Pie
@@ -34,7 +34,7 @@ const StudentDashboard = () => {
                     </PieChart>
                 </div>
 
-                <div className="w-1/2">
+                <div className="w-1/2 mt-10 md:mt-0">
                     <BarChart
                         width={500}
                         height={300}
